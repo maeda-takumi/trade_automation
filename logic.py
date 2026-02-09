@@ -24,6 +24,7 @@ class AppLogic(QObject):
         super().__init__()
         self.window = window
         self.db_path = db_path
+        self._init_db()
 
     def bind(self):
         w = self.window
@@ -40,6 +41,74 @@ class AppLogic(QObject):
         conn.execute("PRAGMA foreign_keys = ON;")
         return conn
 
+    def _init_db(self) -> None:
+        with self._conn() as conn:
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS api_accounts (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    base_url TEXT NOT NULL,
+                    api_password_enc TEXT NOT NULL,
+                    is_active INTEGER NOT NULL DEFAULT 1,
+                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS batch_jobs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    batch_code TEXT NOT NULL,
+                    api_account_id INTEGER NOT NULL,
+                    name TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    run_mode TEXT NOT NULL,
+                    scheduled_at DATETIME,
+                    eod_close_time TEXT NOT NULL,
+                    eod_force_close INTEGER NOT NULL DEFAULT 1,
+                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (api_account_id) REFERENCES api_accounts(id)
+                );
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS batch_items (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    batch_job_id INTEGER NOT NULL,
+                    symbol TEXT NOT NULL,
+                    exchange INTEGER NOT NULL,
+                    product TEXT NOT NULL,
+                    side TEXT NOT NULL,
+                    qty INTEGER NOT NULL,
+                    entry_type TEXT NOT NULL,
+                    entry_price REAL,
+                    tp_price REAL,
+                    sl_trigger_price REAL,
+                    status TEXT NOT NULL,
+                    last_error TEXT,
+                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (batch_job_id) REFERENCES batch_jobs(id)
+                );
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS event_logs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    batch_job_id INTEGER NOT NULL,
+                    level TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (batch_job_id) REFERENCES batch_jobs(id)
+                );
+                """
+            )
     # ---------- API SETTINGS ----------
     def save_api_account(self):
         w = self.window
