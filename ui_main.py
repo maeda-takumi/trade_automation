@@ -1,13 +1,13 @@
 # ui_main.py
 from __future__ import annotations
 
-from PySide6.QtCore import Qt, Signal, QSize
+from PySide6.QtCore import Qt, Signal, QSize, QDateTime
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QGroupBox, QFormLayout,
-    QLineEdit, QCheckBox, QPushButton, QTableWidget, QTableWidgetItem,
-    QComboBox, QSpinBox, QDoubleSpinBox, QMessageBox, QLabel,
-    QStackedWidget, QFrame, QToolButton
+    QLineEdit, QCheckBox, QPushButton,
+    QComboBox, QSpinBox, QMessageBox, QLabel,
+    QStackedWidget, QFrame, QToolButton, QDateTimeEdit
 )
 
 from style import APP_QSS
@@ -19,8 +19,6 @@ class MainWindow(QMainWindow):
     request_load_api = Signal()
     request_submit_orders = Signal()
     request_clear_orders = Signal()
-    request_add_row = Signal()
-    request_remove_selected_rows = Signal()
 
     def __init__(self):
         super().__init__()
@@ -158,16 +156,75 @@ class MainWindow(QMainWindow):
 
     # ========= ORDER SETTINGS（中身は前のまま） =========
     def _build_order_group(self) -> QGroupBox:
-        g = QGroupBox("注文設定（複数同時）")
+        g = QGroupBox("注文設定")
         v = QVBoxLayout(g)
 
+        form = QVBoxLayout()
+        form.setSpacing(10)
+
+        self.order_symbol = QLineEdit()
+        form.addWidget(self._build_form_row("銘柄コード", self.order_symbol))
+
+        self.order_product = QComboBox()
+        self.order_product.addItem("現物", "cash")
+        self.order_product.addItem("信用", "margin")
+        form.addWidget(self._build_form_row("信用/現物", self.order_product))
+
+        self.order_side = QComboBox()
+        self.order_side.addItem("買", "buy")
+        self.order_side.addItem("売", "sell")
+        form.addWidget(self._build_form_row("売買", self.order_side))
+
+        self.order_entry_type = QComboBox()
+        self.order_entry_type.addItem("成行", "market")
+        self.order_entry_type.addItem("指値", "limit")
+        form.addWidget(self._build_form_row("成行/指値", self.order_entry_type))
+
+        self.order_limit_price = QSpinBox()
+        self.order_limit_price.setRange(1, 1_000_000_000)
+        self.order_limit_price.setValue(1)
+        self.order_limit_price.setSuffix(" 円")
+        self.limit_price_row = self._build_form_row("指値価格", self.order_limit_price)
+        form.addWidget(self.limit_price_row)
+
+        self.order_sl_diff = QSpinBox()
+        self.order_sl_diff.setRange(1, 1_000_000_000)
+        self.order_sl_diff.setValue(1)
+        self.order_sl_diff.setSuffix(" 円")
+        form.addWidget(self._build_form_row("損切差額", self.order_sl_diff))
+
+        self.order_tp_diff = QSpinBox()
+        self.order_tp_diff.setRange(1, 1_000_000_000)
+        self.order_tp_diff.setValue(1)
+        self.order_tp_diff.setSuffix(" 円")
+        form.addWidget(self._build_form_row("利確差額", self.order_tp_diff))
+
+        self.order_run_mode = QComboBox()
+        self.order_run_mode.addItem("即時実行", "immediate")
+        self.order_run_mode.addItem("予約実行", "scheduled")
+        form.addWidget(self._build_form_row("実行方式", self.order_run_mode))
+
+        self.order_scheduled_at = QDateTimeEdit()
+        self.order_scheduled_at.setDisplayFormat("yyyy-MM-dd HH:mm:ss")
+        self.order_scheduled_at.setDateTime(QDateTime.currentDateTime())
+        self.order_scheduled_at.setCalendarPopup(True)
+        self.schedule_row = self._build_form_row("実行日時", self.order_scheduled_at)
+        form.addWidget(self.schedule_row)
+
+        hint = QLabel("損切/利確は差額入力（符号は内部で自動付与）")
+        hint.setObjectName("muted")
+        form.addWidget(hint)
+
+        v.addLayout(form)
+
+        self.order_error_label = QLabel("")
+        self.order_error_label.setObjectName("error")
+        self.order_error_label.setWordWrap(True)
+        v.addWidget(self.order_error_label)
+
         tool = QHBoxLayout()
-        self.btn_add_row = QPushButton("行追加")
-        self.btn_remove_rows = QPushButton("選択行削除")
-        self.btn_clear = QPushButton("全クリア")
-        self.btn_clear.setObjectName("danger")  # 任意：赤
-        tool.addWidget(self.btn_add_row)
-        tool.addWidget(self.btn_remove_rows)
+        self.btn_clear = QPushButton("クリア")
+        self.btn_clear.setObjectName("danger")
         tool.addWidget(self.btn_clear)
         tool.addStretch(1)
 
@@ -176,154 +233,127 @@ class MainWindow(QMainWindow):
         tool.addWidget(self.btn_submit)
         v.addLayout(tool)
 
-        self.orders_table = QTableWidget(0, 11)
-        self.orders_table.setHorizontalHeaderLabels([
-            "銘柄", "市場", "商品", "売買", "数量",
-            "成行/指値", "指値価格", "利確(TP)価格",
-            "逆指値トリガー", "バッチ名", "メモ"
-        ])
-        self.orders_table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.orders_table.setSelectionMode(QTableWidget.ExtendedSelection)
-        self.orders_table.horizontalHeader().setStretchLastSection(True)
-        v.addWidget(self.orders_table, 1)
-
-        # 初期1行
-        self._insert_default_row()
-
+        self._update_order_field_visibility()
+        self._validate_order_form()
         return g
 
     def _wire_ui_events(self):
         self.btn_api_save.clicked.connect(self.request_save_api.emit)
         self.btn_api_load.clicked.connect(self.request_load_api.emit)
 
-        self.btn_add_row.clicked.connect(self.request_add_row.emit)
-        self.btn_remove_rows.clicked.connect(self.request_remove_selected_rows.emit)
         self.btn_clear.clicked.connect(self.request_clear_orders.emit)
         self.btn_submit.clicked.connect(self.request_submit_orders.emit)
 
-    # --- 以下、テーブル関連は既存のまま（省略せず必要なら移植） ---
-    def _insert_default_row(self):
-        self.add_order_row(
-            symbol="9432",
-            exchange="1",
-            product="cash",
-            side="buy",
-            qty=100,
-            entry_type="market",
-            entry_price=0.0,
-            tp_price=0.0,
-            sl_trigger=0.0,
-            batch_name="手動バッチ",
-            memo=""
-        )
+        self.order_entry_type.currentIndexChanged.connect(self._handle_entry_type_change)
+        self.order_run_mode.currentIndexChanged.connect(self._handle_run_mode_change)
 
-    def add_order_row(self, symbol, exchange, product, side, qty, entry_type, entry_price, tp_price, sl_trigger, batch_name, memo):
-        r = self.orders_table.rowCount()
-        self.orders_table.insertRow(r)
+        self.order_symbol.textChanged.connect(self._validate_order_form)
+        self.order_product.currentIndexChanged.connect(self._validate_order_form)
+        self.order_side.currentIndexChanged.connect(self._validate_order_form)
+        self.order_entry_type.currentIndexChanged.connect(self._validate_order_form)
+        self.order_limit_price.valueChanged.connect(self._validate_order_form)
+        self.order_sl_diff.valueChanged.connect(self._validate_order_form)
+        self.order_tp_diff.valueChanged.connect(self._validate_order_form)
+        self.order_run_mode.currentIndexChanged.connect(self._validate_order_form)
+        self.order_scheduled_at.dateTimeChanged.connect(self._validate_order_form)
 
-        self.orders_table.setItem(r, 0, QTableWidgetItem(symbol))
+    def _build_form_row(self, label_text: str, widget: QWidget) -> QWidget:
+        row = QWidget()
+        layout = QHBoxLayout(row)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(12)
+        label = QLabel(label_text)
+        label.setMinimumWidth(140)
+        layout.addWidget(label)
+        layout.addWidget(widget, 1)
+        return row
 
-        exchange_cb = QComboBox()
-        exchange_cb.addItems(["1", "3", "5"])
-        exchange_cb.setCurrentText(str(exchange))
-        self.orders_table.setCellWidget(r, 1, exchange_cb)
+    def _update_order_field_visibility(self):
+        is_limit = self.order_entry_type.currentData() == "limit"
+        self.limit_price_row.setVisible(is_limit)
 
-        product_cb = QComboBox()
-        product_cb.addItems(["cash", "margin"])
-        product_cb.setCurrentText(product)
-        self.orders_table.setCellWidget(r, 2, product_cb)
+        is_scheduled = self.order_run_mode.currentData() == "scheduled"
+        self.schedule_row.setVisible(is_scheduled)
 
-        side_cb = QComboBox()
-        side_cb.addItems(["buy", "sell"])
-        side_cb.setCurrentText(side)
-        self.orders_table.setCellWidget(r, 3, side_cb)
+    def _handle_entry_type_change(self):
+        self._update_order_field_visibility()
+        self._validate_order_form()
 
-        qty_sp = QSpinBox()
-        qty_sp.setRange(1, 10_000_000)
-        qty_sp.setValue(int(qty))
-        self.orders_table.setCellWidget(r, 4, qty_sp)
-
-        et_cb = QComboBox()
-        et_cb.addItems(["market", "limit"])
-        et_cb.setCurrentText(entry_type)
-        self.orders_table.setCellWidget(r, 5, et_cb)
-
-        ep_sp = QDoubleSpinBox()
-        ep_sp.setRange(0, 1_000_000_000)
-        ep_sp.setDecimals(2)
-        ep_sp.setValue(float(entry_price))
-        self.orders_table.setCellWidget(r, 6, ep_sp)
-
-        tp_sp = QDoubleSpinBox()
-        tp_sp.setRange(0, 1_000_000_000)
-        tp_sp.setDecimals(2)
-        tp_sp.setValue(float(tp_price))
-        self.orders_table.setCellWidget(r, 7, tp_sp)
-
-        sl_sp = QDoubleSpinBox()
-        sl_sp.setRange(0, 1_000_000_000)
-        sl_sp.setDecimals(2)
-        sl_sp.setValue(float(sl_trigger))
-        self.orders_table.setCellWidget(r, 8, sl_sp)
-
-        self.orders_table.setItem(r, 9, QTableWidgetItem(batch_name))
-        self.orders_table.setItem(r, 10, QTableWidgetItem(memo))
-
-    def remove_selected_rows(self):
-        rows = sorted({idx.row() for idx in self.orders_table.selectionModel().selectedRows()}, reverse=True)
-        for r in rows:
-            self.orders_table.removeRow(r)
+    def _handle_run_mode_change(self):
+        self._update_order_field_visibility()
+        self._validate_order_form()
 
     def clear_orders(self):
-        self.orders_table.setRowCount(0)
+        self.order_symbol.clear()
+        self.order_product.setCurrentIndex(0)
+        self.order_side.setCurrentIndex(0)
+        self.order_entry_type.setCurrentIndex(0)
+        self.order_limit_price.setValue(1)
+        self.order_sl_diff.setValue(1)
+        self.order_tp_diff.setValue(1)
+        self.order_run_mode.setCurrentIndex(0)
+        self.order_scheduled_at.setDateTime(QDateTime.currentDateTime())
+        self._update_order_field_visibility()
+        self._validate_order_form()
 
     def get_orders_payload(self):
-        payload = []
-        for r in range(self.orders_table.rowCount()):
-            symbol_item = self.orders_table.item(r, 0)
-            batch_item = self.orders_table.item(r, 9)
-            memo_item = self.orders_table.item(r, 10)
+        symbol = self.order_symbol.text().strip()
+        if not symbol:
+            return []
 
-            symbol = (symbol_item.text().strip() if symbol_item else "")
-            batch_name = (batch_item.text().strip() if batch_item else "手動バッチ")
-            memo = (memo_item.text().strip() if memo_item else "")
+        entry_type = self.order_entry_type.currentData()
+        side = self.order_side.currentData()
+        tp_diff = int(self.order_tp_diff.value())
+        sl_diff = int(self.order_sl_diff.value())
 
-            exchange = self._cell_combo(r, 1)
-            product = self._cell_combo(r, 2)
-            side = self._cell_combo(r, 3)
-            entry_type = self._cell_combo(r, 5)
+        if side == "buy":
+            tp_signed = tp_diff
+            sl_signed = -sl_diff
+        else:
+            tp_signed = -tp_diff
+            sl_signed = sl_diff
 
-            qty = self._cell_spin_int(r, 4)
-            entry_price = self._cell_spin_float(r, 6)
-            tp_price = self._cell_spin_float(r, 7)
-            sl_trigger = self._cell_spin_float(r, 8)
+        return [{
+            "symbol": symbol,
+            "exchange": 9,
+            "product": self.order_product.currentData(),
+            "side": side,
+            "qty": 100,
+            "entry_type": entry_type,
+            "entry_price": int(self.order_limit_price.value()) if entry_type == "limit" else None,
+            "tp_price": float(tp_signed),
+            "sl_trigger_price": float(sl_signed),
+            "batch_name": "手動バッチ",
+            "memo": "",
+            "run_mode": self.order_run_mode.currentData(),
+            "scheduled_at": self.order_scheduled_at.dateTime().toString("yyyy-MM-dd HH:mm:ss"),
+        }]
 
-            payload.append({
-                "symbol": symbol,
-                "exchange": int(exchange),
-                "product": product,
-                "side": side,
-                "qty": int(qty),
-                "entry_type": entry_type,
-                "entry_price": float(entry_price),
-                "tp_price": float(tp_price),
-                "sl_trigger_price": float(sl_trigger),
-                "batch_name": batch_name,
-                "memo": memo,
-            })
-        return payload
+    def get_order_validation_errors(self) -> list[str]:
+        errors = []
+        if not self.order_symbol.text().strip():
+            errors.append("銘柄コードを入力してください。")
 
-    def _cell_combo(self, row, col):
-        w = self.orders_table.cellWidget(row, col)
-        return w.currentText() if isinstance(w, QComboBox) else ""
+        if self.order_entry_type.currentData() == "limit":
+            if self.order_limit_price.value() < 1:
+                errors.append("指値価格は1円以上で指定してください。")
 
-    def _cell_spin_int(self, row, col):
-        w = self.orders_table.cellWidget(row, col)
-        return int(w.value()) if isinstance(w, QSpinBox) else 0
+        if self.order_sl_diff.value() < 1:
+            errors.append("損切差額は1円以上で指定してください。")
+        if self.order_tp_diff.value() < 1:
+            errors.append("利確差額は1円以上で指定してください。")
 
-    def _cell_spin_float(self, row, col):
-        w = self.orders_table.cellWidget(row, col)
-        return float(w.value()) if isinstance(w, QDoubleSpinBox) else 0.0
+        return errors
+
+    def _validate_order_form(self):
+        errors = self.get_order_validation_errors()
+        if errors:
+            self.order_error_label.setText(" / ".join(errors))
+            self.btn_submit.setEnabled(False)
+        else:
+            self.order_error_label.setText("")
+            self.btn_submit.setEnabled(True)
+
 
     def toast(self, title: str, message: str, error: bool = False):
         self.status_label.setText(message)

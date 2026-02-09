@@ -31,6 +31,9 @@ QLabel {{
 QLabel#muted {{
   color: {MUTED};
 }}
+QLabel#error {{
+  color: {DANGER};
+}}
 
 /* ===== Card-like GroupBox ===== */
 QGroupBox {{

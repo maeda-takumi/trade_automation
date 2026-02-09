@@ -30,8 +30,6 @@ class AppLogic(QObject):
         w.request_save_api.connect(self.save_api_account)
         w.request_load_api.connect(self.load_api_account)
 
-        w.request_add_row.connect(self.add_order_row)
-        w.request_remove_selected_rows.connect(self.remove_selected_rows)
         w.request_clear_orders.connect(self.clear_orders)
         w.request_submit_orders.connect(self.submit_orders_to_db)
 
@@ -96,50 +94,24 @@ class AppLogic(QObject):
         except Exception as e:
             w.toast("読込失敗", f"DB読込に失敗: {e}", error=True)
 
-    # ---------- ORDER UI ----------
-    def add_order_row(self):
-        self.window.add_order_row(
-            symbol="",
-            exchange="1",
-            product="cash",
-            side="buy",
-            qty=100,
-            entry_type="market",
-            entry_price=0.0,
-            tp_price=0.0,
-            sl_trigger=0.0,
-            batch_name="手動バッチ",
-            memo=""
-        )
 
-    def remove_selected_rows(self):
-        self.window.remove_selected_rows()
 
     def clear_orders(self):
         self.window.clear_orders()
-        self.window.toast("クリア", "注文行をすべてクリアしました。")
+        self.window.toast("クリア", "注文内容をクリアしました。")
 
     # ---------- SUBMIT ORDERS ----------
     def submit_orders_to_db(self):
         w = self.window
+        errors = w.get_order_validation_errors()
+        if errors:
+            w.toast("入力エラー", " / ".join(errors), error=True)
+            return
         orders = w.get_orders_payload()
 
         # バリデーション（最低限）
         if not orders:
             w.toast("送信不可", "注文行がありません。", error=True)
-            return
-
-        bad = []
-        for i, o in enumerate(orders, start=1):
-            if not o["symbol"]:
-                bad.append(f"{i}行目: 銘柄が空")
-            if o["entry_type"] == "limit" and o["entry_price"] <= 0:
-                bad.append(f"{i}行目: 指値なのに指値価格が0")
-            if o["qty"] <= 0:
-                bad.append(f"{i}行目: 数量が0以下")
-
-        if bad:
-            w.toast("入力エラー", " / ".join(bad), error=True)
             return
 
         # api_account を取得（有効→最新）
@@ -152,16 +124,19 @@ class AppLogic(QObject):
         now = datetime.now()
         batch_code = now.strftime("%Y%m%d-%H%M%S")
         batch_name = orders[0].get("batch_name") or "手動バッチ"
+        run_mode = orders[0].get("run_mode") or "immediate"
+        scheduled_at = orders[0].get("scheduled_at")
+        scheduled_at_value = scheduled_at if run_mode == "scheduled" else None
 
         try:
             with self._conn() as conn:
                 # batch_jobs
                 cur = conn.execute(
                     """
-                    INSERT INTO batch_jobs (batch_code, api_account_id, name, status, run_mode, eod_close_time, eod_force_close)
-                    VALUES (?, ?, ?, 'SCHEDULED', 'immediate', '14:30', 1)
+                    INSERT INTO batch_jobs (batch_code, api_account_id, name, status, run_mode, scheduled_at, eod_close_time, eod_force_close)
+                    VALUES (?, ?, ?, 'SCHEDULED', ?, ?, '14:30', 1)
                     """,
-                    (batch_code, api_account_id, batch_name)
+                    (batch_code, api_account_id, batch_name, run_mode, scheduled_at_value)
                 )
                 batch_job_id = cur.lastrowid
 
