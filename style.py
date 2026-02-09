@@ -147,6 +147,25 @@ QTableWidget::item:selected {{
   color: {TEXT};
 }}
 
+/* ===== Order list ===== */
+QListWidget#orderList {{
+  background: {BG};
+  border: 1px solid {BORDER};
+  border-radius: 12px;
+  padding: 4px;
+}}
+QListWidget::item {{
+  border: none;
+}}
+QListWidget::item:selected {{
+  background: rgba(37, 99, 235, 0.08);
+}}
+QWidget#orderRow {{
+  background: {CARD};
+  border: 1px solid {BORDER};
+  border-radius: 10px;
+}}
+
 /* ===== Status label ===== */
 QLabel#status {{
   background: {FIELD_BG};
@@ -169,6 +188,8 @@ QToolButton#navBtn {{
   border-radius: 12px;
   padding: 10px 12px;
   min-height: 56px;
+  min-width: 56px;
+  max-width: 56px;
   font-weight: 700;
 }}
 QToolButton#navBtn:hover {{
