@@ -1,7 +1,11 @@
 # logic.py
 from __future__ import annotations
 
+import json
 import sqlite3
+import urllib.error
+import urllib.parse
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
@@ -24,12 +28,15 @@ class AppLogic(QObject):
         super().__init__()
         self.window = window
         self.db_path = db_path
+        self._api_token: Optional[str] = None
+        self._api_token_base_url: Optional[str] = None
         self._init_db()
 
     def bind(self):
         w = self.window
         w.request_save_api.connect(self.save_api_account)
         w.request_load_api.connect(self.load_api_account)
+        w.request_symbol_lookup.connect(self.fetch_symbol_name)
 
         w.request_clear_orders.connect(self.clear_orders)
         w.request_submit_orders.connect(self.submit_orders_to_db)
@@ -109,6 +116,111 @@ class AppLogic(QObject):
                 );
                 """
             )
+
+    def _get_active_api_account(self) -> Optional[ApiAccount]:
+        try:
+            with self._conn() as conn:
+                row = conn.execute(
+                    """
+                    SELECT name, base_url, api_password_enc, is_active
+                    FROM api_accounts
+                    WHERE is_active = 1
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """
+                ).fetchone()
+            if not row:
+                return None
+            return ApiAccount(
+                name=row["name"],
+                base_url=row["base_url"],
+                api_password_enc=row["api_password_enc"],
+                is_active=bool(row["is_active"]),
+            )
+        except Exception:
+            return None
+
+    def _request_json(self, method: str, url: str, headers: Optional[dict] = None, payload: Optional[dict] = None):
+        data = None
+        request_headers = headers or {}
+        if payload is not None:
+            data = json.dumps(payload).encode("utf-8")
+            request_headers = {"Content-Type": "application/json", **request_headers}
+        req = urllib.request.Request(url, data=data, headers=request_headers, method=method)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    def _get_api_token(self, api: ApiAccount) -> Optional[str]:
+        base_url = api.base_url.rstrip("/")
+        if self._api_token and self._api_token_base_url == base_url:
+            return self._api_token
+        try:
+            data = self._request_json(
+                "POST",
+                f"{base_url}/token",
+                payload={"APIPassword": api.api_password_enc},
+            )
+            token = data.get("Token")
+            if token:
+                self._api_token = token
+                self._api_token_base_url = base_url
+            return token
+        except Exception:
+            self._api_token = None
+            self._api_token_base_url = None
+            return None
+
+    def fetch_symbol_name(self, symbol: str, row_widget):
+        w = self.window
+        api = self._get_active_api_account()
+        if not api:
+            w.set_symbol_name(row_widget, "API未設定")
+            w.status_label.setText("API設定が未登録のため銘柄名を取得できません。")
+            return
+
+        token = self._get_api_token(api)
+        if not token:
+            w.set_symbol_name(row_widget, "取得失敗")
+            w.status_label.setText("APIトークン取得に失敗しました。")
+            return
+
+        base_url = api.base_url.rstrip("/")
+        query = urllib.parse.urlencode({"Exchange": 9})
+        url = f"{base_url}/symbol/{symbol}?{query}"
+
+        try:
+            data = self._request_json("GET", url, headers={"X-API-KEY": token})
+        except urllib.error.HTTPError as e:
+            if e.code == 401:
+                self._api_token = None
+                token = self._get_api_token(api)
+                if token:
+                    try:
+                        data = self._request_json("GET", url, headers={"X-API-KEY": token})
+                    except Exception:
+                        w.set_symbol_name(row_widget, "取得失敗")
+                        w.status_label.setText("銘柄名の取得に失敗しました。")
+                        return
+                else:
+                    w.set_symbol_name(row_widget, "取得失敗")
+                    w.status_label.setText("APIトークン再取得に失敗しました。")
+                    return
+            else:
+                w.set_symbol_name(row_widget, "取得失敗")
+                w.status_label.setText("銘柄名の取得に失敗しました。")
+                return
+        except Exception:
+            w.set_symbol_name(row_widget, "取得失敗")
+            w.status_label.setText("銘柄名の取得に失敗しました。")
+            return
+
+        symbol_name = data.get("SymbolName") or data.get("DisplayName") or ""
+        if not symbol_name:
+            w.set_symbol_name(row_widget, "未取得")
+            w.status_label.setText("銘柄名が見つかりませんでした。")
+            return
+        w.set_symbol_name(row_widget, symbol_name)
+        w.status_label.setText(f"銘柄名を取得しました: {symbol_name}")            
     # ---------- API SETTINGS ----------
     def save_api_account(self):
         w = self.window

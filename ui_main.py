@@ -20,6 +20,7 @@ class MainWindow(QMainWindow):
     request_load_api = Signal()
     request_submit_orders = Signal()
     request_clear_orders = Signal()
+    request_symbol_lookup = Signal(str, object)
 
     def __init__(self):
         super().__init__()
@@ -261,6 +262,7 @@ class MainWindow(QMainWindow):
             layout.addWidget(label, stretch)
 
         add_label("銘柄コード", stretch=1)
+        add_label("銘柄名", width=200)
         add_label("信用/現物", width=90)
         add_label("売買", width=70)
         add_label("成行/指値", width=90)
@@ -281,8 +283,18 @@ class MainWindow(QMainWindow):
         layout.addWidget(row.select_box)
 
         row.symbol_input = QLineEdit()
+        row.symbol_input.setPlaceholderText("例: 9432")
+        row.symbol_input.editingFinished.connect(
+            lambda row_widget=row: self._request_symbol_lookup(row_widget)
+        )
+        row.symbol_input.textChanged.connect(self._handle_symbol_text_change)
         row.symbol_input.textChanged.connect(self._validate_order_form)
         layout.addWidget(row.symbol_input, 1)
+        row.symbol_name_label = QLineEdit()
+        row.symbol_name_label.setReadOnly(True)
+        row.symbol_name_label.setPlaceholderText("銘柄名")
+        row.symbol_name_label.setFixedWidth(200)
+        layout.addWidget(row.symbol_name_label)
 
         row.product_input = QComboBox()
         row.product_input.addItem("現物", "cash")
@@ -352,6 +364,18 @@ class MainWindow(QMainWindow):
     def _handle_run_mode_change(self):
         self._update_order_field_visibility()
         self._validate_order_form()
+
+    def _request_symbol_lookup(self, row_widget: QWidget):
+        symbol = row_widget.symbol_input.text().strip()
+        if not symbol:
+            self.set_symbol_name(row_widget, "")
+            return
+        self.set_symbol_name(row_widget, "取得中...")
+        self.request_symbol_lookup.emit(symbol, row_widget)
+
+    def set_symbol_name(self, row_widget: QWidget, name: str):
+        if getattr(row_widget, "symbol_name_label", None) is not None:
+            row_widget.symbol_name_label.setText(name)
 
     def _add_order_row(self):
         row_widget = self._build_order_row_widget()
@@ -465,6 +489,15 @@ class MainWindow(QMainWindow):
             self.btn_submit.setEnabled(True)
 
 
+    def _handle_symbol_text_change(self):
+        self._validate_order_form()
+        sender = self.sender()
+        if sender is None:
+            return
+        for row_widget in self._iter_order_row_widgets():
+            if getattr(row_widget, "symbol_input", None) is sender:
+                self.set_symbol_name(row_widget, "")
+                break
     def toast(self, title: str, message: str, error: bool = False):
         self.status_label.setText(message)
         box = QMessageBox(self)
