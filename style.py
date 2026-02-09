@@ -54,8 +54,8 @@ QGroupBox::title {{
 QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QPlainTextEdit, QTextEdit {{
   background: {FIELD_BG};
   border: 1px solid {BORDER};
-  border-radius: 10px;
-  padding: 8px 10px;
+  border-radius: 1px;
+  padding: 0px;
   selection-background-color: {ACCENT};
 }}
 QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus, QPlainTextEdit:focus, QTextEdit:focus {{
@@ -138,7 +138,6 @@ QHeaderView::section {{
   color: {TEXT};
 }}
 QTableWidget::item {{
-  padding: 8px;
 }}
 QTableWidget::item:selected {{
   background: rgba(37, 99, 235, 0.15);
