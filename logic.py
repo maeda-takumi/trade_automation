@@ -171,6 +171,7 @@ class AppLogic(QObject):
                 self._api_token = token
                 self._api_token_base_url = base_url
                 return token
+            self._last_api_token_error_detail = f"Tokenがレスポンスに含まれていません: {data}"
         except Exception as e:
             self._api_token = None
             self._api_token_base_url = None
@@ -225,7 +226,7 @@ class AppLogic(QObject):
         token = self._get_api_token(api)
         if not token:
             w.set_symbol_name(row_widget, "取得失敗")
-            w.status_label.setText("APIトークン取得に失敗しました。")
+            w.status_label.setText(self._build_last_token_error_message("APIトークン取得に失敗しました。"))
             return
 
         base_url = api.base_url.rstrip("/")
