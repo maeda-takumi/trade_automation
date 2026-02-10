@@ -34,6 +34,13 @@ class AppLogic(QObject):
         self._last_api_token_error_detail: Optional[str] = None
         self._init_db()
 
+    @staticmethod
+    def _normalize_base_url(base_url: str) -> str:
+        normalized = base_url.strip().rstrip("/")
+        if normalized.endswith("/token"):
+            normalized = normalized[: -len("/token")]
+        return normalized
+    
     def bind(self):
         w = self.window
         w.request_save_api.connect(self.save_api_account)
@@ -153,7 +160,7 @@ class AppLogic(QObject):
             return json.loads(resp.read().decode("utf-8"))
 
     def _get_api_token(self, api: ApiAccount) -> Optional[str]:
-        base_url = api.base_url.rstrip("/")
+        base_url = self._normalize_base_url(api.base_url)
         if self._api_token and self._api_token_base_url == base_url:
             self._last_api_token_error = None
             self._last_api_token_error_detail = None
@@ -187,6 +194,7 @@ class AppLogic(QObject):
 
     def _build_api_error_message(self, message: str, err: Exception) -> str:
         details = []
+        hint = None
         if isinstance(err, urllib.error.HTTPError):
             details.append(f"HTTP {err.code}")
             try:
@@ -200,6 +208,13 @@ class AppLogic(QObject):
                             details.append(f"Code={code}")
                         if api_message:
                             details.append(str(api_message))
+                        if code in (4001013, "4001013"):
+                            hint = (
+                                "APIパスワード不一致の可能性があります。"
+                                "kabuステーション側のAPIパスワードと、本アプリに保存したパスワード、"
+                                "およびBase URL（本番: http://localhost:18080/kabusapi / 検証: http://localhost:18081/kabusapi）"
+                                "を確認してください。"
+                            )
                         if code is None and not api_message:
                             details.append(body)
                     except json.JSONDecodeError:
@@ -213,7 +228,10 @@ class AppLogic(QObject):
 
         if not details:
             return message
-        return f"{message}（{' / '.join(details)}）"
+        result = f"{message}（{' / '.join(details)}）"
+        if hint:
+            result = f"{result} {hint}"
+        return result
 
     def fetch_symbol_name(self, symbol: str, row_widget):
         w = self.window
@@ -229,7 +247,7 @@ class AppLogic(QObject):
             w.status_label.setText(self._build_last_token_error_message("APIトークン取得に失敗しました。"))
             return
 
-        base_url = api.base_url.rstrip("/")
+        base_url = self._normalize_base_url(api.base_url)
         query = urllib.parse.urlencode({"Exchange": 9})
         url = f"{base_url}/symbol/{symbol}?{query}"
 
