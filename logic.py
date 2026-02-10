@@ -30,6 +30,8 @@ class AppLogic(QObject):
         self.db_path = db_path
         self._api_token: Optional[str] = None
         self._api_token_base_url: Optional[str] = None
+        self._last_api_token_error: Optional[Exception] = None
+        self._last_api_token_error_detail: Optional[str] = None
         self._init_db()
 
     def bind(self):
@@ -153,7 +155,11 @@ class AppLogic(QObject):
     def _get_api_token(self, api: ApiAccount) -> Optional[str]:
         base_url = api.base_url.rstrip("/")
         if self._api_token and self._api_token_base_url == base_url:
+            self._last_api_token_error = None
+            self._last_api_token_error_detail = None
             return self._api_token
+        self._last_api_token_error = None
+        self._last_api_token_error_detail = None
         try:
             data = self._request_json(
                 "POST",
@@ -164,11 +170,49 @@ class AppLogic(QObject):
             if token:
                 self._api_token = token
                 self._api_token_base_url = base_url
-            return token
-        except Exception:
+                return token
+        except Exception as e:
             self._api_token = None
             self._api_token_base_url = None
+            self._last_api_token_error = e
             return None
+
+    def _build_last_token_error_message(self, message: str) -> str:
+        if self._last_api_token_error is not None:
+            return self._build_api_error_message(message, self._last_api_token_error)
+        if self._last_api_token_error_detail:
+            return f"{message}（{self._last_api_token_error_detail}）"
+        return message
+
+    def _build_api_error_message(self, message: str, err: Exception) -> str:
+        details = []
+        if isinstance(err, urllib.error.HTTPError):
+            details.append(f"HTTP {err.code}")
+            try:
+                body = err.read().decode("utf-8", errors="replace")
+                if body:
+                    try:
+                        body_json = json.loads(body)
+                        code = body_json.get("Code") or body_json.get("code")
+                        api_message = body_json.get("Message") or body_json.get("message")
+                        if code is not None:
+                            details.append(f"Code={code}")
+                        if api_message:
+                            details.append(str(api_message))
+                        if code is None and not api_message:
+                            details.append(body)
+                    except json.JSONDecodeError:
+                        details.append(body)
+            except Exception:
+                pass
+        elif isinstance(err, urllib.error.URLError):
+            details.append(f"URLError: {err.reason}")
+        else:
+            details.append(f"{type(err).__name__}: {err}")
+
+        if not details:
+            return message
+        return f"{message}（{' / '.join(details)}）"
 
     def fetch_symbol_name(self, symbol: str, row_widget):
         w = self.window
@@ -197,9 +241,9 @@ class AppLogic(QObject):
                 if token:
                     try:
                         data = self._request_json("GET", url, headers={"X-API-KEY": token})
-                    except Exception:
+                    except Exception as retry_error:
                         w.set_symbol_name(row_widget, "取得失敗")
-                        w.status_label.setText("銘柄名の取得に失敗しました。")
+                        w.status_label.setText(self._build_api_error_message("銘柄名の取得に失敗しました。", retry_error))
                         return
                 else:
                     w.set_symbol_name(row_widget, "取得失敗")
@@ -207,11 +251,11 @@ class AppLogic(QObject):
                     return
             else:
                 w.set_symbol_name(row_widget, "取得失敗")
-                w.status_label.setText("銘柄名の取得に失敗しました。")
+                w.status_label.setText(self._build_api_error_message("銘柄名の取得に失敗しました。", e))
                 return
-        except Exception:
+        except Exception as e:
             w.set_symbol_name(row_widget, "取得失敗")
-            w.status_label.setText("銘柄名の取得に失敗しました。")
+            w.status_label.setText(self._build_api_error_message("銘柄名の取得に失敗しました。", e))
             return
 
         symbol_name = data.get("SymbolName") or data.get("DisplayName") or ""
