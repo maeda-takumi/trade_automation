@@ -58,8 +58,10 @@ class AppLogic(QObject):
         self._worker_timer.start(2_000)
     # ---------- DB ----------
     def _conn(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path, timeout=30)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA journal_mode = WAL;")
+        conn.execute("PRAGMA busy_timeout = 30000;")
         conn.execute("PRAGMA foreign_keys = ON;")
         return conn
 
@@ -172,9 +174,23 @@ class AppLogic(QObject):
             self._ensure_column(conn, "batch_items", "closed_qty", "closed_qty INTEGER NOT NULL DEFAULT 0")
             self._ensure_column(conn, "batch_items", "hold_id", "hold_id TEXT")
 
-    def _log_event(self, batch_job_id: int, level: str, event_type: str, message: str) -> None:
-        with self._conn() as conn:
+    def _log_event(
+        self,
+        batch_job_id: int,
+        level: str,
+        event_type: str,
+        message: str,
+        conn: Optional[sqlite3.Connection] = None,
+    ) -> None:
+        if conn is not None:
             conn.execute(
+                "INSERT INTO event_logs (batch_job_id, level, event_type, message) VALUES (?, ?, ?, ?)",
+                (batch_job_id, level, event_type, message),
+            )
+            return
+
+        with self._conn() as local_conn:
+            local_conn.execute(
                 "INSERT INTO event_logs (batch_job_id, level, event_type, message) VALUES (?, ?, ?, ?)",
                 (batch_job_id, level, event_type, message),
             )
@@ -508,8 +524,13 @@ class AppLogic(QObject):
                         ),
                     )
 
-            self._log_event(batch_job_id, "INFO", "BATCH_CREATED", f"Batch created: {batch_code} / {batch_name} / items={len(orders)}")
-
+            self._log_event(
+                batch_job_id,
+                "INFO",
+                "BATCH_CREATED",
+                f"Batch created: {batch_code} / {batch_name} / items={len(orders)}",
+                conn=conn,
+            )
             w.toast("送信完了", f"バッチを作成しDBに保存しました。（items={len(orders)}）")
         except Exception as e:
             w.toast("送信失敗", f"DB保存に失敗: {e}", error=True)
@@ -547,14 +568,14 @@ class AppLogic(QObject):
             ).fetchall()
             for row in rows:
                 conn.execute("UPDATE batch_jobs SET status='RUNNING', updated_at=CURRENT_TIMESTAMP WHERE id=?", (row["id"],))
-                self._log_event(int(row["id"]), "INFO", "SCHEDULE_TRIGGERED", "予約時刻到達でRUNNINGに遷移")
+                self._log_event(int(row["id"]), "INFO", "SCHEDULE_TRIGGERED", "予約時刻到達でRUNNINGに遷移", conn=conn)
 
             immediate_rows = conn.execute(
                 "SELECT id FROM batch_jobs WHERE status='SCHEDULED' AND run_mode='immediate'"
             ).fetchall()
             for row in immediate_rows:
                 conn.execute("UPDATE batch_jobs SET status='RUNNING', updated_at=CURRENT_TIMESTAMP WHERE id=?", (row["id"],))
-                self._log_event(int(row["id"]), "INFO", "IMMEDIATE_TRIGGERED", "即時実行バッチを開始")
+                self._log_event(int(row["id"]), "INFO", "IMMEDIATE_TRIGGERED", "即時実行バッチを開始", conn=conn)
 
     def _api_post_order(self, api: ApiAccount, payload: dict) -> str:
         token = self._get_api_token(api)
@@ -664,13 +685,25 @@ class AppLogic(QObject):
                         (order_id, item["id"]),
                     )
                     self._record_order(conn, int(item["id"]), "entry", order_id, item["side"], int(item["qty"]), item["entry_type"], item["entry_price"])
-                    self._log_event(int(item["batch_job_id"]), "INFO", "ENTRY_SENT", f"item={item['id']} order_id={order_id}")
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "INFO",
+                        "ENTRY_SENT",
+                        f"item={item['id']} order_id={order_id}",
+                        conn=conn,
+                    )
                 except Exception as e:
                     conn.execute(
                         "UPDATE batch_items SET status='ERROR', last_error=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
                         (str(e), item["id"]),
                     )
-                    self._log_event(int(item["batch_job_id"]), "ERROR", "ENTRY_FAILED", f"item={item['id']} err={e}")
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "ERROR",
+                        "ENTRY_FAILED",
+                        f"item={item['id']} err={e}",
+                        conn=conn,
+                    )
 
     def _fetch_orders_snapshot(self, api: ApiAccount) -> list[dict]:
         token = self._get_api_token(api)
@@ -825,11 +858,23 @@ class AppLogic(QObject):
                     close_side = "sell" if item["side"] == "buy" else "buy"
                     self._record_order(conn, int(item["id"]), "tp", tp_order_id, close_side, qty, "limit", tp_abs, None, item["hold_id"])
                     self._record_order(conn, int(item["id"]), "sl", sl_order_id, close_side, qty, "stop", None, sl_abs, item["hold_id"])
-                    self._log_event(int(item["batch_job_id"]), "INFO", "OCO_SENT", f"item={item['id']} tp={tp_order_id} sl={sl_order_id}")
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "INFO",
+                        "OCO_SENT",
+                        f"item={item['id']} tp={tp_order_id} sl={sl_order_id}",
+                        conn=conn,
+                    )
                 except Exception as e:
                     conn.execute(
                         "UPDATE batch_items SET status='ERROR', last_error=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
-                        (str(e), item["id"]),
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "ERROR",
+                        "OCO_FAILED",
+                        f"item={item['id']} err={e}",
+                        conn=conn,
+                    )
                     )
                     self._log_event(int(item["batch_job_id"]), "ERROR", "OCO_FAILED", f"item={item['id']} err={e}")
 
@@ -854,15 +899,14 @@ class AppLogic(QObject):
                         "UPDATE batch_items SET status='CLOSED', closed_qty=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
                         (int(row["tp_cum"] or 0), item_id),
                     )
-                    self._log_event(int(row["batch_job_id"]), "INFO", "TP_FILLED", f"item={item_id}")
+                    self._log_event(int(row["batch_job_id"]), "INFO", "TP_FILLED", f"item={item_id}", conn=conn)
                 elif row["sl_status"] == "FILLED":
                     self._cancel_order_if_needed(api, row["tp_order_id"])
                     conn.execute(
                         "UPDATE batch_items SET status='CLOSED', closed_qty=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
                         (int(row["sl_cum"] or 0), item_id),
                     )
-                    self._log_event(int(row["batch_job_id"]), "INFO", "SL_FILLED", f"item={item_id}")
-
+                    self._log_event(int(row["batch_job_id"]), "INFO", "SL_FILLED", f"item={item_id}", conn=conn)
     def _cancel_order_if_needed(self, api: ApiAccount, api_order_id: Optional[str]) -> None:
         if not api_order_id:
             return
@@ -915,10 +959,22 @@ class AppLogic(QObject):
                         """,
                         (eod_order_id, item["id"]),
                     )
-                    self._log_event(int(item["batch_job_id"]), "WARN", "EOD_FORCE_CLOSE", f"item={item['id']} eod_order_id={eod_order_id}")
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "WARN",
+                        "EOD_FORCE_CLOSE",
+                        f"item={item['id']} eod_order_id={eod_order_id}",
+                        conn=conn,
+                    )
                 except Exception as e:
                     conn.execute("UPDATE batch_items SET status='ERROR', last_error=?, updated_at=CURRENT_TIMESTAMP WHERE id=?", (str(e), item["id"]))
-                    self._log_event(int(item["batch_job_id"]), "ERROR", "EOD_FAILED", f"item={item['id']} err={e}")
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "ERROR",
+                        "EOD_FAILED",
+                        f"item={item['id']} err={e}",
+                        conn=conn,
+                    )
 
             # EOD注文の完了反映
             done_rows = conn.execute(
@@ -932,7 +988,7 @@ class AppLogic(QObject):
             for row in done_rows:
                 if row["status"] == "FILLED":
                     conn.execute("UPDATE batch_items SET status='CLOSED', updated_at=CURRENT_TIMESTAMP WHERE id=?", (row["id"],))
-                    self._log_event(int(row["batch_job_id"]), "INFO", "EOD_FILLED", f"item={row['id']}")
+                    self._log_event(int(row["batch_job_id"]), "INFO", "EOD_FILLED", f"item={row['id']}", conn=conn)
 
     def _finalize_jobs_step(self):
         with self._conn() as conn:
@@ -948,7 +1004,7 @@ class AppLogic(QObject):
                 errors = by_status.get("ERROR", 0)
                 if total > 0 and closed == total:
                     conn.execute("UPDATE batch_jobs SET status='DONE', updated_at=CURRENT_TIMESTAMP WHERE id=?", (job["id"],))
-                    self._log_event(int(job["id"]), "INFO", "BATCH_DONE", "全銘柄が決済完了")
+                    self._log_event(int(job["id"]), "INFO", "BATCH_DONE", "全銘柄が決済完了", conn=conn)
                 elif errors > 0:
                     conn.execute("UPDATE batch_jobs SET status='ERROR', updated_at=CURRENT_TIMESTAMP WHERE id=?", (job["id"],))
-                    self._log_event(int(job["id"]), "ERROR", "BATCH_ERROR", f"error_items={errors}")
+                    self._log_event(int(job["id"]), "ERROR", "BATCH_ERROR", f"error_items={errors}", conn=conn)
