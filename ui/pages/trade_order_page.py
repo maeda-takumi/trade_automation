@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from PySide6.QtCore import QDateTime
 from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QGroupBox, QFormLayout, QLabel, QListWidget, QAbstractItemView,
+    QWidget, QVBoxLayout, QGroupBox, QLabel, QListWidget, QAbstractItemView,
     QHBoxLayout, QPushButton, QComboBox, QDateTimeEdit, QListWidgetItem
 )
 
@@ -20,28 +20,8 @@ class TradeOrderPage(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(14)
 
-        self.execution_status_group = self._build_execution_status_group()
-        layout.addWidget(self.execution_status_group)
-
         self.order_group = self._build_order_group()
         layout.addWidget(self.order_group, 1)
-
-    def _build_execution_status_group(self) -> QGroupBox:
-        g = QGroupBox("注文ステータス")
-        form = QFormLayout(g)
-
-        self.exec_target_label = QLabel("監視対象なし")
-        self.exec_target_label.setObjectName("muted")
-        form.addRow("対象", self.exec_target_label)
-
-        self.entry_status_value = QLabel("待機中")
-        self.tp_status_value = QLabel("待機中")
-        self.sl_status_value = QLabel("待機中")
-
-        form.addRow("注文", self.entry_status_value)
-        form.addRow("利確", self.tp_status_value)
-        form.addRow("損切", self.sl_status_value)
-        return g
 
     def _build_order_group(self) -> QGroupBox:
         g = QGroupBox("注文設定")
@@ -300,7 +280,5 @@ class TradeOrderPage(QWidget):
             row_widget.set_symbol_price(price_text)
 
     def set_execution_status(self, target: str, entry: str, tp: str, sl: str):
-        self.exec_target_label.setText(target)
-        self.entry_status_value.setText(entry)
-        self.tp_status_value.setText(tp)
-        self.sl_status_value.setText(sl)
+        # 注文画面では注文ステータス欄を廃止したため、呼び出し互換のために no-op とする
+        _ = (target, entry, tp, sl)

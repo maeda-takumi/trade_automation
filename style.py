@@ -210,4 +210,12 @@ QFrame#statusCard {{
   border: 1px solid #E5E7EB;
   border-radius: 12px;
 }}
+QLabel#statusBadge {{
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 999px;
+  padding: 2px 10px;
+  color: #1E40AF;
+  font-weight: 700;
+}}
 """
