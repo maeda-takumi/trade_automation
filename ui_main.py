@@ -58,6 +58,8 @@ class MainWindow(QMainWindow):
         p1 = QVBoxLayout(self.page_trading)
         p1.setContentsMargins(0, 0, 0, 0)
         p1.setSpacing(14)
+        self.execution_status_group = self._build_execution_status_group()
+        p1.addWidget(self.execution_status_group)
         self.order_group = self._build_order_group()
         p1.addWidget(self.order_group, 1)
 
@@ -157,6 +159,23 @@ class MainWindow(QMainWindow):
 
         return g
 
+    # ========= ORDER SETTINGS（中身は前のまま） =========
+    def _build_execution_status_group(self) -> QGroupBox:
+        g = QGroupBox("注文ステータス")
+        form = QFormLayout(g)
+
+        self.exec_target_label = QLabel("監視対象なし")
+        self.exec_target_label.setObjectName("muted")
+        form.addRow("対象", self.exec_target_label)
+
+        self.entry_status_value = QLabel("待機中")
+        self.tp_status_value = QLabel("待機中")
+        self.sl_status_value = QLabel("待機中")
+
+        form.addRow("注文", self.entry_status_value)
+        form.addRow("利確", self.tp_status_value)
+        form.addRow("損切", self.sl_status_value)
+        return g
     # ========= ORDER SETTINGS（中身は前のまま） =========
     def _build_order_group(self) -> QGroupBox:
         g = QGroupBox("注文設定")
@@ -543,3 +562,9 @@ class MainWindow(QMainWindow):
         box.setWindowTitle(title)
         box.setText(message)
         box.exec()
+
+    def set_execution_status(self, target: str, entry: str, tp: str, sl: str):
+        self.exec_target_label.setText(target)
+        self.entry_status_value.setText(entry)
+        self.tp_status_value.setText(tp)
+        self.sl_status_value.setText(sl)

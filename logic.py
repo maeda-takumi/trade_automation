@@ -610,11 +610,84 @@ class AppLogic(QObject):
             self._oco_step()
             self._eod_step()
             self._finalize_jobs_step()
+            self._refresh_execution_status_ui()
         except Exception as e:
             self.window.status_label.setText(f"監視ループでエラー: {e}")
         finally:
             self._worker_busy = False
 
+    @staticmethod
+    def _render_order_status(status: Optional[str], fallback_waiting: str = "待機中") -> str:
+        if not status:
+            return fallback_waiting
+        mapping = {
+            "NEW": "発注済",
+            "WORKING": "約定待ち",
+            "PARTIAL": "一部約定",
+            "FILLED": "約定済",
+            "CANCELLED": "取消済",
+            "UNKNOWN": "確認中",
+        }
+        return mapping.get(status, status)
+
+    def _refresh_execution_status_ui(self) -> None:
+        with self._conn() as conn:
+            row = conn.execute(
+                """
+                SELECT bi.id,
+                       bi.symbol,
+                       bi.status AS item_status,
+                       bi.last_error,
+                       oe.status AS entry_order_status,
+                       otp.status AS tp_order_status,
+                       osl.status AS sl_order_status
+                FROM batch_items bi
+                JOIN batch_jobs bj ON bj.id = bi.batch_job_id
+                LEFT JOIN orders oe ON oe.api_order_id = bi.entry_order_id
+                LEFT JOIN orders otp ON otp.api_order_id = bi.tp_order_id
+                LEFT JOIN orders osl ON osl.api_order_id = bi.sl_order_id
+                WHERE bj.status IN ('SCHEDULED', 'RUNNING')
+                ORDER BY bi.updated_at DESC, bi.id DESC
+                LIMIT 1
+                """
+            ).fetchone()
+
+        if not row:
+            self.window.set_execution_status("監視対象なし", "待機中", "待機中", "待機中")
+            return
+
+        target = f"#{row['id']} {row['symbol']}"
+        item_status = str(row["item_status"] or "")
+
+        if item_status == "ERROR":
+            err = (row["last_error"] or "エラー").splitlines()[0]
+            self.window.set_execution_status(target, f"エラー: {err}", "-", "-")
+            return
+
+        entry_status = self._render_order_status(row["entry_order_status"], fallback_waiting="未送信")
+        tp_status = self._render_order_status(row["tp_order_status"])
+        sl_status = self._render_order_status(row["sl_order_status"])
+
+        if item_status in {"READY", "ENTRY_SENT", "ENTRY_PARTIAL", "ENTRY_FILLED"}:
+            if item_status == "READY":
+                entry_status = "送信待ち"
+            tp_status = "待機中"
+            sl_status = "待機中"
+
+        if item_status == "BRACKET_SENT":
+            tp_status = self._render_order_status(row["tp_order_status"], fallback_waiting="発注済")
+            sl_status = self._render_order_status(row["sl_order_status"], fallback_waiting="発注済")
+
+        if item_status == "CLOSED":
+            entry_status = "約定済"
+            if row["tp_order_status"] == "FILLED":
+                tp_status = "約定済"
+                sl_status = "取消済"
+            elif row["sl_order_status"] == "FILLED":
+                tp_status = "取消済"
+                sl_status = "約定済"
+
+        self.window.set_execution_status(target, entry_status, tp_status, sl_status)
     def _scheduler_step(self):
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with self._conn() as conn:
