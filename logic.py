@@ -262,7 +262,7 @@ class AppLogic(QObject):
                     try:
                         data = self._request_json("GET", candidate_url, headers={"X-API-KEY": current_token})
                         if data.get("SymbolName") or data.get("DisplayName"):
-                            return data
+                            return data, exchange, candidate_url
                     except urllib.error.HTTPError as e:
                         last_error = e
                         # 401はトークン再取得対象、400/404は別市場コードを試す
@@ -278,14 +278,14 @@ class AppLogic(QObject):
 
 
         try:
-            data = request_symbol_with_token(token)
+            data, used_exchange, used_url = request_symbol_with_token(token)
         except urllib.error.HTTPError as e:
             if e.code == 401:
                 self._api_token = None
                 token = self._get_api_token(api)
                 if token:
                     try:
-                        data = request_symbol_with_token(token)
+                        data, used_exchange, used_url = request_symbol_with_token(token)
                     except Exception as retry_error:
                         w.set_symbol_name(row_widget, "取得失敗")
                         w.status_label.setText(self._build_api_error_message("銘柄名の取得に失敗しました。", retry_error))
@@ -309,7 +309,7 @@ class AppLogic(QObject):
             w.status_label.setText("銘柄名が見つかりませんでした。")
             return
         w.set_symbol_name(row_widget, symbol_name)
-        w.status_label.setText(f"銘柄名を取得しました: {symbol_name}")            
+        w.status_label.setText(f"銘柄名を取得しました: {symbol_name} (Exchange={used_exchange}, URL={used_url})")                
     # ---------- API SETTINGS ----------
     def save_api_account(self):
         w = self.window
