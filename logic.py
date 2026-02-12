@@ -669,10 +669,10 @@ class AppLogic(QObject):
 
     def _build_entry_payload(self, item: sqlite3.Row) -> dict:
         market = item["entry_type"] == "market"
+        exchange = self._normalize_exchange(item["exchange"])
         payload = {
             "Symbol": item["symbol"],
-            "Exchange": self._normalize_exchange(item["exchange"]),
-            "Exchange": int(item["exchange"]),
+            "Exchange": exchange,
             "SecurityType": 1,
             "Side": self._side_to_kabu(item["side"]),
             "Qty": int(item["qty"]),
