@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import time
 import sqlite3
 import urllib.error
 import urllib.parse
@@ -60,10 +61,19 @@ class AppLogic(QObject):
     def _conn(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.db_path, timeout=30)
         conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA journal_mode = WAL;")
         conn.execute("PRAGMA busy_timeout = 30000;")
         conn.execute("PRAGMA foreign_keys = ON;")
         return conn
+
+    def _run_with_db_retry(self, action, retries: int = 3, sleep_seconds: float = 0.15):
+        for attempt in range(retries + 1):
+            try:
+                with self._conn() as conn:
+                    return action(conn)
+            except sqlite3.OperationalError as e:
+                if "database is locked" not in str(e).lower() or attempt >= retries:
+                    raise
+                time.sleep(sleep_seconds * (attempt + 1))
 
     def _ensure_column(self, conn: sqlite3.Connection, table: str, column: str, ddl: str) -> None:
         cols = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
@@ -72,6 +82,7 @@ class AppLogic(QObject):
 
     def _init_db(self) -> None:
         with self._conn() as conn:
+            conn.execute("PRAGMA journal_mode = WAL;")
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS api_accounts (
@@ -197,7 +208,7 @@ class AppLogic(QObject):
 
     def _get_active_api_account(self) -> Optional[ApiAccount]:
         try:
-            with self._conn() as conn:
+            def _write_batch(conn: sqlite3.Connection):
                 row = conn.execute(
                     """
                     SELECT id, name, base_url, api_password_enc, is_active
@@ -524,13 +535,17 @@ class AppLogic(QObject):
                         ),
                     )
 
-            self._log_event(
-                batch_job_id,
-                "INFO",
-                "BATCH_CREATED",
-                f"Batch created: {batch_code} / {batch_name} / items={len(orders)}",
-                conn=conn,
-            )
+                self._log_event(
+                    batch_job_id,
+                    "INFO",
+                    "BATCH_CREATED",
+                    f"Batch created: {batch_code} / {batch_name} / items={len(orders)}",
+                    conn=conn,
+                )
+
+                return batch_job_id
+
+            self._run_with_db_retry(_write_batch)
             w.toast("送信完了", f"バッチを作成しDBに保存しました。（items={len(orders)}）")
         except Exception as e:
             w.toast("送信失敗", f"DB保存に失敗: {e}", error=True)
@@ -746,13 +761,18 @@ class AppLogic(QObject):
             snapshots = self._fetch_orders_snapshot(api)
         except Exception:
             return
+        try:
+            positions = self._fetch_positions_snapshot(api)
+        except Exception:
+            positions = []
+
         by_id = {}
         for order in snapshots:
             oid = order.get("ID") or order.get("OrderId") or order.get("OrderID")
             if oid:
                 by_id[str(oid)] = order
 
-        with self._conn() as conn:
+        def _sync(conn: sqlite3.Connection):
             rows = conn.execute(
                 """
                 SELECT bi.id AS batch_item_id, bi.batch_job_id, bi.entry_order_id, bi.tp_order_id, bi.sl_order_id, bi.eod_order_id
@@ -797,11 +817,6 @@ class AppLogic(QObject):
                             (new_status, cum_qty, float(avg_price) if avg_price else None, item_id),
                         )
 
-            # HoldID同期（信用・ENTRY_FILLEDのみ）
-            try:
-                positions = self._fetch_positions_snapshot(api)
-            except Exception:
-                positions = []
             for p in positions:
                 symbol = str(p.get("Symbol") or "")
                 hold_id = p.get("HoldID") or p.get("HoldId")
@@ -816,6 +831,7 @@ class AppLogic(QObject):
                     """,
                     (str(hold_id), symbol),
                 )
+        self._run_with_db_retry(_sync)
 
     def _oco_step(self):
         api = self._get_active_api_account()
