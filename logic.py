@@ -208,7 +208,7 @@ class AppLogic(QObject):
 
     def _get_active_api_account(self) -> Optional[ApiAccount]:
         try:
-            def _write_batch(conn: sqlite3.Connection):
+            with self._conn() as conn:
                 row = conn.execute(
                     """
                     SELECT id, name, base_url, api_password_enc, is_active
