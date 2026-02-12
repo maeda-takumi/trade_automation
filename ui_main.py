@@ -13,7 +13,7 @@ from PySide6.QtWidgets import (
 
 from style import APP_QSS
 
-DEFAULT_EXCHANGE_CODE = 1
+DEFAULT_EXCHANGE_CODE = 27
 
 class MainWindow(QMainWindow):
     # ロジック側が拾うためのシグナル

@@ -648,14 +648,19 @@ class AppLogic(QObject):
             err_payload = self._parse_error_json(body)
             err_code = (err_payload or {}).get("Code") or (err_payload or {}).get("code")
             current_exchange = payload.get("Exchange")
-            if str(err_code) == "4001005" and current_exchange != 1:
-                retry_payload = dict(payload)
-                retry_payload["Exchange"] = 1
-                try:
-                    data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=retry_payload)
-                except urllib.error.HTTPError as retry_error:
-                    retry_body = self._read_http_error_body(retry_error)
-                    raise RuntimeError(self._build_http_error_with_body("発注API呼び出しに失敗", retry_error, retry_body)) from retry_error
+            if str(err_code) == "4001005" and current_exchange == 1:
+                for retry_exchange in (9, 27):
+                    retry_payload = dict(payload)
+                    retry_payload["Exchange"] = retry_exchange
+                    try:
+                        data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=retry_payload)
+                        break
+                    except urllib.error.HTTPError as retry_error:
+                        retry_body = self._read_http_error_body(retry_error)
+                        if retry_exchange == 27:
+                            raise RuntimeError(self._build_http_error_with_body("発注API呼び出しに失敗", retry_error, retry_body)) from retry_error
+                else:
+                    raise RuntimeError(self._build_http_error_with_body("発注API呼び出しに失敗", e, body)) from e
             else:
                 raise RuntimeError(self._build_http_error_with_body("発注API呼び出しに失敗", e, body)) from e
         order_id = data.get("OrderId") or data.get("OrderID")
@@ -682,7 +687,7 @@ class AppLogic(QObject):
             "AccountType": 4,
         }
         if item["product"] == "cash":
-            payload.update({"CashMargin": 1, "DelivType": 2})
+            payload.update({"CashMargin": 1, "DelivType": 2, "FundType": "AA"})
         else:
             payload.update({"CashMargin": 2, "MarginTradeType": 3, "DelivType": 0})
         return payload
