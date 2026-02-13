@@ -8,7 +8,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, time as dt_time
 from typing import Optional
 
 from PySide6.QtCore import QObject, QTimer
@@ -54,6 +54,7 @@ class AppLogic(QObject):
         w.request_clear_orders.connect(self.clear_orders)
         w.request_submit_orders.connect(self.submit_orders_to_db)
         w.request_manual_close.connect(self.manual_close_item)
+        w.request_cancel_scheduled.connect(self.cancel_scheduled_item)
 
         self._worker_timer = QTimer(self)
         self._worker_timer.timeout.connect(self._worker_tick)
@@ -358,6 +359,16 @@ class AppLogic(QObject):
             raise ValueError(f"Exchangeが不正です: {exchange}")
         return exchange
     
+    @staticmethod
+    def _is_market_session_open(now: Optional[datetime] = None) -> bool:
+        current = now or datetime.now()
+        if current.weekday() >= 5:
+            return False
+        current_time = current.time()
+        is_morning = dt_time(9, 0) <= current_time < dt_time(11, 30)
+        is_afternoon = dt_time(12, 30) <= current_time < dt_time(15, 30)
+        return is_morning or is_afternoon
+
     def fetch_symbol_name(self, symbol: str, row_widget):
         w = self.window
         symbol = symbol.strip()
@@ -578,6 +589,47 @@ class AppLogic(QObject):
             self._log_event(int(item["batch_job_id"]), "INFO", "MANUAL_MARKET_CLOSE", f"item={item_id} order_id={order_id}", conn=conn)
 
         self.window.toast("成行決済", f"成行決済を送信しました: id={item_id}")
+    def cancel_scheduled_item(self, item_id: int):
+        with self._conn() as conn:
+            row = conn.execute(
+                """
+                SELECT bi.id, bi.batch_job_id, bi.status AS item_status, bj.status AS job_status, bj.run_mode
+                FROM batch_items bi
+                JOIN batch_jobs bj ON bj.id = bi.batch_job_id
+                WHERE bi.id=?
+                """,
+                (int(item_id),),
+            ).fetchone()
+
+            if not row:
+                self.window.toast("予約キャンセル失敗", f"対象注文が見つかりません: id={item_id}", error=True)
+                return
+
+            if row["run_mode"] != "scheduled":
+                self.window.toast("予約キャンセル不可", "予約注文のみキャンセルできます。", error=True)
+                return
+
+            if row["job_status"] != "SCHEDULED" or row["item_status"] != "READY":
+                self.window.toast("予約キャンセル不可", "既に実行フェーズに入っているためキャンセルできません。", error=True)
+                return
+
+            conn.execute(
+                "UPDATE batch_items SET status='CANCELLED', updated_at=datetime('now','+9 hours') WHERE id=?",
+                (int(item_id),),
+            )
+            self._log_event(int(row["batch_job_id"]), "INFO", "SCHEDULE_CANCELLED", f"item={item_id} を予約キャンセル", conn=conn)
+
+            remain = conn.execute(
+                "SELECT COUNT(*) FROM batch_items WHERE batch_job_id=? AND status='READY'",
+                (int(row["batch_job_id"]),),
+            ).fetchone()[0]
+            if int(remain) == 0:
+                conn.execute(
+                    "UPDATE batch_jobs SET status='CANCELLED', updated_at=datetime('now','+9 hours') WHERE id=?",
+                    (int(row["batch_job_id"]),),
+                )
+
+        self.window.toast("予約キャンセル", f"予約注文をキャンセルしました: id={item_id}")
     # ---------- SUBMIT ORDERS ----------
     def submit_orders_to_db(self):
         w = self.window
@@ -607,6 +659,9 @@ class AppLogic(QObject):
         scheduled_at_value = scheduled_at if run_mode == "scheduled" else None
         initial_status = "SCHEDULED"
 
+        if run_mode == "immediate" and not self._is_market_session_open():
+            w.toast("即時実行不可", "現在は閉場中のため即時実行できません。予約実行をご利用ください。", error=True)
+            return
         try:
             def _write_batch(conn: sqlite3.Connection):
                 cur = conn.execute(
@@ -700,6 +755,8 @@ class AppLogic(QObject):
                        bi.last_error,
                        bi.entry_filled_qty,
                        bi.closed_qty,
+                       bj.run_mode,
+                       bj.status AS job_status,
                        oe.status AS entry_order_status,
                        oe.sent_at AS entry_sent_at,
                        oe.avg_price AS entry_avg_price,
@@ -778,6 +835,7 @@ class AppLogic(QObject):
                 "tp_fill_amount_text": _fmt_amount(row["tp_avg_price"], row["tp_cum_qty"]),
                 "sl_fill_amount_text": _fmt_amount(row["sl_avg_price"], row["sl_cum_qty"]),
                 "can_manual_close": item_status in {"ENTRY_PARTIAL", "ENTRY_FILLED", "ENTRY_FILLED_WAIT_PRICE", "BRACKET_SENT", "EOD_MARKET_SENT"},
+                "can_cancel_scheduled": row["run_mode"] == "scheduled" and row["job_status"] == "SCHEDULED" and item_status == "READY",
                 "last_error": row["last_error"] or "",
             })
 
@@ -813,6 +871,11 @@ class AppLogic(QObject):
                 "SELECT id FROM batch_jobs WHERE status='SCHEDULED' AND run_mode='immediate'"
             ).fetchall()
             for row in immediate_rows:
+                if not self._is_market_session_open():
+                    conn.execute("UPDATE batch_jobs SET status='ERROR', updated_at=datetime('now','+9 hours') WHERE id=?", (row["id"],))
+                    conn.execute("UPDATE batch_items SET status='ERROR', last_error=?, updated_at=datetime('now','+9 hours') WHERE batch_job_id=? AND status='READY'", ("閉場中のため即時実行不可", row["id"]))
+                    self._log_event(int(row["id"]), "ERROR", "IMMEDIATE_REJECTED_MARKET_CLOSED", "閉場中のため即時実行不可", conn=conn)
+                    continue
                 conn.execute("UPDATE batch_jobs SET status='RUNNING', updated_at=datetime('now','+9 hours') WHERE id=?", (row["id"],))
                 self._log_event(int(row["id"]), "INFO", "IMMEDIATE_TRIGGERED", "即時実行バッチを開始", conn=conn)
 

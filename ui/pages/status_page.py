@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QFrame, QHBoxLayout,
 from ui.widgets.status_badge import map_status_to_badge
 class StatusPage(QWidget):
     manual_close_requested = Signal(int)
+    scheduled_cancel_requested = Signal(int)
     def __init__(self):
         super().__init__()
 
@@ -99,6 +100,14 @@ class StatusPage(QWidget):
 
         action_row = QHBoxLayout()
         action_row.addStretch(1)
+
+        if bool(data.get("can_cancel_scheduled", False)):
+            btn_cancel_scheduled = QPushButton("予約キャンセル")
+            btn_cancel_scheduled.clicked.connect(
+                lambda _=False, item_id=int(data.get("id", 0)): self.scheduled_cancel_requested.emit(item_id)
+            )
+            action_row.addWidget(btn_cancel_scheduled)
+            
         btn_market_close = QPushButton("成行決済")
         btn_market_close.setEnabled(bool(data.get("can_manual_close", False)))
         btn_market_close.clicked.connect(lambda _=False, item_id=int(data.get("id", 0)): self.manual_close_requested.emit(item_id))
