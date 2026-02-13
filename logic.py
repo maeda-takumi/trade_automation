@@ -658,10 +658,6 @@ class AppLogic(QObject):
         scheduled_at = orders[0].get("scheduled_at")
         scheduled_at_value = scheduled_at if run_mode == "scheduled" else None
         initial_status = "SCHEDULED"
-
-        if run_mode == "immediate" and not self._is_market_session_open():
-            w.toast("即時実行不可", "現在は閉場中のため即時実行できません。予約実行をご利用ください。", error=True)
-            return
         try:
             def _write_batch(conn: sqlite3.Connection):
                 cur = conn.execute(
@@ -871,11 +867,6 @@ class AppLogic(QObject):
                 "SELECT id FROM batch_jobs WHERE status='SCHEDULED' AND run_mode='immediate'"
             ).fetchall()
             for row in immediate_rows:
-                if not self._is_market_session_open():
-                    conn.execute("UPDATE batch_jobs SET status='ERROR', updated_at=datetime('now','+9 hours') WHERE id=?", (row["id"],))
-                    conn.execute("UPDATE batch_items SET status='ERROR', last_error=?, updated_at=datetime('now','+9 hours') WHERE batch_job_id=? AND status='READY'", ("閉場中のため即時実行不可", row["id"]))
-                    self._log_event(int(row["id"]), "ERROR", "IMMEDIATE_REJECTED_MARKET_CLOSED", "閉場中のため即時実行不可", conn=conn)
-                    continue
                 conn.execute("UPDATE batch_jobs SET status='RUNNING', updated_at=datetime('now','+9 hours') WHERE id=?", (row["id"],))
                 self._log_event(int(row["id"]), "INFO", "IMMEDIATE_TRIGGERED", "即時実行バッチを開始", conn=conn)
 
