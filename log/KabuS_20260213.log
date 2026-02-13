@@ -1458,3 +1458,25 @@ Newtonsoft.Json.JsonSerializationException: Required property 'FundType' not fou
 15:29:59.6406,I,35380,0046 KeepSession at 2026/02/13 15:30:00
 15:30:45.3660,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
 15:30:49.2474,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9168
+15:33:19.6484,I,35380,0020 KeepSession at 2026/02/13 15:33:20
+15:33:45.3664,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:33:46.9449,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9169
+15:36:12.0749,I,35380,0048 UpdateService.UpdateCheck : start
+15:36:39.6484,I,35380,0022 KeepSession at 2026/02/13 15:36:40
+15:36:45.3778,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:36:47.1739,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9175
+15:39:45.3835,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:39:49.1999,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9209
+15:39:50.1383,I,35380,0016 ワンショットチェック : 3861/MST/王子ホールディングス/1 : amount=200, qty=
+15:39:50.1383,I,35380,0016 KabuSApiManager.PreRelationCheck=CHECK_OK
+15:39:50.1383,I,35380,0016 発注パラメータ：[現物] 成行
+15:39:50.1383,I,35380,0016 OrderManager.Order Start:OrderParam: Account=01396248,CheckMode=1,Symbol=3861,Exchange=27,SecurityType=1,Side=2,CashMargin=1,MarginTradeType=0,OrderCapacity=,Price=0,Qty=100,OrdType=1,AdjustPrice=False,SellingShot=DelivType=2,FundType=AA,AccountType=4,EffectiveDay=20260213,ExpireDay=20260213,Trigger=[],OrderReferenceCommand=[],ClosePositions=[],PriceType=0,TimeInForce=0,ExpireSession=0,Password=xxx,FrontInfo=FrontInfo=[Key=FrontChannelID/Value=240,Key=Trader/Value=000000A7,Key=Channel/Value=0,Key=ClientCode/Value=192.168.100.17,Key=Branch/Value=000,],UsePoint=0,SettCurrency=,Strategy=,IsMultiTraderCloseOrder=False
+15:39:50.2335,I,35380,0016 OrderManager.OrderAuth0 End  :Result=5,ID=,ClOrdID=,Detail=,ResultMessage=[Key=KC_CommissionTable/Value=141,]
+15:39:50.2335,I,35380,0016 OrderResult.MultiCloseOrderResults  :
+15:39:50.2335,I,35380,0016 発注結果 : Result=5,ID=,ClOrdID=,Detail=,ResultMessage=[Key=KC_CommissionTable/Value=141,]
+15:39:59.6612,I,35380,0046 KeepSession at 2026/02/13 15:40:00
+15:40:38.8033,I,35380,0025 Recv DistributeMessage = [ID=20260213B01N40752989,RecType=4,State=1,Qty=100,Price=0,SeqNum=2]
+15:40:38.8033,I,35380,0005 OrderDetail.ID=20260213B01N40752989 UpdTime=02/13/2026 15:40:39
+15:40:38.8033,I,35380,0005 ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+15:40:38.8033,I,35380,0005 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+15:40:38.8033,I,35380,0005 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
