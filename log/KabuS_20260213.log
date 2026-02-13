@@ -1480,3 +1480,348 @@ Newtonsoft.Json.JsonSerializationException: Required property 'FundType' not fou
 15:40:38.8033,I,35380,0005 ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
 15:40:38.8033,I,35380,0005 UpdateOrderAndDetail Order.ID=20260213A01N40752988
 15:40:38.8033,I,35380,0005 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+15:42:45.3905,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:42:56.0544,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9278
+15:43:19.6566,I,35380,0048 KeepSession at 2026/02/13 15:43:20
+15:45:20.4880,I,35380,0006 Recv Event Type=101,Account=,Value=
+15:45:20.4880,I,35380,0006 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+15:45:20.4880,I,35380,0006 UpdateSymbolCache
+15:45:20.4880,I,35380,0006 UpdateExchangeCache
+15:45:20.4880,I,35380,0006 ClearCapMarginSellIppanCache
+15:45:20.4880,I,35380,0006 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+15:45:20.4880,I,35380,0006 Recv Event Type=205,Account=,Value=
+15:45:20.4880,I,35380,0006 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+15:45:20.4880,I,35380,0006 ClearSymbolInfoCache
+15:45:20.4880,I,35380,0006 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+15:45:24.0593,I,35380,0040 SymbolUpdated
+15:45:24.2274,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+15:45:24.6466,I,35380,0006 GetTickServiceUrl UseSecurePort=False
+15:45:45.3957,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:45:50.5132,I,35380,0048 Recv Event Type=100,Account=,Value=
+15:45:50.5132,I,35380,0048 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+15:45:50.5132,I,35380,0048 UpdateSystemProperty
+15:45:50.5132,I,35380,0048 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+15:46:06.8966,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9325
+15:46:12.0893,I,35380,0043 UpdateService.UpdateCheck : start
+15:46:39.6695,I,35380,0009 KeepSession at 2026/02/13 15:46:40
+15:48:45.4078,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:49:13.3780,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9377
+15:49:59.6677,I,35380,0020 KeepSession at 2026/02/13 15:50:00
+15:50:20.7230,I,35380,0018 Recv Event Type=101,Account=,Value=
+15:50:20.7230,I,35380,0018 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+15:50:20.7230,I,35380,0018 UpdateSymbolCache
+15:50:20.7230,I,35380,0018 UpdateExchangeCache
+15:50:20.7230,I,35380,0018 ClearCapMarginSellIppanCache
+15:50:20.7230,I,35380,0018 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+15:50:20.7230,I,35380,0018 Recv Event Type=205,Account=,Value=
+15:50:20.7230,I,35380,0018 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+15:50:20.7230,I,35380,0018 ClearSymbolInfoCache
+15:50:20.7230,I,35380,0018 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+15:50:23.8157,I,35380,0048 SymbolUpdated
+15:50:23.9350,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+15:50:24.0798,I,35380,0043 GetTickServiceUrl UseSecurePort=False
+15:51:45.4254,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:52:18.0948,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9420
+15:53:19.6770,I,35380,0006 KeepSession at 2026/02/13 15:53:20
+15:54:45.4270,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:55:24.3045,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9464
+15:56:12.0908,I,35380,0043 UpdateService.UpdateCheck : start
+15:56:39.6939,I,35380,0009 KeepSession at 2026/02/13 15:56:40
+15:57:45.4296,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:58:29.1486,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9532
+15:59:59.6956,I,35380,0018 KeepSession at 2026/02/13 16:00:00
+16:00:27.8878,I,35380,0031 Recv Event Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+16:00:27.8878,I,35380,0031 MasterManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+16:00:27.8878,I,35380,0031 OrderManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+16:00:27.8878,I,35380,0001 ピンポイントニュースの更新通知は行わない[1, 01396248, ]
+16:00:45.4315,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:01:42.7535,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9566
+16:03:19.7062,I,35380,0046 KeepSession at 2026/02/13 16:03:20
+16:03:45.4448,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:04:42.2525,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9592
+16:06:12.0994,I,35380,0043 UpdateService.UpdateCheck : start
+16:06:39.7147,I,35380,0019 KeepSession at 2026/02/13 16:06:40
+16:06:45.4511,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:07:46.0840,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9623
+16:08:27.9387,I,35380,0031 Recv Event Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+16:08:27.9387,I,35380,0031 MasterManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+16:08:27.9387,I,35380,0031 OrderManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+16:08:27.9387,I,35380,0001 ピンポイントニュースの更新通知は行わない[1, 01396248, ]
+16:09:45.4626,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:09:59.7109,I,35380,0018 KeepSession at 2026/02/13 16:10:00
+16:10:21.6258,I,35380,0006 Recv Event Type=101,Account=,Value=
+16:10:21.6258,I,35380,0006 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:10:21.6258,I,35380,0006 UpdateSymbolCache
+16:10:21.6258,I,35380,0006 UpdateExchangeCache
+16:10:21.6258,I,35380,0006 ClearCapMarginSellIppanCache
+16:10:21.6258,I,35380,0006 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:10:21.6258,I,35380,0006 Recv Event Type=205,Account=,Value=
+16:10:21.6258,I,35380,0006 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:10:21.6258,I,35380,0006 ClearSymbolInfoCache
+16:10:21.6258,I,35380,0006 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:10:24.9905,I,35380,0046 SymbolUpdated
+16:10:25.0970,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:10:25.2136,I,35380,0018 GetTickServiceUrl UseSecurePort=False
+16:10:46.7707,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9637
+16:12:45.4590,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:13:19.7238,I,35380,0048 KeepSession at 2026/02/13 16:13:20
+16:13:55.1910,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9674
+16:15:45.4745,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:16:12.1059,I,35380,0046 UpdateService.UpdateCheck : start
+16:16:39.7309,I,35380,0018 KeepSession at 2026/02/13 16:16:40
+16:17:02.6077,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9730
+16:18:45.4861,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:18:52.0340,I,35380,0018 Recv Event Type=101,Account=,Value=
+16:18:52.0340,I,35380,0018 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:18:52.0340,I,35380,0018 UpdateSymbolCache
+16:18:52.0340,I,35380,0018 UpdateExchangeCache
+16:18:52.0340,I,35380,0018 ClearCapMarginSellIppanCache
+16:18:52.0340,I,35380,0018 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:18:52.0340,I,35380,0018 Recv Event Type=205,Account=,Value=
+16:18:52.0340,I,35380,0018 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:18:52.0340,I,35380,0018 ClearSymbolInfoCache
+16:18:52.0340,I,35380,0018 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:18:55.4895,I,35380,0020 SymbolUpdated
+16:18:55.5923,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:18:55.7796,I,35380,0006 GetTickServiceUrl UseSecurePort=False
+16:19:59.7454,I,35380,0040 KeepSession at 2026/02/13 16:20:00
+16:20:07.2962,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9778
+16:21:45.4864,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:23:12.5403,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9784
+16:23:19.7540,I,35380,0020 KeepSession at 2026/02/13 16:23:20
+16:24:45.4897,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:25:22.3680,I,35380,0022 Recv Event Type=101,Account=,Value=
+16:25:22.3680,I,35380,0022 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:25:22.3680,I,35380,0022 UpdateSymbolCache
+16:25:22.3680,I,35380,0022 UpdateExchangeCache
+16:25:22.3680,I,35380,0022 ClearCapMarginSellIppanCache
+16:25:22.3680,I,35380,0022 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:25:22.3680,I,35380,0022 Recv Event Type=205,Account=,Value=
+16:25:22.3680,I,35380,0022 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:25:22.3680,I,35380,0022 ClearSymbolInfoCache
+16:25:22.3680,I,35380,0022 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:25:27.4382,I,35380,0040 SymbolUpdated
+16:25:27.5425,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:25:27.7267,I,35380,0022 GetTickServiceUrl UseSecurePort=False
+16:26:12.1084,I,35380,0022 UpdateService.UpdateCheck : start
+16:26:18.9399,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9785
+16:26:39.7591,I,35380,0046 KeepSession at 2026/02/13 16:26:40
+16:27:03.2299,W,35380,0016 CalcPriceの取得処理に5000msec以上経過しました。
+16:27:45.4958,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:29:19.9984,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9793
+16:29:59.7771,I,35380,0009 KeepSession at 2026/02/13 16:30:01
+16:30:45.5008,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:32:19.4907,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9797
+16:33:19.7874,I,35380,0040 KeepSession at 2026/02/13 16:33:21
+16:33:45.5151,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:35:14.5362,W,35380,0016 BoardData(3441@1)の取得処理に5000msec以上経過しました。
+16:35:22.1657,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9828
+16:36:12.1198,I,35380,0022 UpdateService.UpdateCheck : start
+16:36:39.7974,I,35380,0048 KeepSession at 2026/02/13 16:36:41
+16:36:45.5230,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:37:52.9525,I,35380,0022 Recv Event Type=101,Account=,Value=
+16:37:52.9525,I,35380,0022 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:37:52.9525,I,35380,0022 UpdateSymbolCache
+16:37:52.9525,I,35380,0022 UpdateExchangeCache
+16:37:52.9525,I,35380,0022 ClearCapMarginSellIppanCache
+16:37:52.9525,I,35380,0022 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:37:52.9525,I,35380,0022 Recv Event Type=205,Account=,Value=
+16:37:52.9525,I,35380,0022 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:37:52.9525,I,35380,0022 ClearSymbolInfoCache
+16:37:52.9525,I,35380,0022 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:37:55.9661,I,35380,0043 SymbolUpdated
+16:37:56.0700,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:37:56.2063,I,35380,0020 GetTickServiceUrl UseSecurePort=False
+16:38:25.3074,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9829
+16:39:45.5252,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:39:53.0642,I,35380,0022 Recv Event Type=101,Account=,Value=
+16:39:53.0642,I,35380,0022 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:39:53.0642,I,35380,0022 UpdateSymbolCache
+16:39:53.0642,I,35380,0022 UpdateExchangeCache
+16:39:53.0642,I,35380,0022 ClearCapMarginSellIppanCache
+16:39:53.0642,I,35380,0022 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:39:53.0642,I,35380,0022 Recv Event Type=205,Account=,Value=
+16:39:53.0642,I,35380,0022 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:39:53.0642,I,35380,0022 ClearSymbolInfoCache
+16:39:53.0642,I,35380,0022 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:39:56.1434,I,35380,0048 SymbolUpdated
+16:39:56.2713,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:39:56.4291,I,35380,0020 GetTickServiceUrl UseSecurePort=False
+16:39:59.8014,I,35380,0022 KeepSession at 2026/02/13 16:40:01
+16:40:23.0810,I,35380,0022 Recv Event Type=101,Account=,Value=
+16:40:23.0810,I,35380,0022 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:40:23.0810,I,35380,0022 UpdateSymbolCache
+16:40:23.0810,I,35380,0022 UpdateExchangeCache
+16:40:23.0810,I,35380,0022 ClearCapMarginSellIppanCache
+16:40:23.0810,I,35380,0022 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:40:23.0810,I,35380,0022 Recv Event Type=205,Account=,Value=
+16:40:23.0810,I,35380,0022 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:40:23.0810,I,35380,0022 ClearSymbolInfoCache
+16:40:23.0810,I,35380,0022 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:40:26.5588,I,35380,0046 SymbolUpdated
+16:40:26.6730,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:40:26.8728,I,35380,0009 GetTickServiceUrl UseSecurePort=False
+16:40:53.1087,I,35380,0043 Recv Event Type=101,Account=,Value=
+16:40:53.1087,I,35380,0043 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:40:53.1087,I,35380,0043 UpdateSymbolCache
+16:40:53.1087,I,35380,0043 UpdateExchangeCache
+16:40:53.1087,I,35380,0043 ClearCapMarginSellIppanCache
+16:40:53.1087,I,35380,0043 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:40:53.1087,I,35380,0043 Recv Event Type=205,Account=,Value=
+16:40:53.1087,I,35380,0043 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:40:53.1087,I,35380,0043 ClearSymbolInfoCache
+16:40:53.1087,I,35380,0043 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:40:56.1561,I,35380,0020 SymbolUpdated
+16:40:56.2803,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:40:56.4185,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+16:41:29.2278,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9830
+16:42:45.5166,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:43:19.8048,I,35380,0018 KeepSession at 2026/02/13 16:43:21
+16:43:53.2592,I,35380,0018 Recv Event Type=102,Account=,Value=
+16:43:53.2592,I,35380,0018 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:43:53.2632,I,35380,0018 UpdateSymbolCompliance
+16:43:53.2632,I,35380,0018 SymbolCompliance Cache Clear, Count=0
+16:43:53.2632,I,35380,0018 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:44:29.7690,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9832
+16:44:53.3182,I,35380,0018 Recv Event Type=102,Account=,Value=
+16:44:53.3182,I,35380,0018 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:44:53.3182,I,35380,0018 UpdateSymbolCompliance
+16:44:53.3182,I,35380,0018 SymbolCompliance Cache Clear, Count=0
+16:44:53.3182,I,35380,0018 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:45:45.5280,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:45:53.3735,I,35380,0018 Recv Event Type=102,Account=,Value=
+16:45:53.3735,I,35380,0018 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:45:53.3735,I,35380,0018 UpdateSymbolCompliance
+16:45:53.3735,I,35380,0018 SymbolCompliance Cache Clear, Count=0
+16:45:53.3735,I,35380,0018 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:45:53.3735,I,35380,0018 Recv Event Type=202,Account=,Value=
+16:45:53.3735,I,35380,0018 MasterManager Recv NotifyEvent = Type=202,Account=,Value=
+16:45:53.3735,I,35380,0018 OrderManager Recv NotifyEvent = Type=202,Account=,Value=
+16:45:53.3735,I,35380,0018 ClearWallet
+16:46:12.1357,I,35380,0043 UpdateService.UpdateCheck : start
+16:46:39.8236,I,35380,0043 KeepSession at 2026/02/13 16:46:41
+16:46:53.4283,I,35380,0043 Recv Event Type=102,Account=,Value=
+16:46:53.4283,I,35380,0043 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:46:53.4283,I,35380,0043 UpdateSymbolCompliance
+16:46:53.4283,I,35380,0043 SymbolCompliance Cache Clear, Count=0
+16:46:53.4283,I,35380,0043 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:47:27.0482,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9834
+16:47:53.4718,I,35380,0018 Recv Event Type=102,Account=,Value=
+16:47:53.4718,I,35380,0018 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:47:53.4718,I,35380,0018 UpdateSymbolCompliance
+16:47:53.4718,I,35380,0018 SymbolCompliance Cache Clear, Count=0
+16:47:53.4718,I,35380,0018 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:48:45.5406,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:48:53.5138,I,35380,0009 Recv Event Type=102,Account=,Value=
+16:48:53.5138,I,35380,0009 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:48:53.5138,I,35380,0009 UpdateSymbolCompliance
+16:48:53.5138,I,35380,0009 SymbolCompliance Cache Clear, Count=0
+16:48:53.5138,I,35380,0009 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:49:53.5660,I,35380,0020 Recv Event Type=102,Account=,Value=
+16:49:53.5660,I,35380,0020 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:49:53.5660,I,35380,0020 UpdateSymbolCompliance
+16:49:53.5660,I,35380,0020 SymbolCompliance Cache Clear, Count=0
+16:49:53.5660,I,35380,0020 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:49:59.8317,I,35380,0046 KeepSession at 2026/02/13 16:50:01
+16:50:28.5470,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9836
+16:50:53.5988,I,35380,0019 Recv Event Type=102,Account=,Value=
+16:50:53.5988,I,35380,0019 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:50:53.5988,I,35380,0019 UpdateSymbolCompliance
+16:50:53.5988,I,35380,0019 SymbolCompliance Cache Clear, Count=0
+16:50:53.5988,I,35380,0019 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:51:45.5472,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:51:53.6452,I,35380,0043 Recv Event Type=102,Account=,Value=
+16:51:53.6452,I,35380,0043 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:51:53.6452,I,35380,0043 UpdateSymbolCompliance
+16:51:53.6452,I,35380,0043 SymbolCompliance Cache Clear, Count=0
+16:51:53.6452,I,35380,0043 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:52:53.7037,I,35380,0018 Recv Event Type=102,Account=,Value=
+16:52:53.7037,I,35380,0018 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:52:53.7037,I,35380,0018 UpdateSymbolCompliance
+16:52:53.7037,I,35380,0018 SymbolCompliance Cache Clear, Count=0
+16:52:53.7037,I,35380,0018 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:53:19.8303,I,35380,0048 KeepSession at 2026/02/13 16:53:21
+16:53:27.6403,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9839
+16:53:53.7441,I,35380,0048 Recv Event Type=102,Account=,Value=
+16:53:53.7441,I,35380,0048 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:53:53.7441,I,35380,0048 UpdateSymbolCompliance
+16:53:53.7441,I,35380,0048 SymbolCompliance Cache Clear, Count=0
+16:53:53.7441,I,35380,0048 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:54:45.5641,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:54:53.8160,I,35380,0048 Recv Event Type=102,Account=,Value=
+16:54:53.8160,I,35380,0048 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+16:54:53.8160,I,35380,0048 UpdateSymbolCompliance
+16:54:53.8160,I,35380,0048 SymbolCompliance Cache Clear, Count=0
+16:54:53.8160,I,35380,0048 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+16:55:23.8336,I,35380,0046 Recv Event Type=101,Account=,Value=
+16:55:23.8336,I,35380,0046 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+16:55:23.8336,I,35380,0046 UpdateSymbolCache
+16:55:23.8336,I,35380,0046 UpdateExchangeCache
+16:55:23.8336,I,35380,0046 ClearCapMarginSellIppanCache
+16:55:23.8336,I,35380,0046 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+16:55:23.8336,I,35380,0046 Recv Event Type=205,Account=,Value=
+16:55:23.8336,I,35380,0046 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+16:55:23.8336,I,35380,0046 ClearSymbolInfoCache
+16:55:23.8336,I,35380,0046 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+16:55:27.3045,I,35380,0019 SymbolUpdated
+16:55:27.4181,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+16:55:27.5750,I,35380,0020 GetTickServiceUrl UseSecurePort=False
+16:56:12.1391,I,35380,0018 UpdateService.UpdateCheck : start
+16:56:28.8616,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9840
+16:56:39.8307,I,35380,0048 KeepSession at 2026/02/13 16:56:41
+16:57:45.5779,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+16:59:29.4035,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9841
+16:59:59.8383,I,35380,0048 KeepSession at 2026/02/13 17:00:01
+17:00:45.5931,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+17:03:19.8442,I,35380,0020 KeepSession at 2026/02/13 17:03:21
+17:03:45.6066,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+17:04:24.8638,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9858
+17:05:28.4519,I,35380,0031 Recv Event Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+17:05:28.4519,I,35380,0031 MasterManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+17:05:28.4519,I,35380,0031 OrderManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+17:05:28.4529,I,35380,0001 ピンポイントニュースの更新通知は行わない[1, 01396248, ]
+17:06:12.1436,I,35380,0019 UpdateService.UpdateCheck : start
+17:06:39.8572,I,35380,0043 KeepSession at 2026/02/13 17:06:41
+17:06:45.6090,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+17:07:31.1852,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9860
+17:09:45.6177,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+17:09:59.8699,I,35380,0018 KeepSession at 2026/02/13 17:10:01
+17:10:23.6822,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9861
+17:12:45.6259,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+17:13:19.8718,I,35380,0022 KeepSession at 2026/02/13 17:13:21
+17:13:24.9997,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9864
+17:15:24.7974,I,35380,0043 Recv Event Type=101,Account=,Value=
+17:15:24.7974,I,35380,0043 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+17:15:24.7974,I,35380,0043 UpdateSymbolCache
+17:15:24.7974,I,35380,0043 UpdateExchangeCache
+17:15:24.7974,I,35380,0043 ClearCapMarginSellIppanCache
+17:15:24.7974,I,35380,0043 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+17:15:24.7974,I,35380,0043 Recv Event Type=205,Account=,Value=
+17:15:24.7974,I,35380,0043 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+17:15:24.7974,I,35380,0043 ClearSymbolInfoCache
+17:15:24.7974,I,35380,0043 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+17:15:28.4751,I,35380,0020 SymbolUpdated
+17:15:28.6179,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+17:15:28.9225,I,35380,0043 GetTickServiceUrl UseSecurePort=False
+17:15:45.6335,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+17:16:03.9083,I,35380,0016 ワンショットチェック : 1332/SOR/ニッスイ/1 : amount=200, qty=
+17:16:03.9083,I,35380,0016 KabuSApiManager.PreRelationCheck=CHECK_OK
+17:16:03.9083,I,35380,0016 発注パラメータ：[現物] 成行
+17:16:03.9083,I,35380,0016 OrderManager.Order Start:OrderParam: Account=01396248,CheckMode=1,Symbol=1332,Exchange=9,SecurityType=1,Side=2,CashMargin=1,MarginTradeType=0,OrderCapacity=,Price=0,Qty=100,OrdType=1,AdjustPrice=False,SellingShot=DelivType=2,FundType=AA,AccountType=4,EffectiveDay=20260216,ExpireDay=20260216,Trigger=[],OrderReferenceCommand=[],ClosePositions=[],PriceType=0,TimeInForce=0,ExpireSession=0,Password=xxx,FrontInfo=FrontInfo=[Key=FrontChannelID/Value=240,Key=Trader/Value=000000A7,Key=Channel/Value=0,Key=ClientCode/Value=192.168.100.17,Key=Branch/Value=000,],UsePoint=0,SettCurrency=,Strategy=,IsMultiTraderCloseOrder=False
+17:16:04.0684,I,35380,0016 OrderManager.OrderAuth0 End  :Result=0,ID=20260213A01N40929452,ClOrdID=202602130AF1OI000307,Detail=20260213B01N40929453,ResultMessage=[Key=KC_CommissionTable/Value=141,Key=KC_Consideration/Value=193800,Key=KC_Commission/Value=105,Key=KC_CommissionTax/Value=10,Key=KC_DeliveryPrice/Value=193915,]
+17:16:04.0684,I,35380,0016 OrderResult.MultiCloseOrderResults  :
+17:16:04.0684,I,35380,0016 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+17:16:04.0684,I,35380,0016 発注結果 : Result=0,ID=20260213A01N40929452,ClOrdID=202602130AF1OI000307,Detail=20260213B01N40929453,ResultMessage=[Key=KC_CommissionTable/Value=141,Key=KC_Consideration/Value=193800,Key=KC_Commission/Value=105,Key=KC_CommissionTax/Value=10,Key=KC_DeliveryPrice/Value=193915,]
+17:16:12.1603,I,35380,0048 UpdateService.UpdateCheck : start
+17:16:28.4999,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9865
+17:16:29.9631,I,35380,0016 ワンショットチェック : 1332/SOR/ニッスイ/1 : amount=200, qty=
+17:16:29.9631,I,35380,0016 KabuSApiManager.PreRelationCheck=CHECK_OK
+17:16:29.9799,I,35380,0016 発注パラメータ：[新規] 成行
+17:16:29.9799,I,35380,0016 OrderManager.Order Start:OrderParam: Account=01396248,CheckMode=1,Symbol=1332,Exchange=9,SecurityType=1,Side=1,CashMargin=2,MarginTradeType=3,OrderCapacity=,Price=0,Qty=100,OrdType=1,AdjustPrice=False,SellingShot=DelivType=0,FundType=11,AccountType=4,EffectiveDay=20260216,ExpireDay=20260216,Trigger=[],OrderReferenceCommand=[],ClosePositions=[],PriceType=0,TimeInForce=0,ExpireSession=0,Password=xxx,FrontInfo=FrontInfo=[Key=FrontChannelID/Value=240,Key=MarginPremium/Value=0,Key=Trader/Value=000000A7,Key=Channel/Value=0,Key=ClientCode/Value=192.168.100.17,Key=Branch/Value=000,],UsePoint=0,SettCurrency=,Strategy=,IsMultiTraderCloseOrder=False
+17:16:30.0738,I,35380,0016 OrderManager.OrderAuth0 End  :Result=100264,ID=,ClOrdID=,Detail=,ResultMessage=[Key=KC_CommissionTable/Value=1100,]
+17:16:30.0738,I,35380,0016 OrderResult.MultiCloseOrderResults  :
+17:16:30.0738,I,35380,0016 発注結果 : Result=100264,ID=,ClOrdID=,Detail=,ResultMessage=[Key=KC_CommissionTable/Value=1100,]
+17:16:39.8760,I,35380,0020 KeepSession at 2026/02/13 17:16:41
+17:17:09.6605,I,35380,0025 Recv DistributeMessage = [ID=20260213B01N40929453,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+17:17:09.6615,I,35380,0005 OrderDetail.ID=20260213B01N40929453 UpdTime=02/13/2026 17:17:10
+17:17:09.6615,I,35380,0005 UpdateOrderAndDetail Order.ID=20260213A01N40929452
