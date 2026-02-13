@@ -72,13 +72,13 @@ QLabel#statusBadge[variant="danger"] {{
 QGroupBox {{
   background: {CARD};
   border: 1px solid {BORDER};
-  border-radius: 14px;
-  margin-top: 18px;
-  padding: 20px;
+  border-radius: 12px;
+  margin-top: 16px;
+  padding: 18px;
 }}
 QGroupBox::title {{
   subcontrol-origin: margin;
-  left: 16px;
+  left: 14px;
   top: -12px;
   padding: 0 10px;
   background: {BG};
@@ -87,36 +87,36 @@ QGroupBox::title {{
 }}
 
 /* ===== Inputs ===== */
-QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QPlainTextEdit, QTextEdit {{
+QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QPlainTextEdit, QTextEdit, QDateTimeEdit {{
   background: {FIELD_BG};
   border: 1px solid {BORDER};
   border-radius: 10px;
-  padding: 8px 12px;
-  min-height: 40px;
+  padding: 6px 10px;
+  min-height: 36px;
   selection-background-color: {ACCENT};
 }}
-QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus, QPlainTextEdit:focus, QTextEdit:focus {{
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus, QPlainTextEdit:focus, QTextEdit:focus, QDateTimeEdit:focus {{
   border: 1px solid {ACCENT};
   background: {BG};
 }}
 QComboBox {{
-  padding-right: 26px; /* room for arrow */
+  padding-right: 26px;
 }}
 QComboBox::drop-down {{
   border: none;
   width: 24px;
 }}
 QComboBox::down-arrow {{
-  image: none; /* keep minimal; platform arrow */
+  image: none;
 }}
 
 QCheckBox {{
   spacing: 8px;
 }}
 QCheckBox::indicator {{
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
   border: 1px solid {BORDER};
   background: {BG};
 }}
@@ -127,12 +127,11 @@ QCheckBox::indicator:checked {{
 
 /* ===== Buttons ===== */
 QPushButton {{
-  border-radius: 12px;
-  padding: 10px 16px;
-  min-height: 42px;
+  min-height: 36px;
   border: 1px solid {BORDER};
-  border-radius: 14px;
-  padding: 8px;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-weight: 600;
 }}
 QPushButton:hover {{
   background: #F3F4F6;
@@ -158,7 +157,7 @@ QPushButton#danger {{
   font-weight: 700;
 }}
 QPushButton:disabled {{
-  opacity: 0.5;
+  color: #9CA3AF;
 }}
 
 /* ===== Table ===== */
@@ -185,16 +184,18 @@ QTableWidget::item:selected {{
 
 /* ===== Order list ===== */
 QListWidget#orderList {{
-  background: {BG};
+  background: #FCFCFD;
   border: 1px solid {BORDER};
   border-radius: 12px;
-  padding: 4px;
+  padding: 8px;
 }}
 QListWidget::item {{
   border: none;
+  margin: 0 0 8px 0;
 }}
+QListWidget
 QListWidget::item:selected {{
-  background: rgba(37, 99, 235, 0.08);
+  background: transparent;
 }}
 QWidget#orderRow {{
   background: {CARD};
@@ -207,7 +208,7 @@ QLabel#status {{
   background: {FIELD_BG};
   border: 1px solid {BORDER};
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   color: {MUTED};
 }}
 /* ===== Top nav card ===== */
@@ -222,11 +223,12 @@ QToolButton#navBtn {{
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
-  padding: 12px 14px;
-  min-height: 68px;
-  min-width: 84px;
-  max-width: 84px;
+  padding: 10px 12px;
+  min-height: 64px;
+  min-width: 90px;
+  max-width: 90px;
   font-weight: 700;
+  qproperty-toolButtonStyle: ToolButtonTextUnderIcon;
 }}
 QToolButton#navBtn:hover {{
   background: #F9FAFB;
@@ -236,10 +238,6 @@ QToolButton#navBtn[active="true"] {{
   background: rgba(37, 99, 235, 0.08);
 }}
 
-/* icon above text */
-QToolButton#navBtn {{
-  qproperty-toolButtonStyle: ToolButtonTextUnderIcon;
-}}
 
 QFrame#statusCard {{
   background: #FFFFFF;

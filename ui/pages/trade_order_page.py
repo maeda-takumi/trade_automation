@@ -25,28 +25,29 @@ class TradeOrderPage(QWidget):
     def _build_order_group(self) -> QGroupBox:
         g = QGroupBox("注文設定")
         v = QVBoxLayout(g)
-        v.setContentsMargins(12, 16, 12, 12)
-        v.setSpacing(16)
+        v.setContentsMargins(14, 18, 14, 12)
+        v.setSpacing(14)
 
-        self.order_header = self._build_order_header()
-        v.addWidget(self.order_header)
-
-        self.orders_list = QListWidget()
-        self.orders_list.setObjectName("orderList")
-        self.orders_list.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        v.addWidget(self.orders_list)
+        lead = QLabel("1行ずつ条件を設定して、最後に右下の『送信』でまとめて登録します。")
+        lead.setObjectName("muted")
+        v.addWidget(lead)
 
         row_tools = QHBoxLayout()
         row_tools.setSpacing(10)
-        self.btn_add_row = QPushButton("行追加")
-        self.btn_remove_row = QPushButton("選択行削除")
+        self.btn_add_row = QPushButton("＋ 行追加")
+        self.btn_remove_row = QPushButton("選択行を削除")
         row_tools.addWidget(self.btn_add_row)
         row_tools.addWidget(self.btn_remove_row)
         row_tools.addStretch(1)
         v.addLayout(row_tools)
 
+        self.orders_list = QListWidget()
+        self.orders_list.setObjectName("orderList")
+        self.orders_list.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        v.addWidget(self.orders_list, 1)
+
         run_row = QHBoxLayout()
-        run_row.setSpacing(14)
+        run_row.setSpacing(12)
         self.order_run_mode = QComboBox()
         self.order_run_mode.addItem("即時実行", "immediate")
         self.order_run_mode.addItem("予約実行", "scheduled")
@@ -61,8 +62,9 @@ class TradeOrderPage(QWidget):
         run_row.addStretch(1)
         v.addLayout(run_row)
 
-        hint = QLabel("行追加で複数注文に対応。損切/利確は差額入力（符号は内部で自動付与）")
+        hint = QLabel("損切/利確は差額入力です（買い: 利確＋/損切−、売り: 利確−/損切＋ を自動計算）。")
         hint.setObjectName("muted")
+        hint.setWordWrap(True)
         v.addWidget(hint)
 
         self.order_error_label = QLabel("")
@@ -72,13 +74,14 @@ class TradeOrderPage(QWidget):
 
         tool = QHBoxLayout()
         tool.setSpacing(12)
-        self.btn_clear = QPushButton("クリア")
+        self.btn_clear = QPushButton("入力をクリア")
         self.btn_clear.setObjectName("danger")
         tool.addWidget(self.btn_clear)
         tool.addStretch(1)
 
-        self.btn_submit = QPushButton("送信（DB保存）")
+        self.btn_submit = QPushButton("注文を送信（DB保存）")
         self.btn_submit.setObjectName("primary")
+        self.btn_submit.setMinimumWidth(220)
         tool.addWidget(self.btn_submit)
         v.addLayout(tool)
 
@@ -91,42 +94,14 @@ class TradeOrderPage(QWidget):
         row = QWidget()
         layout = QHBoxLayout(row)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(12)
+        layout.setSpacing(10)
         label = QLabel(label_text)
-        label.setMinimumWidth(140)
+        label.setMinimumWidth(80)
+        label.setObjectName("muted")
         layout.addWidget(label)
         layout.addWidget(widget, 1)
         return row
 
-    def _build_order_header(self) -> QWidget:
-        header = QWidget()
-        layout = QHBoxLayout(header)
-        layout.setContentsMargins(6, 0, 6, 0)
-        layout.setSpacing(8)
-
-        spacer = QLabel("")
-        spacer.setFixedWidth(24)
-        layout.addWidget(spacer)
-
-        def add_label(text: str, width: int | None = None, stretch: int = 0):
-            label = QLabel(text)
-            label.setObjectName("muted")
-            if width is not None:
-                label.setFixedWidth(width)
-            layout.addWidget(label, stretch)
-
-        add_label("銘柄コード", stretch=1)
-        add_label("銘柄名", width=200)
-        add_label("現在値", width=120)
-        add_label("信用/現物", width=90)
-        add_label("市場", width=110)
-        add_label("売買", width=70)
-        add_label("数量", width=90)
-        add_label("成行/指値", width=90)
-        add_label("指値価格", width=110)
-        add_label("損切差額", width=110)
-        add_label("利確差額", width=110)
-        return header
 
     def wire_events(self, request_clear_orders, request_submit_orders):
         self.btn_clear.clicked.connect(request_clear_orders)
