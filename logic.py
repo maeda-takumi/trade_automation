@@ -829,8 +829,16 @@ class AppLogic(QObject):
             err_payload = self._parse_error_json(body)
             err_code = (err_payload or {}).get("Code") or (err_payload or {}).get("code")
             current_exchange = payload.get("Exchange")
-            if str(err_code) == "4001005" and current_exchange == 1:
-                for retry_exchange in (9, 27):
+            retry_candidates_by_exchange = {
+                1: (9, 27),
+                9: (27, 1),
+                27: (9, 1),
+            }
+            retry_exchanges = retry_candidates_by_exchange.get(current_exchange, (1, 9, 27))
+            retry_exchanges = tuple(exchange for exchange in retry_exchanges if exchange != current_exchange)
+
+            if str(err_code) == "4001005" and retry_exchanges:
+                for retry_exchange in retry_exchanges:
                     retry_payload = dict(payload)
                     retry_payload["Exchange"] = retry_exchange
                     try:
@@ -838,7 +846,7 @@ class AppLogic(QObject):
                         break
                     except urllib.error.HTTPError as retry_error:
                         retry_body = self._read_http_error_body(retry_error)
-                        if retry_exchange == 27:
+                        if retry_exchange == retry_exchanges[-1]:
                             raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', retry_error, retry_body)} / payload={payload_ctx}") from retry_error
                 else:
                     raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', e, body)} / payload={payload_ctx}") from e
@@ -887,8 +895,8 @@ class AppLogic(QObject):
         if item["product"] == "cash":
             payload["CashMargin"] = 1
             # 現物決済では売買方向に応じて受渡区分を切り替える
-            # 買い建玉の決済（売り）は DelivType=0、売り建玉の決済（買い）は DelivType=2
-            payload["DelivType"] = 0 if close_side == "sell" else 2
+            # 買い建玉の決済（売り）は DelivType=2、売り建玉の決済（買い）は DelivType=0
+            payload["DelivType"] = 2 if close_side == "sell" else 0
             payload["FundType"] = "AA"
         else:
             payload["CashMargin"] = 3
