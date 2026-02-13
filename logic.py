@@ -36,6 +36,7 @@ class AppLogic(QObject):
         self._last_api_token_error_detail: Optional[str] = None
         self._worker_timer: Optional[QTimer] = None
         self._worker_busy = False
+        self._notified_error_keys: set[str] = set()
         self._init_db()
 
     @staticmethod
@@ -725,6 +726,7 @@ class AppLogic(QObject):
             self._eod_step()
             self._finalize_jobs_step()
             self._refresh_execution_status_ui()
+            self._notify_new_item_errors()
         except Exception as e:
             self.window.status_label.setText(f"監視ループでエラー: {e}")
         finally:
@@ -813,6 +815,11 @@ class AppLogic(QObject):
                 tp_status = self._render_order_status(row["tp_order_status"], fallback_waiting="NEW")
                 sl_status = self._render_order_status(row["sl_order_status"], fallback_waiting="NEW")
 
+            if item_status == "ERROR":
+                entry_status = "ERROR"
+                tp_status = "ERROR"
+                sl_status = "ERROR"
+                
             cards.append({
                 "id": row["id"],
                 "symbol": row["symbol"],
@@ -849,6 +856,53 @@ class AppLogic(QObject):
 
         self.window.set_open_order_cards(cards)
 
+    def _notify_new_item_errors(self) -> None:
+        with self._conn() as conn:
+            rows = conn.execute(
+                """
+                SELECT bi.id,
+                       bi.symbol,
+                       bi.last_error,
+                       bi.updated_at,
+                       bj.id AS batch_job_id,
+                       bj.status AS batch_status
+                FROM batch_items bi
+                JOIN batch_jobs bj ON bj.id = bi.batch_job_id
+                WHERE bi.status='ERROR'
+                  AND COALESCE(TRIM(bi.last_error), '') != ''
+                ORDER BY bi.updated_at DESC, bi.id DESC
+                LIMIT 20
+                """
+            ).fetchall()
+
+        fresh_rows: list[sqlite3.Row] = []
+        active_keys: set[str] = set()
+        for row in rows:
+            key = f"{int(row['id'])}:{row['updated_at']}"
+            active_keys.add(key)
+            if key in self._notified_error_keys:
+                continue
+            fresh_rows.append(row)
+            self._notified_error_keys.add(key)
+
+        if self._notified_error_keys:
+            self._notified_error_keys.intersection_update(active_keys)
+
+        if not fresh_rows:
+            return
+
+        lines = []
+        for row in fresh_rows[:3]:
+            lines.append(
+                f"・注文#{int(row['id'])} ({row['symbol']}) / バッチ#{int(row['batch_job_id'])} [{row['batch_status']}]: {str(row['last_error']).splitlines()[0]}"
+            )
+        remaining = len(fresh_rows) - len(lines)
+        if remaining > 0:
+            lines.append(f"…ほか {remaining} 件")
+
+        message = "注文処理でエラーが発生し、該当注文は中断されました。\n" + "\n".join(lines)
+        self.window.toast("注文処理エラー", message, error=True)
+        
     def _scheduler_step(self):
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with self._conn() as conn:
