@@ -565,7 +565,7 @@ class AppLogic(QObject):
             payload = self._build_exit_payload(item, "market", remaining, None, None, item["hold_id"])
             with self._conn() as conn:
                 self._log_payload_debug(int(item["batch_job_id"]), "MANUAL_CLOSE_PAYLOAD", payload, conn)
-            order_id = self._api_post_order(api, payload)
+            order_id, _ = self._api_post_order(api, payload)
         except Exception as e:
             with self._conn() as conn:
                 conn.execute(
@@ -879,11 +879,13 @@ class AppLogic(QObject):
                 conn.execute("UPDATE batch_jobs SET status='RUNNING', updated_at=datetime('now','+9 hours') WHERE id=?", (row["id"],))
                 self._log_event(int(row["id"]), "INFO", "IMMEDIATE_TRIGGERED", "即時実行バッチを開始", conn=conn)
 
-    def _api_post_order(self, api: ApiAccount, payload: dict) -> str:
+    def _api_post_order(self, api: ApiAccount, payload: dict) -> tuple[str, int]:
         token = self._get_api_token(api)
         if not token:
             raise RuntimeError(self._build_last_token_error_message("APIトークン取得に失敗"))
         base_url = self._normalize_base_url(api.base_url)
+        requested_exchange = self._normalize_exchange(payload.get("Exchange"))
+        resolved_exchange = requested_exchange
         try:
             data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=payload)
         except urllib.error.HTTPError as e:
@@ -906,6 +908,7 @@ class AppLogic(QObject):
                     retry_payload["Exchange"] = retry_exchange
                     try:
                         data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=retry_payload)
+                        resolved_exchange = self._normalize_exchange(retry_exchange)
                         break
                     except urllib.error.HTTPError as retry_error:
                         retry_body = self._read_http_error_body(retry_error)
@@ -918,7 +921,7 @@ class AppLogic(QObject):
         order_id = data.get("OrderId") or data.get("OrderID")
         if not order_id:
             raise RuntimeError(f"注文IDが返却されませんでした: {data}")
-        return str(order_id)
+        return str(order_id), resolved_exchange
 
     @staticmethod
     def _side_to_kabu(side: str) -> str:
@@ -985,6 +988,21 @@ class AppLogic(QObject):
                 "AfterHitPrice": 0,
             }
         return payload
+    
+    @staticmethod
+    def _validate_oco_prices(side: str, avg: float, tp_abs: float, sl_abs: float) -> Optional[str]:
+        if tp_abs <= 0 or sl_abs <= 0:
+            return f"TP/SL価格が不正です: tp={tp_abs}, sl={sl_abs}"
+        if side == "buy":
+            if not (tp_abs > avg and sl_abs < avg):
+                return f"買い注文のTP/SL方向が不正です: avg={avg}, tp={tp_abs}, sl={sl_abs}"
+        elif side == "sell":
+            if not (tp_abs < avg and sl_abs > avg):
+                return f"売り注文のTP/SL方向が不正です: avg={avg}, tp={tp_abs}, sl={sl_abs}"
+        else:
+            return f"売買方向が不正です: side={side}"
+        return None
+    
     @staticmethod
     def _payload_error_context(payload: dict) -> str:
         context = {
@@ -1093,7 +1111,7 @@ class AppLogic(QObject):
                 payload = self._build_entry_payload(item)
                 with self._conn() as conn:
                     self._log_payload_debug(int(item["batch_job_id"]), "ENTRY_PAYLOAD", payload, conn)
-                order_id = self._api_post_order(api, payload)
+                order_id, resolved_exchange = self._api_post_order(api, payload)
             except Exception as e:
                 with self._conn() as conn:
                     conn.execute(
@@ -1113,17 +1131,17 @@ class AppLogic(QObject):
                 conn.execute(
                     """
                     UPDATE batch_items
-                    SET status='ENTRY_SENT', entry_order_id=?, updated_at=datetime('now','+9 hours')
+                    SET status='ENTRY_SENT', entry_order_id=?, exchange=?, updated_at=datetime('now','+9 hours')
                     WHERE id=?
                     """,
-                    (order_id, item["id"]),
+                    (order_id, resolved_exchange, item["id"]),
                 )
                 self._record_order(conn, int(item["id"]), "entry", order_id, item["side"], int(item["qty"]), item["entry_type"], item["entry_price"])
                 self._log_event(
                     int(item["batch_job_id"]),
                     "INFO",
                     "ENTRY_SENT",
-                    f"item={item['id']} order_id={order_id}",
+                    f"item={item['id']} order_id={order_id} exchange={resolved_exchange}",
                     conn=conn,
                 )
 
@@ -1264,8 +1282,22 @@ class AppLogic(QObject):
         for item in rows:
             if item["product"] == "margin" and not item["hold_id"]:
                 continue
-            qty = int(item["entry_filled_qty"] or item["qty"])
+            filled_qty = int(item["entry_filled_qty"] or 0)
+            closed_qty = int(item["closed_qty"] or 0)
+            qty = max(filled_qty - closed_qty, 0)
             if qty <= 0:
+                with self._conn() as conn:
+                    conn.execute(
+                        "UPDATE batch_items SET status='CLOSED', updated_at=datetime('now','+9 hours') WHERE id=?",
+                        (item["id"],),
+                    )
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "INFO",
+                        "OCO_NO_REMAINING",
+                        f"item={item['id']} filled={filled_qty} closed={closed_qty}",
+                        conn=conn,
+                    )
                 continue
             avg = float(item["entry_avg_price"] or item["entry_price"] or 0)
             if avg <= 0:
@@ -1284,15 +1316,32 @@ class AppLogic(QObject):
                 continue
             tp_abs = avg + float(item["tp_price"])
             sl_abs = avg + float(item["sl_trigger_price"])
+            price_error = self._validate_oco_prices(str(item["side"]), avg, tp_abs, sl_abs)
+            if price_error:
+                with self._conn() as conn:
+                    conn.execute(
+                        "UPDATE batch_items SET status='ERROR', last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                        (price_error, item["id"]),
+                    )
+                    self._log_event(
+                        int(item["batch_job_id"]),
+                        "ERROR",
+                        "OCO_PRICE_INVALID",
+                        f"item={item['id']} err={price_error}",
+                        conn=conn,
+                    )
+                continue
             try:
                 tp_payload = self._build_exit_payload(item, "limit", qty, tp_abs, None, item["hold_id"])
                 with self._conn() as conn:
                     self._log_payload_debug(int(item["batch_job_id"]), "TP_PAYLOAD", tp_payload, conn)
-                tp_order_id = self._api_post_order(api, tp_payload)
+                tp_order_id, tp_exchange = self._api_post_order(api, tp_payload)
                 sl_payload = self._build_exit_payload(item, "stop", qty, None, sl_abs, item["hold_id"])
                 with self._conn() as conn:
-                    self._log_payload_debug(int(item["batch_job_id"]), "SL_PAYLOAD", sl_payload, conn)
-                sl_order_id = self._api_post_order(api, sl_payload)
+                    tp_order_id, tp_exchange = self._api_post_order(api, tp_payload)
+                sl_order_id, sl_exchange = self._api_post_order(api, sl_payload)
+                if tp_exchange != sl_exchange:
+                    raise RuntimeError(f"TP/SLの市場コードが不一致です: tp={tp_exchange}, sl={sl_exchange}")
             except Exception as e:
                 with self._conn() as conn:
                     conn.execute(
@@ -1312,10 +1361,10 @@ class AppLogic(QObject):
                 conn.execute(
                     """
                     UPDATE batch_items
-                    SET status='BRACKET_SENT', tp_order_id=?, sl_order_id=?, updated_at=datetime('now','+9 hours')
+                    SET status='BRACKET_SENT', tp_order_id=?, sl_order_id=?, exchange=?, updated_at=datetime('now','+9 hours')
                     WHERE id=?
                     """,
-                    (tp_order_id, sl_order_id, item["id"]),
+                    (tp_order_id, sl_order_id, tp_exchange, item["id"]),
                 )
                 close_side = "sell" if item["side"] == "buy" else "buy"
                 self._record_order(conn, int(item["id"]), "tp", tp_order_id, close_side, qty, "limit", tp_abs, None, item["hold_id"])
@@ -1324,7 +1373,7 @@ class AppLogic(QObject):
                     int(item["batch_job_id"]),
                     "INFO",
                     "OCO_SENT",
-                    f"item={item['id']} tp={tp_order_id} sl={sl_order_id}",
+                    f"item={item['id']} tp={tp_order_id} sl={sl_order_id} qty={qty} exchange_tp={tp_exchange} exchange_sl={sl_exchange}",
                     conn=conn,
                 )
 
@@ -1407,7 +1456,7 @@ class AppLogic(QObject):
                 payload = self._build_exit_payload(item, "market", remaining, None, None, item["hold_id"])
                 with self._conn() as conn:
                     self._log_payload_debug(int(item["batch_job_id"]), "EOD_PAYLOAD", payload, conn)
-                eod_order_id = self._api_post_order(api, payload)
+                eod_order_id, _ = self._api_post_order(api, payload)
             except Exception as e:
                 with self._conn() as conn:
                     conn.execute("UPDATE batch_items SET status='ERROR', last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?", (str(e), item["id"]))
