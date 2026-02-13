@@ -25,6 +25,8 @@ class TradeOrderPage(QWidget):
     def _build_order_group(self) -> QGroupBox:
         g = QGroupBox("注文設定")
         v = QVBoxLayout(g)
+        v.setContentsMargins(12, 16, 12, 12)
+        v.setSpacing(16)
 
         self.order_header = self._build_order_header()
         v.addWidget(self.order_header)
@@ -35,6 +37,7 @@ class TradeOrderPage(QWidget):
         v.addWidget(self.orders_list)
 
         row_tools = QHBoxLayout()
+        row_tools.setSpacing(10)
         self.btn_add_row = QPushButton("行追加")
         self.btn_remove_row = QPushButton("選択行削除")
         row_tools.addWidget(self.btn_add_row)
@@ -43,6 +46,7 @@ class TradeOrderPage(QWidget):
         v.addLayout(row_tools)
 
         run_row = QHBoxLayout()
+        run_row.setSpacing(14)
         self.order_run_mode = QComboBox()
         self.order_run_mode.addItem("即時実行", "immediate")
         self.order_run_mode.addItem("予約実行", "scheduled")
@@ -67,6 +71,7 @@ class TradeOrderPage(QWidget):
         v.addWidget(self.order_error_label)
 
         tool = QHBoxLayout()
+        tool.setSpacing(12)
         self.btn_clear = QPushButton("クリア")
         self.btn_clear.setObjectName("danger")
         tool.addWidget(self.btn_clear)
