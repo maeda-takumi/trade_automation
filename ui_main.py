@@ -45,6 +45,7 @@ class MainWindow(QMainWindow):
 
         self.pages.addWidget(self.page_settings)
         self.pages.addWidget(self.page_trading)
+        self.pages.addWidget(self.page_status)
 
         # --- Status ---
         self.status_label = QLabel("Ready.")
@@ -69,7 +70,7 @@ class MainWindow(QMainWindow):
         nav_defs = [
             ("設定", "img/option.png", 0),
             ("取引注文", "img/kabu.png", 1),
-            ("実行状況確認", "img/kabu.png", 2),
+            ("状況確認", "img/status.png", 2),
         ]
 
         self.nav_buttons: list[tuple[int, QToolButton]] = []
