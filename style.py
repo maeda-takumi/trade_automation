@@ -16,7 +16,7 @@ APP_QSS = f"""
 QWidget {{
   background: {BG};
   color: {TEXT};
-  font-size: 13px;
+  font-size: 14px;
 }}
 
 QMainWindow::separator {{
@@ -72,15 +72,15 @@ QLabel#statusBadge[variant="danger"] {{
 QGroupBox {{
   background: {CARD};
   border: 1px solid {BORDER};
-  border-radius: 12px;
-  margin-top: 14px;
-  padding: 14px;
+  border-radius: 14px;
+  margin-top: 18px;
+  padding: 20px;
 }}
 QGroupBox::title {{
   subcontrol-origin: margin;
-  left: 14px;
-  top: -10px;
-  padding: 0 8px;
+  left: 16px;
+  top: -12px;
+  padding: 0 10px;
   background: {BG};
   color: {TEXT};
   font-weight: 700;
@@ -90,8 +90,9 @@ QGroupBox::title {{
 QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QPlainTextEdit, QTextEdit {{
   background: {FIELD_BG};
   border: 1px solid {BORDER};
-  border-radius: 1px;
-  padding: 0px;
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-height: 40px;
   selection-background-color: {ACCENT};
 }}
 QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus, QPlainTextEdit:focus, QTextEdit:focus {{
@@ -113,8 +114,8 @@ QCheckBox {{
   spacing: 8px;
 }}
 QCheckBox::indicator {{
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 6px;
   border: 1px solid {BORDER};
   background: {BG};
@@ -126,10 +127,12 @@ QCheckBox::indicator:checked {{
 
 /* ===== Buttons ===== */
 QPushButton {{
-  border-radius: 10px;
-  padding: 9px 12px;
+  border-radius: 12px;
+  padding: 10px 16px;
+  min-height: 42px;
   border: 1px solid {BORDER};
-  background: {BG};
+  border-radius: 14px;
+  padding: 8px;
 }}
 QPushButton:hover {{
   background: #F3F4F6;
@@ -196,7 +199,7 @@ QListWidget::item:selected {{
 QWidget#orderRow {{
   background: {CARD};
   border: 1px solid {BORDER};
-  border-radius: 10px;
+  border-radius: 12px;
 }}
 
 /* ===== Status label ===== */
@@ -204,7 +207,7 @@ QLabel#status {{
   background: {FIELD_BG};
   border: 1px solid {BORDER};
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   color: {MUTED};
 }}
 /* ===== Top nav card ===== */
@@ -219,10 +222,10 @@ QToolButton#navBtn {{
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
-  padding: 10px 12px;
-  min-height: 56px;
-  min-width: 56px;
-  max-width: 56px;
+  padding: 12px 14px;
+  min-height: 68px;
+  min-width: 84px;
+  max-width: 84px;
   font-weight: 700;
 }}
 QToolButton#navBtn:hover {{
@@ -241,6 +244,6 @@ QToolButton#navBtn {{
 QFrame#statusCard {{
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
-  border-radius: 12px;
+  border-radius: 14px;
 }}
 """

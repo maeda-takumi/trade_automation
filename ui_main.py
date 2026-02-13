@@ -30,8 +30,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(root)
 
         layout = QVBoxLayout(root)
-        layout.setContentsMargins(18, 18, 18, 18)
-        layout.setSpacing(14)
+        layout.setContentsMargins(24, 24, 24, 24)
+        layout.setSpacing(18)
 
         # --- Top Nav Card (Option / Kabu) ---
         self.top_nav = self._build_top_nav()
@@ -66,8 +66,8 @@ class MainWindow(QMainWindow):
         card.setFrameShape(QFrame.NoFrame)
 
         row = QHBoxLayout(card)
-        row.setContentsMargins(14, 12, 14, 12)
-        row.setSpacing(12)
+        row.setContentsMargins(18, 16, 18, 16)
+        row.setSpacing(14)
 
         nav_defs = [
             ("設定", "img/option.png", 0),
@@ -81,7 +81,7 @@ class MainWindow(QMainWindow):
             btn.setObjectName("navBtn")
             btn.setText(label)
             btn.setIcon(QIcon(icon_path))
-            btn.setIconSize(QSize(26, 26))
+            btn.setIconSize(QSize(28, 28))
             btn.setCursor(Qt.PointingHandCursor)
             btn.clicked.connect(lambda _=False, i=page_index: self.switch_page(i))
             self.nav_buttons.append((page_index, btn))
