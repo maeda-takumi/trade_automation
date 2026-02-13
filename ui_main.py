@@ -18,6 +18,7 @@ class MainWindow(QMainWindow):
     request_clear_orders = Signal()
     request_symbol_lookup = Signal(str, object)
     request_manual_close = Signal(int)
+    request_cancel_scheduled = Signal(int)
 
     def __init__(self):
         super().__init__()
@@ -108,6 +109,7 @@ class MainWindow(QMainWindow):
         self.page_settings.btn_api_load.clicked.connect(self.request_load_api.emit)
         self.page_trading.wire_events(self.request_clear_orders.emit, self.request_submit_orders.emit)
         self.page_status.manual_close_requested.connect(self.request_manual_close.emit)
+        self.page_status.scheduled_cancel_requested.connect(self.request_cancel_scheduled.emit)
 
     @property
     def api_name(self):
