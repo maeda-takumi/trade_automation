@@ -3,6 +3,7 @@ from __future__ import annotations
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QFrame, QHBoxLayout, QScrollArea, QGridLayout
 
+from ui.widgets.status_badge import map_status_to_badge
 class StatusPage(QWidget):
     def __init__(self):
         super().__init__()
@@ -70,15 +71,26 @@ class StatusPage(QWidget):
 
         qty_badge = QLabel(f"{data.get('qty','-')}株")
         qty_badge.setObjectName("statusBadge")
+        qty_badge.setProperty("variant", "info")
+        qty_badge.style().unpolish(qty_badge)
+        qty_badge.style().polish(qty_badge)
         v.addWidget(qty_badge)
 
         item_status = QLabel(f"状態: {data.get('item_status_label', '-') }")
         item_status.setObjectName("statusBadge")
+        item_status.setProperty("variant", "neutral")
+        item_status.style().unpolish(item_status)
+        item_status.style().polish(item_status)
         v.addWidget(item_status)
 
-        order_status = QLabel(f"注文: {data.get('entry_status_label', '-') } | 利確: {data.get('tp_status_label', '-') } | 損切: {data.get('sl_status_label', '-') }")
-        order_status.setWordWrap(True)
-        v.addWidget(order_status)
+        status_grid = QGridLayout()
+        status_grid.setContentsMargins(0, 2, 0, 2)
+        status_grid.setHorizontalSpacing(10)
+        status_grid.setVerticalSpacing(6)
+        self._add_status_row(status_grid, 0, "注文", data.get("entry_status_label", "-"))
+        self._add_status_row(status_grid, 1, "利確", data.get("tp_status_label", "-"))
+        self._add_status_row(status_grid, 2, "損切", data.get("sl_status_label", "-"))
+        v.addLayout(status_grid)
 
         v.addWidget(QLabel(f"約定数量: {data.get('entry_filled_qty', 0)} | クローズ数量: {data.get('closed_qty', 0)}"))
 
@@ -90,3 +102,16 @@ class StatusPage(QWidget):
             v.addWidget(err_label)
 
         return card
+
+    def _add_status_row(self, layout: QGridLayout, row: int, label_text: str, status_value: object) -> None:
+        label = QLabel(label_text)
+        label.setObjectName("muted")
+        layout.addWidget(label, row, 0, alignment=Qt.AlignLeft | Qt.AlignVCenter)
+
+        badge_text, badge_variant = map_status_to_badge(status_value)
+        badge = QLabel(badge_text)
+        badge.setObjectName("statusBadge")
+        badge.setProperty("variant", badge_variant)
+        badge.style().unpolish(badge)
+        badge.style().polish(badge)
+        layout.addWidget(badge, row, 1, alignment=Qt.AlignRight | Qt.AlignVCenter)

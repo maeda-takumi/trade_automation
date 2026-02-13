@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from PySide6.QtCore import QDateTime
+from PySide6.QtCore import QDateTime, Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QGroupBox, QLabel, QListWidget, QAbstractItemView,
-    QHBoxLayout, QPushButton, QComboBox, QDateTimeEdit, QListWidgetItem
+    QHBoxLayout, QPushButton, QComboBox, QDateTimeEdit, QListWidgetItem, QGridLayout
 )
-
 from ui.widgets.order_row_widget import OrderRowWidget
 from ui.widgets.status_badge import map_status_to_badge
 
@@ -59,6 +58,8 @@ class TradeOrderPage(QWidget):
         run_row.addStretch(1)
         v.addLayout(run_row)
 
+        self.execution_status_card = self._build_execution_status_card()
+        v.addWidget(self.execution_status_card)
         hint = QLabel("行追加で複数注文に対応。損切/利確は差額入力（符号は内部で自動付与）")
         hint.setObjectName("muted")
         v.addWidget(hint)
@@ -272,6 +273,50 @@ class TradeOrderPage(QWidget):
             self.order_error_label.setText("")
             self.btn_submit.setEnabled(True)
 
+
+    def _build_execution_status_card(self) -> QGroupBox:
+        card = QGroupBox("実行状況")
+        layout = QVBoxLayout(card)
+        layout.setContentsMargins(12, 10, 12, 10)
+        layout.setSpacing(8)
+
+        self.execution_target_label = QLabel("監視対象: 監視対象なし")
+        self.execution_target_label.setObjectName("muted")
+        layout.addWidget(self.execution_target_label)
+
+        status_grid = QGridLayout()
+        status_grid.setContentsMargins(0, 0, 0, 0)
+        status_grid.setHorizontalSpacing(12)
+        status_grid.setVerticalSpacing(6)
+
+        self.entry_status_badge = self._add_execution_status_row(status_grid, 0, "注文")
+        self.tp_status_badge = self._add_execution_status_row(status_grid, 1, "利確")
+        self.sl_status_badge = self._add_execution_status_row(status_grid, 2, "損切")
+        layout.addLayout(status_grid)
+
+        self.set_execution_status("監視対象なし", "WAITING", "WAITING", "WAITING")
+        return card
+
+    def _add_execution_status_row(self, layout: QGridLayout, row: int, label_text: str) -> QLabel:
+        label = QLabel(label_text)
+        label.setObjectName("muted")
+        layout.addWidget(label, row, 0, alignment=Qt.AlignLeft | Qt.AlignVCenter)
+
+        badge = QLabel("-")
+        badge.setObjectName("statusBadge")
+        badge.setProperty("variant", "neutral")
+        badge.style().unpolish(badge)
+        badge.style().polish(badge)
+        layout.addWidget(badge, row, 1, alignment=Qt.AlignRight | Qt.AlignVCenter)
+        return badge
+
+    def _set_status_badge(self, badge: QLabel, status_value: object) -> None:
+        text, variant = map_status_to_badge(status_value)
+        badge.setText(text)
+        badge.setProperty("variant", variant)
+        badge.style().unpolish(badge)
+        badge.style().polish(badge)
+
     def set_symbol_name(self, row_widget: QWidget, name: str):
         if getattr(row_widget, "set_symbol_name", None) is not None:
             row_widget.set_symbol_name(name)
@@ -281,5 +326,7 @@ class TradeOrderPage(QWidget):
             row_widget.set_symbol_price(price_text)
 
     def set_execution_status(self, target: str, entry: str, tp: str, sl: str):
-        # 注文画面では注文ステータス欄を廃止したため、呼び出し互換のために no-op とする
-        _ = (target, entry, tp, sl)
+        self.execution_target_label.setText(f"監視対象: {target or '監視対象なし'}")
+        self._set_status_badge(self.entry_status_badge, entry)
+        self._set_status_badge(self.tp_status_badge, tp)
+        self._set_status_badge(self.sl_status_badge, sl)

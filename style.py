@@ -43,27 +43,27 @@ QLabel#statusBadge {{
   font-weight: 700;
   min-width: 56px;
 }}
-QLabel#statusBadge[tone="neutral"] {{
+QLabel#statusBadge[variant="neutral"] {{
   background: #F3F4F6;
   color: #4B5563;
   border-color: #E5E7EB;
 }}
-QLabel#statusBadge[tone="info"] {{
+QLabel#statusBadge[variant="info"] {{
   background: rgba(37, 99, 235, 0.14);
   color: #1D4ED8;
   border-color: rgba(37, 99, 235, 0.35);
 }}
-QLabel#statusBadge[tone="warning"] {{
+QLabel#statusBadge[variant="warning"] {{
   background: rgba(245, 158, 11, 0.16);
   color: #B45309;
   border-color: rgba(245, 158, 11, 0.35);
 }}
-QLabel#statusBadge[tone="success"] {{
+QLabel#statusBadge[variant="success"] {{
   background: rgba(16, 185, 129, 0.14);
   color: #047857;
   border-color: rgba(16, 185, 129, 0.34);
 }}
-QLabel#statusBadge[tone="danger"] {{
+QLabel#statusBadge[variant="danger"] {{
   background: rgba(220, 38, 38, 0.14);
   color: #B91C1C;
   border-color: rgba(220, 38, 38, 0.34);
@@ -242,13 +242,5 @@ QFrame#statusCard {{
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
-}}
-QLabel#statusBadge {{
-  background: #EFF6FF;
-  border: 1px solid #BFDBFE;
-  border-radius: 999px;
-  padding: 2px 10px;
-  color: #1E40AF;
-  font-weight: 700;
 }}
 """
