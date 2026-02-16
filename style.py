@@ -201,7 +201,21 @@ QWidget#orderRow {{
   background: {CARD};
   border: 1px solid {BORDER};
   border-radius: 12px;
+}}derRow QLineEdit,
+QWidget#orderRow QComboBox,
+QWidget#orderRow QSpinBox,
+QWidget#orderRow QPushButton {{
+  padding: 2px 6px;
+  min-height: 28px;
+  border-radius: 8px;
 }}
+QWidget#orderRow QComboBox {{
+  padding-right: 18px;
+}}
+QWidget#orderRow QComboBox::drop-down {{
+  width: 16px;
+}}
+
 
 /* ===== Status label ===== */
 QLabel#status {{
