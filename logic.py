@@ -1312,7 +1312,12 @@ class AppLogic(QObject):
 
             for p in positions:
                 symbol = str(p.get("Symbol") or "")
-                hold_id = p.get("HoldID") or p.get("HoldId")
+                hold_id = (
+                    p.get("HoldID")
+                    or p.get("HoldId")
+                    or p.get("ExecutionID")
+                    or p.get("ExecutionId")
+                )
                 leaves_qty = int(p.get("LeavesQty") or p.get("Qty") or 0)
                 if not symbol or not hold_id or leaves_qty <= 0:
                     continue
