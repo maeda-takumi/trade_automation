@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from PySide6.QtCore import QDateTime
+from PySide6.QtCore import QDateTime, QTimer, QSize
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QGroupBox, QLabel, QListWidget, QAbstractItemView,
     QHBoxLayout, QPushButton, QComboBox, QDateTimeEdit, QListWidgetItem
@@ -145,11 +145,18 @@ class TradeOrderPage(QWidget):
     def _add_order_row(self):
         row_widget = OrderRowWidget(self._validate_order_form, self._request_symbol_lookup, self._on_symbol_text_change)
         item = QListWidgetItem()
-        item.setSizeHint(row_widget.sizeHint())
         self.orders_list.addItem(item)
         self.orders_list.setItemWidget(item, row_widget)
+        self._sync_order_row_item_height(item, row_widget)
+        QTimer.singleShot(0, lambda: self._sync_order_row_item_height(item, row_widget))
         self._validate_order_form()
 
+    def _sync_order_row_item_height(self, item: QListWidgetItem, row_widget: OrderRowWidget):
+        row_widget.ensurePolished()
+        hint = row_widget.sizeHint().expandedTo(row_widget.minimumSizeHint())
+        if not hint.isValid():
+            hint = QSize(0, 52)
+        item.setSizeHint(hint)
     def _remove_selected_rows(self):
         selected_items = self.orders_list.selectedItems()
         if not selected_items:
