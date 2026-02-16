@@ -1011,13 +1011,14 @@ class AppLogic(QObject):
     def _normalize_hold_id(hold_id: object) -> str:
         return str(hold_id or "").strip()
 
-    def _extract_position_hold_id(self, position: dict) -> str:
-        # /positions の ExecutionID（E...）を建玉IDとして最優先で使用する
-        for key in ("ExecutionID", "ExecutionId", "HoldID", "HoldId"):
+    def _extract_position_hold_id(self, position: dict) -> tuple[str, str]:
+        # /positions の建玉IDは HoldID を優先し、未提供時のみ ExecutionID をフォールバック利用する
+        for key in ("HoldID", "HoldId", "ExecutionID", "ExecutionId"):
             hold_id = self._normalize_hold_id(position.get(key))
             if hold_id:
-                return hold_id
-        return ""
+                source = "HoldID" if key in {"HoldID", "HoldId"} else "ExecutionID"
+                return hold_id, source
+        return "", ""
 
     @staticmethod
     def _is_valid_hold_id(hold_id: object) -> bool:
@@ -1349,7 +1350,7 @@ class AppLogic(QObject):
 
             for p in positions:
                 symbol = str(p.get("Symbol") or "").strip()
-                hold_id = self._extract_position_hold_id(p)
+                hold_id, hold_id_source = self._extract_position_hold_id(p)
                 leaves_qty = self._parse_int(p.get("LeavesQty") or p.get("Qty"), 0)
                 position_side = self._kabu_side_to_internal(p.get("Side"))
                 if not symbol or not hold_id or leaves_qty <= 0:
@@ -1377,15 +1378,17 @@ class AppLogic(QObject):
                             int(candidate["batch_job_id"]),
                             "WARN",
                             "INVALID_HOLD_ID",
-                            f"symbol={symbol} hold_id={hold_id} source_positions=ExecutionID",
+                            f"symbol={symbol} hold_id={hold_id} source_positions={hold_id_source or '<unknown>'}",
                             conn=conn,
                         )
                     continue
 
                 matched = []
+                side_filtered = []
                 for candidate in candidates:
                     if position_side and str(candidate["side"]) != position_side:
                         continue
+                    side_filtered.append(candidate)
                     remaining_qty = max(
                         self._parse_int(candidate["entry_filled_qty"], 0) - self._parse_int(candidate["closed_qty"], 0),
                         0,
@@ -1396,10 +1399,60 @@ class AppLogic(QObject):
                         continue
                     matched.append(candidate)
 
-                if not matched:
-                    continue
+                if matched:
+                    target = matched[0]
+                else:
+                    nearest = None
+                    nearest_diff = None
+                    for candidate in side_filtered:
+                        remaining_qty = max(
+                            self._parse_int(candidate["entry_filled_qty"], 0) - self._parse_int(candidate["closed_qty"], 0),
+                            0,
+                        )
+                        if remaining_qty <= 0:
+                            continue
+                        diff = abs(remaining_qty - leaves_qty)
+                        if nearest is None or diff < nearest_diff or (diff == nearest_diff and int(candidate["id"]) < int(nearest["id"])):
+                            nearest = candidate
+                            nearest_diff = diff
 
-                target = matched[0]
+                    if nearest is None:
+                        for candidate in candidates:
+                            self._log_event(
+                                int(candidate["batch_job_id"]),
+                                "WARN",
+                                "HOLD_ID_MATCH_NOT_FOUND",
+                                f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} side={position_side or '<unknown>'}",
+                                conn=conn,
+                            )
+                            conn.execute(
+                                "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                                (f"HoldID紐付け不可: symbol={symbol} leaves_qty={leaves_qty}", int(candidate["id"])),
+                            )
+                        continue
+
+                    target = nearest
+                    self._log_event(
+                        int(target["batch_job_id"]),
+                        "WARN",
+                        "HOLD_ID_MATCH_APPROX",
+                        f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} picked={target['id']} nearest_diff={nearest_diff}",
+                        conn=conn,
+                    )
+
+                conn.execute(
+                    "UPDATE batch_items SET last_error=NULL, updated_at=datetime('now','+9 hours') WHERE id=?",
+                    (int(target["id"]),),
+                )
+
+                self._log_event(
+                    int(target["batch_job_id"]),
+                    "DEBUG",
+                    "HOLD_ID_ASSIGNED",
+                    f"item={target['id']} symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty}",
+                    conn=conn,
+                )
+
                 conn.execute(
                     """
                     UPDATE batch_items
@@ -1410,13 +1463,16 @@ class AppLogic(QObject):
                 )
 
                 if len(matched) > 1:
+                    match_ids = ",".join(str(m["id"]) for m in matched)
                     self._log_event(
                         int(target["batch_job_id"]),
                         "WARN",
                         "HOLD_ID_MULTI_CANDIDATE",
-                        f"symbol={symbol} hold_id={hold_id} candidates={len(matched)} picked={target['id']}",
+                        f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} candidates={len(matched)} ids=[{match_ids}] picked={target['id']} rule=earliest_id",
                         conn=conn,
                     )
+                if not matched:
+                    continue
         self._run_with_db_retry(_sync)
 
     def _oco_step(self):
@@ -1509,7 +1565,7 @@ class AppLogic(QObject):
                 tp_order_id, tp_exchange = self._api_post_order(api, tp_payload)
                 sl_payload = self._build_exit_payload(item, "stop", qty, None, sl_abs, item["hold_id"])
                 with self._conn() as conn:
-                    tp_order_id, tp_exchange = self._api_post_order(api, tp_payload)
+                    self._log_payload_debug(int(item["batch_job_id"]), "SL_PAYLOAD", sl_payload, conn)
                 sl_order_id, sl_exchange = self._api_post_order(api, sl_payload)
                 if tp_exchange != sl_exchange:
                     raise RuntimeError(f"TP/SLの市場コードが不一致です: tp={tp_exchange}, sl={sl_exchange}")
@@ -1623,6 +1679,19 @@ class AppLogic(QObject):
                         conn.execute("UPDATE batch_items SET status='CLOSED', updated_at=datetime('now','+9 hours') WHERE id=?", (item["id"],))
                     continue
                 if item["product"] == "margin" and not item["hold_id"]:
+                    with self._conn() as conn:
+                        msg = "EOD時点でHoldID未取得のため決済不可"
+                        conn.execute(
+                            "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                            (msg, item["id"]),
+                        )
+                        self._log_event(
+                            int(item["batch_job_id"]),
+                            "ERROR",
+                            "EOD_HOLD_ID_MISSING",
+                            f"item={item['id']} symbol={item['symbol']} side={item['side']} remaining={remaining}",
+                            conn=conn,
+                        )
                     continue
                 payload = self._build_exit_payload(item, "market", remaining, None, None, item["hold_id"])
                 with self._conn() as conn:
