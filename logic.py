@@ -991,6 +991,39 @@ class AppLogic(QObject):
     def _side_to_kabu(side: str) -> str:
         return "2" if side == "buy" else "1"
 
+    @staticmethod
+    def _kabu_side_to_internal(side: object) -> Optional[str]:
+        value = str(side or "").strip()
+        if value == "1":
+            return "sell"
+        if value == "2":
+            return "buy"
+        return None
+
+    @staticmethod
+    def _parse_int(value: object, default: int = 0) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    @staticmethod
+    def _normalize_hold_id(hold_id: object) -> str:
+        return str(hold_id or "").strip()
+
+    def _extract_position_hold_id(self, position: dict) -> str:
+        # /positions の ExecutionID（E...）を建玉IDとして最優先で使用する
+        for key in ("ExecutionID", "ExecutionId", "HoldID", "HoldId"):
+            hold_id = self._normalize_hold_id(position.get(key))
+            if hold_id:
+                return hold_id
+        return ""
+
+    @staticmethod
+    def _is_valid_hold_id(hold_id: object) -> bool:
+        normalized = str(hold_id or "").strip()
+        return normalized.startswith("E")
+    
     def _build_entry_payload(self, item: sqlite3.Row) -> dict:
         market = item["entry_type"] == "market"
         exchange = self._normalize_exchange(item["exchange"])
@@ -1032,8 +1065,12 @@ class AppLogic(QObject):
             payload["CashMargin"] = 3
             payload["MarginTradeType"] = 3
             payload["DelivType"] = 0
-            if hold_id:
-                payload["ClosePositions"] = [{"HoldID": hold_id, "Qty": int(qty)}]
+            normalized_hold_id = self._normalize_hold_id(hold_id)
+            if not self._is_valid_hold_id(normalized_hold_id):
+                raise RuntimeError(
+                    f"信用返済に必要なHoldIDが不正です: item={item['id']} symbol={item['symbol']} hold_id={normalized_hold_id or '<empty>'}"
+                )
+            payload["ClosePositions"] = [{"HoldID": normalized_hold_id, "Qty": int(qty)}]
 
         if order_type == "market":
             payload["FrontOrderType"] = 10
@@ -1311,24 +1348,75 @@ class AppLogic(QObject):
                         )
 
             for p in positions:
-                symbol = str(p.get("Symbol") or "")
-                hold_id = (
-                    p.get("HoldID")
-                    or p.get("HoldId")
-                    or p.get("ExecutionID")
-                    or p.get("ExecutionId")
-                )
-                leaves_qty = int(p.get("LeavesQty") or p.get("Qty") or 0)
+                symbol = str(p.get("Symbol") or "").strip()
+                hold_id = self._extract_position_hold_id(p)
+                leaves_qty = self._parse_int(p.get("LeavesQty") or p.get("Qty"), 0)
+                position_side = self._kabu_side_to_internal(p.get("Side"))
                 if not symbol or not hold_id or leaves_qty <= 0:
                     continue
+                candidates = conn.execute(
+                    """
+                    SELECT bi.id, bi.side, bi.entry_filled_qty, bi.closed_qty, bi.batch_job_id
+                    FROM batch_items bi
+                    JOIN batch_jobs bj ON bj.id = bi.batch_job_id
+                    WHERE product='margin'
+                      AND symbol=?
+                      AND bi.status IN ('ENTRY_FILLED','BRACKET_SENT','ENTRY_PARTIAL')
+                      AND (bi.hold_id IS NULL OR bi.hold_id='')
+                      AND bj.status='RUNNING'
+                    ORDER BY bi.id ASC
+                    """,
+                    (symbol,),
+                ).fetchall()
+                if not candidates:
+                    continue
+
+                if not self._is_valid_hold_id(hold_id):
+                    for candidate in candidates:
+                        self._log_event(
+                            int(candidate["batch_job_id"]),
+                            "WARN",
+                            "INVALID_HOLD_ID",
+                            f"symbol={symbol} hold_id={hold_id} source_positions=ExecutionID",
+                            conn=conn,
+                        )
+                    continue
+
+                matched = []
+                for candidate in candidates:
+                    if position_side and str(candidate["side"]) != position_side:
+                        continue
+                    remaining_qty = max(
+                        self._parse_int(candidate["entry_filled_qty"], 0) - self._parse_int(candidate["closed_qty"], 0),
+                        0,
+                    )
+                    if remaining_qty <= 0:
+                        continue
+                    if remaining_qty != leaves_qty:
+                        continue
+                    matched.append(candidate)
+
+                if not matched:
+                    continue
+
+                target = matched[0]
                 conn.execute(
                     """
                     UPDATE batch_items
-                    SET hold_id=?
-                    WHERE product='margin' AND symbol=? AND status IN ('ENTRY_FILLED','BRACKET_SENT','ENTRY_PARTIAL') AND (hold_id IS NULL OR hold_id='')
+                    SET hold_id=?, updated_at=datetime('now','+9 hours')
+                    WHERE id=?
                     """,
-                    (str(hold_id), symbol),
+                    (hold_id, int(target["id"])),
                 )
+
+                if len(matched) > 1:
+                    self._log_event(
+                        int(target["batch_job_id"]),
+                        "WARN",
+                        "HOLD_ID_MULTI_CANDIDATE",
+                        f"symbol={symbol} hold_id={hold_id} candidates={len(matched)} picked={target['id']}",
+                        conn=conn,
+                    )
         self._run_with_db_retry(_sync)
 
     def _oco_step(self):
