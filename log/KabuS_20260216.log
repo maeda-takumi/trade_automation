@@ -912,3 +912,80 @@ System.Net.HttpListenerException (0x80004005): ÉXÉåÉbÉhÇÃèIóπÇ‹ÇΩÇÕÉAÉvÉäÉPÅ[ÉVÉ
 14:55:43.0176,I,24368,0012 KabuSApiManager.PreRelationCheck=ERROR_CD_001_010_003
 14:55:43.0176,E,24368,0012 ïsñæÇ»ÉGÉâÅ[(ERROR_CD_001_010_003)
 14:56:04.3272,I,24368,0042 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:57:38.6426,I,24368,0051 KeepSession at 2026/02/16 14:57:39
+14:59:04.3272,I,24368,0054 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:00:18.0302,I,24368,0028 Recv Event Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+15:00:18.0302,I,24368,0028 MasterManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+15:00:18.0302,I,24368,0028 OrderManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+15:00:18.0312,I,24368,0001 ÉsÉìÉ|ÉCÉìÉgÉjÉÖÅ[ÉXÇÃçXêVí ímÇÕçsÇÌÇ»Ç¢[1, 01396248, ]
+15:00:34.5487,I,24368,0047 UpdateService.UpdateCheck : start
+15:00:58.6256,I,24368,0047 KeepSession at 2026/02/16 15:00:59
+15:01:59.2080,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42703253,RecType=4,State=2,Qty=100,Price=0,SeqNum=3]
+15:01:59.2080,I,24368,0006 OrderDetail.ID=20260216B01N42703253 UpdTime=02/16/2026 15:01:59
+15:01:59.2080,I,24368,0006 ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+15:01:59.2080,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42703252
+15:01:59.2080,I,24368,0006 UpdatePosition=ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+15:01:59.2818,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42703253,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+15:01:59.2818,I,24368,0006 OrderDetail.ID=20260216B01N42703253 UpdTime=02/16/2026 15:01:59
+15:01:59.2818,I,24368,0006 ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+15:01:59.2818,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42703252
+15:01:59.2818,I,24368,0006 UpdatePosition=ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+15:01:59.3257,I,24368,0005 Recv DistributeMessage = [ID=20260216E01N42703254,RecType=8,State=3,Qty=100,Price=1518.75,SeqNum=5]
+15:01:59.3257,I,24368,0006 OrderDetail.ID=20260216E01N42703254 UpdTime=02/16/2026 15:01:59
+15:01:59.3257,I,24368,0006 ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=0,LeavesQty=0,HoldQty=0
+15:01:59.3257,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42703252
+15:01:59.3257,I,24368,0006 UpdatePosition=ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=0,LeavesQty=0,HoldQty=0
+15:02:04.3366,I,24368,0054 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:03:00.8814,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9925
+15:03:18.0362,I,24368,0028 Recv Event Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+15:03:18.0362,I,24368,0028 MasterManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+15:03:18.0362,I,24368,0028 OrderManager Recv NotifyEvent = Type=3,Account=*@ITEMNEWS,Value=ITEMNEWS
+15:03:18.0461,I,24368,0001 ÉsÉìÉ|ÉCÉìÉgÉjÉÖÅ[ÉXÇÃçXêVí ímÇÕçsÇÌÇ»Ç¢[1, 01396248, ]
+15:04:18.6383,I,24368,0039 KeepSession at 2026/02/16 15:04:19
+15:05:04.3376,I,24368,0045 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:06:03.4416,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9926
+15:07:38.6441,I,24368,0047 KeepSession at 2026/02/16 15:07:39
+15:08:04.3370,I,24368,0045 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:09:04.9259,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9927
+15:10:34.5522,I,24368,0046 UpdateService.UpdateCheck : start
+15:10:58.6545,I,24368,0051 KeepSession at 2026/02/16 15:10:59
+15:11:04.3513,I,24368,0045 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:14:04.3649,I,24368,0050 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:14:18.6593,I,24368,0045 KeepSession at 2026/02/16 15:14:19
+15:17:04.3594,I,24368,0008 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:17:38.6735,I,24368,0042 KeepSession at 2026/02/16 15:17:39
+15:20:04.3607,I,24368,0044 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:20:34.5570,I,24368,0054 UpdateService.UpdateCheck : start
+15:20:58.6871,I,24368,0047 KeepSession at 2026/02/16 15:20:59
+15:23:04.3695,I,24368,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:24:06.7792,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9928
+15:24:18.7030,I,24368,0042 KeepSession at 2026/02/16 15:24:19
+15:26:04.3815,I,24368,0042 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:27:01.5442,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9929
+15:27:38.7196,I,24368,0046 KeepSession at 2026/02/16 15:27:39
+15:29:04.3947,I,24368,0054 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:30:34.5656,I,24368,0047 UpdateService.UpdateCheck : start
+15:30:58.7143,I,24368,0050 KeepSession at 2026/02/16 15:30:59
+15:32:04.3954,I,24368,0054 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:33:03.3128,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9942
+15:34:18.7525,I,24368,0008 KeepSession at 2026/02/16 15:34:19
+15:35:04.4116,I,24368,0054 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:36:12.5526,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9961
+15:36:33.5184,I,24368,0050 Recv Event Type=102,Account=,Value=
+15:36:33.5184,I,24368,0050 MasterManager Recv NotifyEvent = Type=102,Account=,Value=
+15:36:33.5194,I,24368,0050 UpdateSymbolCompliance
+15:36:33.5194,I,24368,0050 SymbolCompliance Cache Clear, Count=0
+15:36:33.5194,I,24368,0050 OrderManager Recv NotifyEvent = Type=102,Account=,Value=
+15:37:38.7373,I,24368,0051 KeepSession at 2026/02/16 15:37:39
+15:37:44.0245,I,24368,0012 ÉèÉìÉVÉáÉbÉgÉ`ÉFÉbÉN : 1332/MST/ÉjÉbÉXÉC/1 : amount=200, qty=
+15:37:44.0245,I,24368,0012 KabuSApiManager.PreRelationCheck=CHECK_OK
+15:37:44.0245,I,24368,0012 î≠íçÉpÉâÉÅÅ[É^ÅF[åªï®] ê¨çs
+15:37:44.0245,I,24368,0012 OrderManager.Order Start:OrderParam: Account=01396248,CheckMode=1,Symbol=1332,Exchange=27,SecurityType=1,Side=2,CashMargin=1,MarginTradeType=0,OrderCapacity=,Price=0,Qty=100,OrdType=1,AdjustPrice=False,SellingShot=DelivType=2,FundType=AA,AccountType=4,EffectiveDay=20260216,ExpireDay=20260216,Trigger=[],OrderReferenceCommand=[],ClosePositions=[],PriceType=0,TimeInForce=0,ExpireSession=0,Password=xxx,FrontInfo=FrontInfo=[Key=FrontChannelID/Value=240,Key=Trader/Value=000000A7,Key=Channel/Value=0,Key=ClientCode/Value=192.168.100.17,Key=Branch/Value=000,],UsePoint=0,SettCurrency=,Strategy=,IsMultiTraderCloseOrder=False
+15:37:44.1422,I,24368,0012 OrderManager.OrderAuth0 End  :Result=5,ID=,ClOrdID=,Detail=,ResultMessage=[Key=KC_CommissionTable/Value=141,]
+15:37:44.1422,I,24368,0012 OrderResult.MultiCloseOrderResults  :
+15:37:44.1422,I,24368,0012 î≠íçåãâ  : Result=5,ID=,ClOrdID=,Detail=,ResultMessage=[Key=KC_CommissionTable/Value=141,]
+15:38:04.4047,I,24368,0042 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+15:39:09.3039,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9964
+15:40:34.5792,I,24368,0054 UpdateService.UpdateCheck : start
+15:40:58.7589,I,24368,0008 KeepSession at 2026/02/16 15:40:59
+15:41:04.4185,I,24368,0039 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
