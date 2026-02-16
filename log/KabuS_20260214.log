@@ -1,0 +1,941 @@
+00:00:02.1609,I,35380,0020 KeepSession at 2026/02/14 00:00:02
+00:00:47.7918,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:01:17.2282,I,35380,0020 Recv Event Type=100,Account=,Value=
+00:01:17.2282,I,35380,0020 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+00:01:17.2282,I,35380,0020 UpdateSystemProperty
+00:01:17.2292,I,35380,0020 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+00:03:22.1623,I,35380,0006 KeepSession at 2026/02/14 00:03:22
+00:03:47.8004,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:06:13.7460,I,35380,0040 UpdateService.UpdateCheck : start
+00:06:42.1656,I,35380,0046 KeepSession at 2026/02/14 00:06:42
+00:06:47.8003,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:07:52.4830,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9922
+00:09:47.8123,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:10:02.1807,I,35380,0048 KeepSession at 2026/02/14 00:10:02
+00:12:47.8248,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:13:22.1801,I,35380,0009 KeepSession at 2026/02/14 00:13:22
+00:15:47.8372,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:16:13.7566,I,35380,0006 UpdateService.UpdateCheck : start
+00:16:42.1843,I,35380,0040 KeepSession at 2026/02/14 00:16:42
+00:18:47.8486,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:20:02.1954,I,35380,0020 KeepSession at 2026/02/14 00:20:02
+00:21:47.8543,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:22:50.8940,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9923
+00:23:22.2172,I,35380,0018 KeepSession at 2026/02/14 00:23:22
+00:24:47.8602,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:26:13.7657,I,35380,0040 UpdateService.UpdateCheck : start
+00:26:42.2073,I,35380,0046 KeepSession at 2026/02/14 00:26:42
+00:27:47.8741,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:30:02.2239,I,35380,0046 KeepSession at 2026/02/14 00:30:02
+00:30:47.8857,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:31:54.1161,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9924
+00:33:22.2311,I,35380,0006 KeepSession at 2026/02/14 00:33:22
+00:33:47.8900,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:36:13.7777,I,35380,0020 UpdateService.UpdateCheck : start
+00:36:42.2429,I,35380,0046 KeepSession at 2026/02/14 00:36:42
+00:36:47.8911,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:39:47.9023,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:40:02.2513,I,35380,0043 KeepSession at 2026/02/14 00:40:02
+00:40:50.3736,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9925
+00:42:47.9120,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:43:22.2619,I,35380,0009 KeepSession at 2026/02/14 00:43:22
+00:45:47.9124,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:46:13.7922,I,35380,0006 UpdateService.UpdateCheck : start
+00:46:42.2556,I,35380,0018 KeepSession at 2026/02/14 00:46:42
+00:46:51.4883,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9927
+00:48:47.9193,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:50:02.2698,I,35380,0006 KeepSession at 2026/02/14 00:50:02
+00:51:47.9340,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:52:54.7582,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9928
+00:53:22.2905,I,35380,0043 KeepSession at 2026/02/14 00:53:22
+00:54:47.9402,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+00:56:13.7987,I,35380,0048 UpdateService.UpdateCheck : start
+00:56:42.2935,I,35380,0046 KeepSession at 2026/02/14 00:56:42
+00:57:47.9520,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:00:02.2992,I,35380,0019 KeepSession at 2026/02/14 01:00:02
+01:00:47.9595,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:03:22.3098,I,35380,0020 KeepSession at 2026/02/14 01:03:22
+01:03:47.9762,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:06:13.7999,I,35380,0040 UpdateService.UpdateCheck : start
+01:06:42.3196,I,35380,0009 KeepSession at 2026/02/14 01:06:42
+01:06:47.9904,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:09:47.9930,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:10:02.3220,I,35380,0040 KeepSession at 2026/02/14 01:10:02
+01:12:47.9940,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:13:22.3299,I,35380,0009 KeepSession at 2026/02/14 01:13:22
+01:15:48.0064,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:16:13.8099,I,35380,0006 UpdateService.UpdateCheck : start
+01:16:42.3334,I,35380,0040 KeepSession at 2026/02/14 01:16:42
+01:18:48.0159,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:19:56.3731,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9929
+01:20:02.3388,I,35380,0022 KeepSession at 2026/02/14 01:20:02
+01:21:48.0214,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:23:22.3487,I,35380,0046 KeepSession at 2026/02/14 01:23:22
+01:24:48.0315,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:26:13.8158,I,35380,0046 UpdateService.UpdateCheck : start
+01:26:42.3620,I,35380,0018 KeepSession at 2026/02/14 01:26:42
+01:27:48.0340,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:28:53.0088,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9930
+01:30:02.3752,I,35380,0006 KeepSession at 2026/02/14 01:30:02
+01:30:48.0373,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:33:22.3796,I,35380,0019 KeepSession at 2026/02/14 01:33:22
+01:33:48.0430,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:36:13.8192,I,35380,0022 UpdateService.UpdateCheck : start
+01:36:42.3982,I,35380,0020 KeepSession at 2026/02/14 01:36:42
+01:36:48.0465,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:39:48.0503,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:40:02.4238,I,35380,0040 KeepSession at 2026/02/14 01:40:02
+01:42:48.0589,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:43:22.4276,I,35380,0019 KeepSession at 2026/02/14 01:43:22
+01:45:48.0526,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:46:13.8277,I,35380,0018 UpdateService.UpdateCheck : start
+01:46:42.4278,I,35380,0019 KeepSession at 2026/02/14 01:46:42
+01:48:48.0642,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:50:02.4393,I,35380,0048 KeepSession at 2026/02/14 01:50:02
+01:51:48.0693,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:53:22.4537,I,35380,0043 KeepSession at 2026/02/14 01:53:22
+01:54:48.0816,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+01:56:13.8314,I,35380,0006 UpdateService.UpdateCheck : start
+01:56:42.4603,I,35380,0022 KeepSession at 2026/02/14 01:56:42
+01:57:48.0883,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:00:02.4615,I,35380,0006 KeepSession at 2026/02/14 02:00:02
+02:00:48.0954,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:01:58.0196,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9931
+02:03:22.4655,I,35380,0006 KeepSession at 2026/02/14 02:03:22
+02:03:48.1104,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:06:13.8416,I,35380,0018 UpdateService.UpdateCheck : start
+02:06:42.4701,I,35380,0019 KeepSession at 2026/02/14 02:06:42
+02:06:48.1098,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:09:48.1180,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:10:02.4738,I,35380,0048 KeepSession at 2026/02/14 02:10:02
+02:12:48.1279,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:13:22.4867,I,35380,0020 KeepSession at 2026/02/14 02:13:22
+02:15:48.1358,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:16:13.8424,I,35380,0009 UpdateService.UpdateCheck : start
+02:16:42.4936,I,35380,0040 KeepSession at 2026/02/14 02:16:42
+02:18:48.1377,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:20:02.0679,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9932
+02:20:02.5051,I,35380,0040 KeepSession at 2026/02/14 02:20:02
+02:21:48.1517,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:23:22.5169,I,35380,0046 KeepSession at 2026/02/14 02:23:22
+02:24:48.1565,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:26:13.8506,I,35380,0009 UpdateService.UpdateCheck : start
+02:26:42.5294,I,35380,0019 KeepSession at 2026/02/14 02:26:42
+02:27:48.1798,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:30:02.5385,I,35380,0022 KeepSession at 2026/02/14 02:30:02
+02:30:48.1742,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:33:22.5539,I,35380,0022 KeepSession at 2026/02/14 02:33:22
+02:33:48.1791,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:36:13.8574,I,35380,0022 UpdateService.UpdateCheck : start
+02:36:42.5777,I,35380,0022 KeepSession at 2026/02/14 02:36:42
+02:36:48.1852,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:38:03.7331,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9933
+02:39:48.1866,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:40:02.5848,I,35380,0018 KeepSession at 2026/02/14 02:40:02
+02:42:48.1944,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:43:22.5964,I,35380,0046 KeepSession at 2026/02/14 02:43:22
+02:45:48.2046,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:46:13.8671,I,35380,0022 UpdateService.UpdateCheck : start
+02:46:42.5963,I,35380,0006 KeepSession at 2026/02/14 02:46:42
+02:48:48.2092,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:50:02.6120,I,35380,0043 KeepSession at 2026/02/14 02:50:02
+02:50:03.9890,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9934
+02:51:48.2126,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:53:22.6271,I,35380,0040 KeepSession at 2026/02/14 02:53:22
+02:54:48.2179,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+02:56:13.8722,I,35380,0019 UpdateService.UpdateCheck : start
+02:56:42.6286,I,35380,0006 KeepSession at 2026/02/14 02:56:42
+02:57:48.2216,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:00:02.6422,I,35380,0009 KeepSession at 2026/02/14 03:00:02
+03:00:48.2221,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:03:22.6414,I,35380,0020 KeepSession at 2026/02/14 03:03:22
+03:03:48.2338,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:05:01.5372,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9935
+03:06:13.8785,I,35380,0019 UpdateService.UpdateCheck : start
+03:06:42.6522,I,35380,0009 KeepSession at 2026/02/14 03:06:42
+03:06:48.2623,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:09:48.2516,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:10:02.6659,I,35380,0046 KeepSession at 2026/02/14 03:10:02
+03:12:48.2581,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:13:22.6743,I,35380,0019 KeepSession at 2026/02/14 03:13:22
+03:15:48.2577,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:16:13.8913,I,35380,0048 UpdateService.UpdateCheck : start
+03:16:42.6798,I,35380,0019 KeepSession at 2026/02/14 03:16:42
+03:18:48.2624,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:20:02.6807,I,35380,0009 KeepSession at 2026/02/14 03:20:02
+03:21:48.2642,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:23:22.6801,I,35380,0018 KeepSession at 2026/02/14 03:23:22
+03:24:48.2700,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:26:13.8932,I,35380,0018 UpdateService.UpdateCheck : start
+03:26:42.7021,I,35380,0043 KeepSession at 2026/02/14 03:26:42
+03:27:48.2831,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:30:02.7083,I,35380,0040 KeepSession at 2026/02/14 03:30:02
+03:30:48.2900,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:33:22.7328,I,35380,0022 KeepSession at 2026/02/14 03:33:22
+03:33:48.2913,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:36:13.9080,I,35380,0018 UpdateService.UpdateCheck : start
+03:36:42.7344,I,35380,0020 KeepSession at 2026/02/14 03:36:42
+03:36:48.3000,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:39:48.3174,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:40:02.7431,I,35380,0048 KeepSession at 2026/02/14 03:40:02
+03:42:48.3227,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:43:22.7527,I,35380,0040 KeepSession at 2026/02/14 03:43:22
+03:45:48.3243,I,35380,0020 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:46:13.9180,I,35380,0018 UpdateService.UpdateCheck : start
+03:46:42.7604,I,35380,0046 KeepSession at 2026/02/14 03:46:42
+03:47:03.9538,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9936
+03:48:48.3431,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:50:02.7745,I,35380,0046 KeepSession at 2026/02/14 03:50:02
+03:51:48.3488,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:53:22.7868,I,35380,0046 KeepSession at 2026/02/14 03:53:22
+03:54:48.3569,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+03:56:13.9220,I,35380,0006 UpdateService.UpdateCheck : start
+03:56:42.7972,I,35380,0019 KeepSession at 2026/02/14 03:56:42
+03:57:48.3607,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:00:10.5425,I,35380,0043 KeepSession at 2026/02/14 04:00:10
+04:00:48.3701,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:03:22.8274,I,35380,0020 KeepSession at 2026/02/14 04:03:22
+04:03:48.3802,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:06:13.9305,I,35380,0022 UpdateService.UpdateCheck : start
+04:06:42.8331,I,35380,0022 KeepSession at 2026/02/14 04:06:42
+04:06:48.3931,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:08:03.3272,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9937
+04:09:48.4054,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:10:02.8410,I,35380,0019 KeepSession at 2026/02/14 04:10:02
+04:12:48.4200,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:13:22.8455,I,35380,0006 KeepSession at 2026/02/14 04:13:22
+04:15:48.4247,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:16:13.9459,I,35380,0040 UpdateService.UpdateCheck : start
+04:16:42.8513,I,35380,0043 KeepSession at 2026/02/14 04:16:43
+04:18:48.4529,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:20:02.8615,I,35380,0022 KeepSession at 2026/02/14 04:20:03
+04:21:48.4537,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:23:22.8661,I,35380,0006 KeepSession at 2026/02/14 04:23:23
+04:24:48.4594,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:26:13.9461,I,35380,0040 UpdateService.UpdateCheck : start
+04:26:42.8772,I,35380,0006 KeepSession at 2026/02/14 04:26:43
+04:27:48.4818,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:30:02.8780,I,35380,0040 KeepSession at 2026/02/14 04:30:03
+04:30:48.4813,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:33:22.8889,I,35380,0006 KeepSession at 2026/02/14 04:33:23
+04:33:48.4858,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:36:13.9602,I,35380,0046 UpdateService.UpdateCheck : start
+04:36:42.8932,I,35380,0020 KeepSession at 2026/02/14 04:36:43
+04:36:48.4983,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:39:48.5036,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:40:02.9070,I,35380,0020 KeepSession at 2026/02/14 04:40:03
+04:42:48.5096,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:43:22.9177,I,35380,0018 KeepSession at 2026/02/14 04:43:23
+04:45:48.5121,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:46:13.9748,I,35380,0006 UpdateService.UpdateCheck : start
+04:46:42.9352,I,35380,0009 KeepSession at 2026/02/14 04:46:43
+04:48:48.5103,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:50:02.9461,I,35380,0019 KeepSession at 2026/02/14 04:50:03
+04:51:48.5199,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:53:08.7322,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9938
+04:53:22.9537,I,35380,0040 KeepSession at 2026/02/14 04:53:23
+04:54:48.5379,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+04:56:13.9762,I,35380,0040 UpdateService.UpdateCheck : start
+04:56:42.9633,I,35380,0018 KeepSession at 2026/02/14 04:56:43
+04:57:48.5301,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:00:02.9759,I,35380,0020 KeepSession at 2026/02/14 05:00:03
+05:00:48.5423,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:03:22.9778,I,35380,0019 KeepSession at 2026/02/14 05:03:23
+05:03:48.5436,I,35380,0046 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:06:13.9899,I,35380,0048 UpdateService.UpdateCheck : start
+05:06:42.9920,I,35380,0018 KeepSession at 2026/02/14 05:06:43
+05:06:48.5475,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:08:06.2130,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9939
+05:09:48.5477,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:10:03.0050,I,35380,0043 KeepSession at 2026/02/14 05:10:03
+05:12:48.5747,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:13:23.0050,I,35380,0022 KeepSession at 2026/02/14 05:13:23
+05:15:48.5836,I,35380,0048 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:16:14.0006,I,35380,0020 UpdateService.UpdateCheck : start
+05:16:43.0081,I,35380,0020 KeepSession at 2026/02/14 05:16:43
+05:18:48.5930,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:20:03.0232,I,35380,0006 KeepSession at 2026/02/14 05:20:03
+05:21:48.5936,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:23:23.0346,I,35380,0006 KeepSession at 2026/02/14 05:23:23
+05:24:48.5992,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:26:14.0054,I,35380,0020 UpdateService.UpdateCheck : start
+05:26:43.0377,I,35380,0019 KeepSession at 2026/02/14 05:26:43
+05:27:48.6018,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:30:03.0578,I,35380,0019 KeepSession at 2026/02/14 05:30:03
+05:30:48.6132,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:33:23.0659,I,35380,0043 KeepSession at 2026/02/14 05:33:23
+05:33:48.6205,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:36:14.0184,I,35380,0006 UpdateService.UpdateCheck : start
+05:36:43.0787,I,35380,0018 KeepSession at 2026/02/14 05:36:43
+05:36:48.6218,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:39:48.6253,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:40:03.0852,I,35380,0022 KeepSession at 2026/02/14 05:40:03
+05:42:48.6383,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:43:23.0947,I,35380,0040 KeepSession at 2026/02/14 05:43:23
+05:45:48.6396,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:46:14.0198,I,35380,0006 UpdateService.UpdateCheck : start
+05:46:43.1030,I,35380,0018 KeepSession at 2026/02/14 05:46:43
+05:48:48.6416,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:50:03.1049,I,35380,0022 KeepSession at 2026/02/14 05:50:03
+05:51:48.6527,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:53:23.1075,I,35380,0018 KeepSession at 2026/02/14 05:53:23
+05:54:48.7179,I,35380,0022 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+05:56:14.0328,I,35380,0019 UpdateService.UpdateCheck : start
+05:56:43.1429,I,35380,0018 KeepSession at 2026/02/14 05:56:43
+05:57:48.6616,I,35380,0040 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:00:03.1251,I,35380,0043 KeepSession at 2026/02/14 06:00:03
+06:00:48.6740,I,35380,0019 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:03:23.1400,I,35380,0022 KeepSession at 2026/02/14 06:03:23
+06:03:48.6813,I,35380,0009 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:06:14.0381,I,35380,0046 UpdateService.UpdateCheck : start
+06:06:43.1559,I,35380,0043 KeepSession at 2026/02/14 06:06:43
+06:06:48.6805,I,35380,0006 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:09:48.6882,I,35380,0043 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:10:03.1588,I,35380,0006 KeepSession at 2026/02/14 06:10:03
+06:10:06.4899,I,35380,0025 Recv DistributeMessage = [ID=20260213B01N41363055,RecType=4,State=1,Qty=100,Price=0,SeqNum=4]
+06:10:06.4910,I,35380,0005 OrderDetail.ID=20260213B01N41363055 UpdTime=02/14/2026 06:08:27
+06:10:06.4910,I,35380,0005 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:10:35.3735,I,35380,0048 Recv Event Type=100,Account=,Value=
+06:10:35.3735,I,35380,0048 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+06:10:35.3735,I,35380,0048 UpdateSystemProperty
+06:10:35.3735,I,35380,0048 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+06:12:48.6989,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:13:23.1730,I,35380,0043 KeepSession at 2026/02/14 06:13:23
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38862634
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873341
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873372
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873575
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873580
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873618
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:15:04.2418,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+06:15:05.2357,I,35380,0026 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:15:05.2357,I,35380,0026 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:15:48.7061,I,35380,0018 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+06:16:05.6657,I,35380,0019 Recv Event Type=100,Account=,Value=
+06:16:05.6657,I,35380,0019 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+06:16:05.6657,I,35380,0019 UpdateSystemProperty
+06:16:05.6666,I,35380,0019 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:16:08.9997,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+06:16:09.8527,I,35380,0026 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:16:09.8527,I,35380,0026 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:16:14.0500,I,35380,0009 UpdateService.UpdateCheck : start
+06:16:43.1910,I,35380,0043 認証更新エラー Code=10012
+06:16:43.1961,I,35380,0043 カブステAPIクリア
+06:17:50.2695,I,35380,0022 失敗：ダウンロード先URL ProtocolError:http://194.223.146.66/Historical/Ranking/701/Ranking_701_9999.bin
+System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.WebClient.OpenRead(Uri address)
+   場所 ard.a(String A_0, RequestCacheLevel A_1, a A_2)
+06:17:50.2715,I,35380,0006 失敗：ダウンロード先URL ProtocolError:http://194.223.146.66/Historical/Ranking/501/Ranking_501_9999.bin
+System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.WebClient.OpenRead(Uri address)
+   場所 ard.a(String A_0, RequestCacheLevel A_1, a A_2)
+06:17:50.2855,I,35380,0022 失敗：ダウンロード先URL ProtocolError:http://194.223.146.66/Historical/Ranking/701/Ranking_701_9999.bin
+System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.WebClient.OpenRead(Uri address)
+   場所 ard.a(String A_0, RequestCacheLevel A_1, a A_2)
+06:17:50.2855,I,35380,0006 失敗：ダウンロード先URL ProtocolError:http://194.223.146.66/Historical/Ranking/501/Ranking_501_9999.bin
+System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.WebClient.OpenRead(Uri address)
+   場所 ard.a(String A_0, RequestCacheLevel A_1, a A_2)
+06:17:50.2966,I,35380,0006 失敗：ダウンロード先URL ProtocolError:http://194.223.146.66/Historical/Ranking/501/Ranking_501_9999.bin
+System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.WebClient.OpenRead(Uri address)
+   場所 ard.a(String A_0, RequestCacheLevel A_1, a A_2)
+06:17:50.2966,I,35380,0022 失敗：ダウンロード先URL ProtocolError:http://194.223.146.66/Historical/Ranking/701/Ranking_701_9999.bin
+System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.WebClient.OpenRead(Uri address)
+   場所 ard.a(String A_0, RequestCacheLevel A_1, a A_2)
+06:20:05.9871,W,35380,0020 キャッシュ更新チェックに失敗しました。
+System.ServiceModel.CommunicationException: https://web.r10.kabu.co.jp/TA/MasterService.svc/b に対する HTTP 応答の受信中にエラーが発生しました。この原因としては、サービス エンドポイント バインドが HTTP プロトコルを使用していないことが考えられます。また別の原因として、HTTP 要求コンテキストがサーバーによって中止された可能性もあります (サーバーがシャットダウンした場合など)。詳細についてはサーバー ログを参照してください。 ---> System.Net.WebException: 接続が切断されました: 受信時に予期しないエラーが発生しました。 ---> System.IO.IOException: 転送接続からデータを読み取れません: 既存の接続はリモート ホストに強制的に切断されました。。 ---> System.Net.Sockets.SocketException: 既存の接続はリモート ホストに強制的に切断されました。
+   場所 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- 内部例外スタック トレースの終わり ---
+   場所 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   場所 System.Net.FixedSizeReader.ReadPacket(Byte[] buffer, Int32 offset, Int32 count)
+   場所 System.Net.Security._SslStream.StartFrameHeader(Byte[] buffer, Int32 offset, Int32 count, AsyncProtocolRequest asyncRequest)
+   場所 System.Net.Security._SslStream.StartReading(Byte[] buffer, Int32 offset, Int32 count, AsyncProtocolRequest asyncRequest)
+   場所 System.Net.Security._SslStream.ProcessRead(Byte[] buffer, Int32 offset, Int32 count, AsyncProtocolRequest asyncRequest)
+   場所 System.Net.TlsStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   場所 System.Net.PooledStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   場所 System.Net.Connection.SyncRead(HttpWebRequest request, Boolean userRetrievedStream, Boolean probeRead)
+   --- 内部例外スタック トレースの終わり ---
+   場所 System.Net.HttpWebRequest.GetResponse()
+   場所 System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- 内部例外スタック トレースの終わり ---
+
+Server stack trace: 
+   場所 System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   場所 System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   場所 System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   場所 System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   場所 System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   場所 System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   場所 System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   場所 System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   場所 System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   場所 TA.KC.IMasterService.GetCacheTime(AuthenticationHeader Header)
+   場所 ark.f(Object A_0)
+06:26:14.0616,I,35380,0020 UpdateService.UpdateCheck : start
+06:30:36.7136,I,35380,0020 Recv Event Type=101,Account=,Value=
+06:30:36.7136,I,35380,0020 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+06:30:36.7136,I,35380,0020 UpdateSymbolCache
+06:30:36.7136,I,35380,0020 UpdateExchangeCache
+06:30:36.7136,I,35380,0020 ClearCapMarginSellIppanCache
+06:30:36.7136,I,35380,0020 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+06:30:36.7136,I,35380,0020 Recv Event Type=205,Account=,Value=
+06:30:36.7136,I,35380,0020 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+06:30:36.7136,I,35380,0020 ClearSymbolInfoCache
+06:30:36.7136,I,35380,0020 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+06:30:39.8525,I,35380,0046 SymbolUpdated
+06:30:39.9492,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+06:30:40.4270,I,35380,0020 GetTickServiceUrl UseSecurePort=False
+06:32:13.0706,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9940
+06:35:11.2579,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9941
+06:36:14.0669,I,35380,0009 UpdateService.UpdateCheck : start
+06:38:07.0716,I,35380,0018 Recv Event Type=101,Account=,Value=
+06:38:07.0716,I,35380,0018 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+06:38:07.0716,I,35380,0018 UpdateSymbolCache
+06:38:07.0716,I,35380,0018 UpdateExchangeCache
+06:38:07.0716,I,35380,0018 ClearCapMarginSellIppanCache
+06:38:07.0716,I,35380,0018 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+06:38:07.0716,I,35380,0018 Recv Event Type=205,Account=,Value=
+06:38:07.0716,I,35380,0018 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+06:38:07.0716,I,35380,0018 ClearSymbolInfoCache
+06:38:07.0716,I,35380,0018 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+06:38:10.1405,I,35380,0020 SymbolUpdated
+06:38:10.2366,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+06:38:10.3733,I,35380,0009 GetTickServiceUrl UseSecurePort=False
+06:43:37.3615,I,35380,0019 Recv Event Type=200,Account=,Value=
+06:43:37.3615,I,35380,0019 MasterManager Recv NotifyEvent = Type=200,Account=,Value=
+06:43:37.3615,I,35380,0019 OrderManager Recv NotifyEvent = Type=200,Account=,Value=
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:43:37.4546,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+06:43:37.4546,I,35380,0019 Recv Event Type=201,Account=,Value=
+06:43:37.4546,I,35380,0019 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.4546,I,35380,0019 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.5709,I,35380,0019 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:43:37.5709,I,35380,0019 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:43:37.5709,I,35380,0019 Recv Event Type=201,Account=,Value=
+06:43:37.5709,I,35380,0019 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.5709,I,35380,0019 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.6314,I,35380,0019 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:43:37.6314,I,35380,0019 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:44:15.3290,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9942
+06:46:07.7759,I,35380,0022 Recv Event Type=100,Account=,Value=
+06:46:07.7759,I,35380,0022 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+06:46:07.7759,I,35380,0022 UpdateSystemProperty
+06:46:07.7759,I,35380,0022 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+06:46:07.8443,I,35380,0022 Recv Event Type=201,Account=,Value=
+06:46:07.8443,I,35380,0022 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+06:46:07.8443,I,35380,0022 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+06:46:07.8666,I,35380,0022 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:46:07.8666,I,35380,0022 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:46:14.0893,I,35380,0043 UpdateService.UpdateCheck : start
+06:46:37.8820,I,35380,0020 Recv Event Type=100,Account=,Value=
+06:46:37.8820,I,35380,0020 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+06:46:37.8820,I,35380,0020 UpdateSystemProperty
+06:46:37.8820,I,35380,0020 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+06:51:38.1258,I,35380,0046 Recv Event Type=100,Account=,Value=
+06:51:38.1258,I,35380,0046 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+06:51:38.1258,I,35380,0046 UpdateSystemProperty
+06:51:38.1258,I,35380,0046 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+06:53:13.2053,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9943
+06:55:38.3187,I,35380,0018 Recv Event Type=101,Account=,Value=
+06:55:38.3187,I,35380,0018 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+06:55:38.3187,I,35380,0018 UpdateSymbolCache
+06:55:38.3187,I,35380,0018 UpdateExchangeCache
+06:55:38.3187,I,35380,0018 ClearCapMarginSellIppanCache
+06:55:38.3187,I,35380,0018 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+06:55:38.3187,I,35380,0018 Recv Event Type=205,Account=,Value=
+06:55:38.3187,I,35380,0018 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+06:55:38.3187,I,35380,0018 ClearSymbolInfoCache
+06:55:38.3187,I,35380,0018 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+06:55:42.2651,I,35380,0048 SymbolUpdated
+06:55:42.3756,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+06:55:42.8847,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+06:56:14.0951,I,35380,0043 UpdateService.UpdateCheck : start
+07:05:13.6289,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9945
+07:06:14.0953,I,35380,0048 UpdateService.UpdateCheck : start
+07:06:14.0953,I,35380,0048 UpdateService.DoUpdateCheck : start
+07:06:14.1132,I,35380,0001 UpdateService.Callback : start
+07:06:14.1132,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:06:14.1132,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:06:14.1132,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:06:14.1142,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:08:11.3242,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9948
+07:11:13.3360,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9949
+07:14:15.2379,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9950
+07:16:14.1034,I,35380,0022 UpdateService.UpdateCheck : start
+07:16:14.1034,I,35380,0022 UpdateService.DoUpdateCheck : start
+07:16:14.1203,I,35380,0001 UpdateService.Callback : start
+07:16:14.1203,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:16:14.1203,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:16:14.1213,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:16:14.1213,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:17:13.4651,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9953
+07:20:15.7604,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9955
+07:26:14.1077,I,35380,0009 UpdateService.UpdateCheck : start
+07:26:14.1077,I,35380,0009 UpdateService.DoUpdateCheck : start
+07:26:14.1273,I,35380,0001 UpdateService.Callback : start
+07:26:14.1273,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:26:14.1273,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:26:14.1273,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:26:14.1273,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:36:14.1143,I,35380,0020 UpdateService.UpdateCheck : start
+07:36:14.1143,I,35380,0020 UpdateService.DoUpdateCheck : start
+07:36:14.1307,I,35380,0001 UpdateService.Callback : start
+07:36:14.1307,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:36:14.1307,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:36:14.1307,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:36:14.1307,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:38:10.5608,I,35380,0046 Recv Event Type=101,Account=,Value=
+07:38:10.5608,I,35380,0046 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+07:38:10.5608,I,35380,0046 UpdateSymbolCache
+07:38:10.5608,I,35380,0046 UpdateExchangeCache
+07:38:10.5608,I,35380,0046 ClearCapMarginSellIppanCache
+07:38:10.5608,I,35380,0046 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+07:38:10.5608,I,35380,0046 Recv Event Type=205,Account=,Value=
+07:38:10.5608,I,35380,0046 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+07:38:10.5608,I,35380,0046 ClearSymbolInfoCache
+07:38:10.5608,I,35380,0046 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+07:38:13.5529,I,35380,0048 SymbolUpdated
+07:38:13.6837,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+07:38:14.1982,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+07:43:40.8090,I,35380,0009 Recv Event Type=202,Account=,Value=
+07:43:40.8090,I,35380,0009 MasterManager Recv NotifyEvent = Type=202,Account=,Value=
+07:43:40.8090,I,35380,0009 OrderManager Recv NotifyEvent = Type=202,Account=,Value=
+07:43:40.8100,I,35380,0009 ClearWallet
+07:46:14.1219,I,35380,0018 UpdateService.UpdateCheck : start
+07:46:14.1219,I,35380,0018 UpdateService.DoUpdateCheck : start
+07:46:14.1390,I,35380,0001 UpdateService.Callback : start
+07:46:14.1390,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:46:14.1390,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:46:14.1390,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:46:14.1390,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:56:14.1350,I,35380,0046 UpdateService.UpdateCheck : start
+07:56:14.1350,I,35380,0046 UpdateService.DoUpdateCheck : start
+07:56:14.1500,I,35380,0001 UpdateService.Callback : start
+07:56:14.1500,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:56:14.1500,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:56:14.1500,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:56:14.1500,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:06:14.1367,I,35380,0009 UpdateService.UpdateCheck : start
+08:06:14.1367,I,35380,0009 UpdateService.DoUpdateCheck : start
+08:06:14.1517,I,35380,0001 UpdateService.Callback : start
+08:06:14.1517,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:06:14.1517,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:06:14.1517,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:06:14.1517,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:16:14.1497,I,35380,0048 UpdateService.UpdateCheck : start
+08:16:14.1497,I,35380,0048 UpdateService.DoUpdateCheck : start
+08:16:14.1684,I,35380,0001 UpdateService.Callback : start
+08:16:14.1684,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:16:14.1684,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:16:14.1684,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:16:14.1684,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:26:14.1509,I,35380,0020 UpdateService.UpdateCheck : start
+08:26:14.1509,I,35380,0020 UpdateService.DoUpdateCheck : start
+08:26:14.1702,I,35380,0001 UpdateService.Callback : start
+08:26:14.1702,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:26:14.1702,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:26:14.1702,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:26:14.1702,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:32:19.7078,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9959
+08:32:43.3469,I,35380,0020 Recv Event Type=101,Account=,Value=
+08:32:43.3469,I,35380,0020 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+08:32:43.3469,I,35380,0020 UpdateSymbolCache
+08:32:43.3469,I,35380,0020 UpdateExchangeCache
+08:32:43.3469,I,35380,0020 ClearCapMarginSellIppanCache
+08:32:43.3469,I,35380,0020 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+08:32:43.3469,I,35380,0020 Recv Event Type=205,Account=,Value=
+08:32:43.3469,I,35380,0020 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+08:32:43.3469,I,35380,0020 ClearSymbolInfoCache
+08:32:43.3469,I,35380,0020 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+08:32:46.3716,I,35380,0022 SymbolUpdated
+08:32:46.4668,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+08:32:47.0182,I,35380,0043 GetTickServiceUrl UseSecurePort=False
+08:36:14.1632,I,35380,0040 UpdateService.UpdateCheck : start
+08:36:14.1632,I,35380,0040 UpdateService.DoUpdateCheck : start
+08:36:14.1882,I,35380,0001 UpdateService.Callback : start
+08:36:14.1883,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:36:14.1883,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:36:14.1883,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:36:14.1884,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:46:14.1674,I,35380,0019 UpdateService.UpdateCheck : start
+08:46:14.1674,I,35380,0019 UpdateService.DoUpdateCheck : start
+08:46:14.1843,I,35380,0001 UpdateService.Callback : start
+08:46:14.1843,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:46:14.1843,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:46:14.1843,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:46:14.1843,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:53:23.7394,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9960
+08:56:14.1792,I,35380,0009 UpdateService.UpdateCheck : start
+09:02:18.5302,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9961
+09:06:14.1901,I,35380,0020 UpdateService.UpdateCheck : start
+09:16:14.1963,I,35380,0022 UpdateService.UpdateCheck : start
+09:23:21.9620,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9962
+09:26:14.1972,I,35380,0018 UpdateService.UpdateCheck : start
+09:32:20.6121,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9963
+09:36:14.2007,I,35380,0018 UpdateService.UpdateCheck : start
+09:44:21.9021,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9964
+09:46:14.2121,I,35380,0048 UpdateService.UpdateCheck : start
+09:56:14.2150,I,35380,0046 UpdateService.UpdateCheck : start
+10:02:23.7696,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9965
+10:06:14.2170,I,35380,0018 UpdateService.UpdateCheck : start
+10:16:14.2282,I,35380,0020 UpdateService.UpdateCheck : start
+10:23:22.3195,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9966
+10:26:14.2412,I,35380,0020 UpdateService.UpdateCheck : start
+10:36:14.2566,I,35380,0019 UpdateService.UpdateCheck : start
+10:45:50.0885,I,35380,0019 Recv Event Type=200,Account=,Value=
+10:45:50.0885,I,35380,0019 MasterManager Recv NotifyEvent = Type=200,Account=,Value=
+10:45:50.0885,I,35380,0019 OrderManager Recv NotifyEvent = Type=200,Account=,Value=
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+10:45:50.1829,I,35380,0019 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+10:45:50.1829,I,35380,0019 Recv Event Type=201,Account=,Value=
+10:45:50.1829,I,35380,0019 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+10:45:50.1829,I,35380,0019 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+10:45:50.2722,I,35380,0019 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+10:45:50.2722,I,35380,0019 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+10:45:50.2722,I,35380,0019 Recv Event Type=201,Account=,Value=
+10:45:50.2722,I,35380,0019 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+10:45:50.2722,I,35380,0019 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+10:45:50.3245,I,35380,0019 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+10:45:50.3245,I,35380,0019 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+10:46:14.2620,I,35380,0043 UpdateService.UpdateCheck : start
+10:56:14.2659,I,35380,0048 UpdateService.UpdateCheck : start
+11:06:14.2768,I,35380,0022 UpdateService.UpdateCheck : start
+11:16:14.2902,I,35380,0009 UpdateService.UpdateCheck : start
+11:23:25.1521,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9967
+11:26:14.2962,I,35380,0022 UpdateService.UpdateCheck : start
+11:32:24.0798,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9968
+11:36:14.3051,I,35380,0020 UpdateService.UpdateCheck : start
+11:46:14.3181,I,35380,0046 UpdateService.UpdateCheck : start
+11:56:14.3217,I,35380,0019 UpdateService.UpdateCheck : start
+12:06:14.3233,I,35380,0043 UpdateService.UpdateCheck : start
+12:16:14.3231,I,35380,0040 UpdateService.UpdateCheck : start
+12:26:14.3234,I,35380,0048 UpdateService.UpdateCheck : start
+12:36:14.3361,I,35380,0043 UpdateService.UpdateCheck : start
+12:46:14.3555,I,35380,0018 UpdateService.UpdateCheck : start
+12:56:14.3580,I,35380,0022 UpdateService.UpdateCheck : start
+13:06:14.3649,I,35380,0019 UpdateService.UpdateCheck : start
+13:16:14.3703,I,35380,0040 UpdateService.UpdateCheck : start
+13:26:14.3805,I,35380,0022 UpdateService.UpdateCheck : start
+13:36:14.3849,I,35380,0043 UpdateService.UpdateCheck : start
+13:46:14.3925,I,35380,0022 UpdateService.UpdateCheck : start
+13:56:14.4011,I,35380,0048 UpdateService.UpdateCheck : start
+14:00:30.2734,I,35380,0022 Recv Event Type=100,Account=,Value=
+14:00:30.2734,I,35380,0022 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+14:00:30.2734,I,35380,0022 UpdateSystemProperty
+14:00:30.2744,I,35380,0022 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+14:06:14.4144,I,35380,0020 UpdateService.UpdateCheck : start
+14:16:14.4169,I,35380,0048 UpdateService.UpdateCheck : start
+14:26:14.4265,I,35380,0022 UpdateService.UpdateCheck : start
+14:30:31.8737,I,35380,0046 Recv Event Type=101,Account=,Value=
+14:30:31.8737,I,35380,0046 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+14:30:31.8737,I,35380,0046 UpdateSymbolCache
+14:30:31.8737,I,35380,0046 UpdateExchangeCache
+14:30:31.8737,I,35380,0046 ClearCapMarginSellIppanCache
+14:30:31.8737,I,35380,0046 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+14:30:31.8737,I,35380,0046 Recv Event Type=205,Account=,Value=
+14:30:31.8737,I,35380,0046 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+14:30:31.8737,I,35380,0046 ClearSymbolInfoCache
+14:30:31.8737,I,35380,0046 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+14:30:31.8737,I,35380,0046 Recv Event Type=100,Account=,Value=
+14:30:31.8737,I,35380,0046 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+14:30:31.8737,I,35380,0046 UpdateSystemProperty
+14:30:31.8737,I,35380,0046 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+14:30:34.8616,I,35380,0018 SymbolUpdated
+14:30:34.9427,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+14:30:35.1077,I,35380,0022 GetTickServiceUrl UseSecurePort=False
+14:36:14.4321,I,35380,0006 UpdateService.UpdateCheck : start
+14:46:14.4379,I,35380,0019 UpdateService.UpdateCheck : start
+14:51:32.8695,I,35380,0043 Recv Event Type=101,Account=,Value=
+14:51:32.8695,I,35380,0043 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+14:51:32.8695,I,35380,0043 UpdateSymbolCache
+14:51:32.8695,I,35380,0043 UpdateExchangeCache
+14:51:32.8695,I,35380,0043 ClearCapMarginSellIppanCache
+14:51:32.8695,I,35380,0043 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+14:51:32.8695,I,35380,0043 Recv Event Type=205,Account=,Value=
+14:51:32.8695,I,35380,0043 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+14:51:32.8695,I,35380,0043 ClearSymbolInfoCache
+14:51:32.8695,I,35380,0043 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+14:51:36.7386,I,35380,0040 SymbolUpdated
+14:51:36.8844,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+14:51:37.3714,I,35380,0022 GetTickServiceUrl UseSecurePort=False
+14:52:32.9271,I,35380,0040 Recv Event Type=101,Account=,Value=
+14:52:32.9271,I,35380,0040 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+14:52:32.9271,I,35380,0040 UpdateSymbolCache
+14:52:32.9271,I,35380,0040 UpdateExchangeCache
+14:52:32.9271,I,35380,0040 ClearCapMarginSellIppanCache
+14:52:32.9271,I,35380,0040 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+14:52:32.9271,I,35380,0040 Recv Event Type=205,Account=,Value=
+14:52:32.9271,I,35380,0040 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+14:52:32.9271,I,35380,0040 ClearSymbolInfoCache
+14:52:32.9271,I,35380,0040 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+14:52:35.7122,I,35380,0046 SymbolUpdated
+14:52:35.8468,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+14:52:35.9804,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+14:56:14.4448,I,35380,0040 UpdateService.UpdateCheck : start
+15:02:37.8064,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9970
+15:06:14.4530,I,35380,0018 UpdateService.UpdateCheck : start
+15:16:14.4624,I,35380,0022 UpdateService.UpdateCheck : start
+15:26:14.4776,I,35380,0046 UpdateService.UpdateCheck : start
+15:32:36.6870,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9972
+15:36:14.4852,I,35380,0009 UpdateService.UpdateCheck : start
+15:46:14.4969,I,35380,0043 UpdateService.UpdateCheck : start
+15:46:35.5900,I,35380,0046 Recv Event Type=101,Account=,Value=
+15:46:35.5900,I,35380,0046 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+15:46:35.5900,I,35380,0046 UpdateSymbolCache
+15:46:35.5900,I,35380,0046 UpdateExchangeCache
+15:46:35.5900,I,35380,0046 ClearCapMarginSellIppanCache
+15:46:35.5900,I,35380,0046 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+15:46:35.5900,I,35380,0046 Recv Event Type=205,Account=,Value=
+15:46:35.5900,I,35380,0046 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+15:46:35.5900,I,35380,0046 ClearSymbolInfoCache
+15:46:35.5900,I,35380,0046 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+15:46:39.4908,I,35380,0006 SymbolUpdated
+15:46:39.5684,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+15:46:40.0595,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+15:50:35.7952,I,35380,0020 Recv Event Type=101,Account=,Value=
+15:50:35.7952,I,35380,0020 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+15:50:35.7952,I,35380,0020 UpdateSymbolCache
+15:50:35.7952,I,35380,0020 UpdateExchangeCache
+15:50:35.7952,I,35380,0020 ClearCapMarginSellIppanCache
+15:50:35.7952,I,35380,0020 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+15:50:35.7952,I,35380,0020 Recv Event Type=205,Account=,Value=
+15:50:35.7952,I,35380,0020 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+15:50:35.7952,I,35380,0020 ClearSymbolInfoCache
+15:50:35.7952,I,35380,0020 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+15:50:38.4411,I,35380,0048 SymbolUpdated
+15:50:38.5187,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+15:50:38.6289,I,35380,0018 GetTickServiceUrl UseSecurePort=False
+15:56:14.5088,I,35380,0018 UpdateService.UpdateCheck : start
+16:02:39.6520,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9973
+16:06:14.5135,I,35380,0040 UpdateService.UpdateCheck : start
+16:16:14.5256,I,35380,0043 UpdateService.UpdateCheck : start
+16:26:14.5336,I,35380,0006 UpdateService.UpdateCheck : start
+16:36:14.5463,I,35380,0006 UpdateService.UpdateCheck : start
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+16:42:00.2766,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+16:42:00.3075,I,35380,0026 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+16:42:00.3075,I,35380,0026 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+16:46:14.5485,I,35380,0048 UpdateService.UpdateCheck : start
+16:56:14.5615,I,35380,0046 UpdateService.UpdateCheck : start
+17:04:24.1031,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9974
+17:06:14.5650,I,35380,0006 UpdateService.UpdateCheck : start
+17:16:14.5675,I,35380,0019 UpdateService.UpdateCheck : start
+17:26:14.5773,I,35380,0040 UpdateService.UpdateCheck : start
+17:36:14.5889,I,35380,0046 UpdateService.UpdateCheck : start
+17:46:14.5905,I,35380,0009 UpdateService.UpdateCheck : start
+17:56:14.5951,I,35380,0009 UpdateService.UpdateCheck : start
+18:04:28.5427,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9975
+18:06:14.6033,I,35380,0043 UpdateService.UpdateCheck : start
+18:16:14.6097,I,35380,0020 UpdateService.UpdateCheck : start
+18:26:14.6177,I,35380,0009 UpdateService.UpdateCheck : start
+18:36:14.6246,I,35380,0006 UpdateService.UpdateCheck : start
+18:46:14.6270,I,35380,0009 UpdateService.UpdateCheck : start
+18:56:14.6398,I,35380,0040 UpdateService.UpdateCheck : start
+19:00:45.6306,I,35380,0031 Recv Event Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+19:00:45.6306,I,35380,0031 MasterManager Recv NotifyEvent = Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+19:00:45.6306,I,35380,0031 OrderManager Recv NotifyEvent = Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+19:00:45.6306,I,35380,0001 ピンポイントニュースの更新通知は行わない[1, 01396248, ]
+19:04:28.3395,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9976
+19:06:14.6486,I,35380,0020 UpdateService.UpdateCheck : start
+19:16:14.6634,I,35380,0040 UpdateService.UpdateCheck : start
+19:26:14.6691,I,35380,0020 UpdateService.UpdateCheck : start
+19:34:26.0008,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9977
+19:36:14.6757,I,35380,0040 UpdateService.UpdateCheck : start
+19:43:29.2111,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9977
+19:46:14.6888,I,35380,0043 UpdateService.UpdateCheck : start
+19:56:14.6896,I,35380,0043 UpdateService.UpdateCheck : start
+20:06:14.7001,I,35380,0019 UpdateService.UpdateCheck : start
+20:13:31.8659,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9978
+20:16:14.7146,I,35380,0009 UpdateService.UpdateCheck : start
+20:26:14.7230,I,35380,0048 UpdateService.UpdateCheck : start
+20:34:35.3591,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9979
+20:36:14.7250,I,35380,0022 UpdateService.UpdateCheck : start
+20:46:14.7292,I,35380,0009 UpdateService.UpdateCheck : start
+20:56:14.7423,I,35380,0009 UpdateService.UpdateCheck : start
+21:06:14.7538,I,35380,0048 UpdateService.UpdateCheck : start
+21:06:14.7538,I,35380,0048 UpdateService.DoUpdateCheck : start
+21:06:14.7688,I,35380,0001 UpdateService.Callback : start
+21:06:14.7688,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:06:14.7688,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:06:14.7688,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:06:14.7688,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:16:14.7687,I,35380,0048 UpdateService.UpdateCheck : start
+21:16:14.7687,I,35380,0048 UpdateService.DoUpdateCheck : start
+21:16:14.7858,I,35380,0001 UpdateService.Callback : start
+21:16:14.7858,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:16:14.7858,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:16:14.7858,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:16:14.7858,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:26:14.7752,I,35380,0043 UpdateService.UpdateCheck : start
+21:26:14.7752,I,35380,0043 UpdateService.DoUpdateCheck : start
+21:26:14.7925,I,35380,0001 UpdateService.Callback : start
+21:26:14.7925,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:26:14.7925,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:26:14.7925,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:26:14.7925,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:36:14.7910,I,35380,0006 UpdateService.UpdateCheck : start
+21:36:14.7910,I,35380,0006 UpdateService.DoUpdateCheck : start
+21:36:14.8051,I,35380,0001 UpdateService.Callback : start
+21:36:14.8051,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:36:14.8051,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:36:14.8051,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:36:14.8051,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:46:14.8005,I,35380,0022 UpdateService.UpdateCheck : start
+21:46:14.8005,I,35380,0022 UpdateService.DoUpdateCheck : start
+21:46:14.8146,I,35380,0001 UpdateService.Callback : start
+21:46:14.8146,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:46:14.8146,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:46:14.8146,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:46:14.8146,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:56:14.8052,I,35380,0018 UpdateService.UpdateCheck : start
+21:56:14.8052,I,35380,0018 UpdateService.DoUpdateCheck : start
+21:56:14.8210,I,35380,0001 UpdateService.Callback : start
+21:56:14.8210,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:56:14.8210,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:56:14.8210,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:56:14.8210,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:58:46.2737,I,35380,0031 Recv Event Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+21:58:46.2737,I,35380,0031 MasterManager Recv NotifyEvent = Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+21:58:46.2737,I,35380,0031 OrderManager Recv NotifyEvent = Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+21:58:46.2737,I,35380,0001 ピンポイントニュースの更新通知は行わない[1, 01396248, ]
+22:06:14.8196,I,35380,0043 UpdateService.UpdateCheck : start
+22:06:14.8196,I,35380,0043 UpdateService.DoUpdateCheck : start
+22:06:14.8359,I,35380,0001 UpdateService.Callback : start
+22:06:14.8359,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:06:14.8359,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:06:14.8359,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:06:14.8359,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:16:14.8269,I,35380,0043 UpdateService.UpdateCheck : start
+22:16:14.8269,I,35380,0043 UpdateService.DoUpdateCheck : start
+22:16:14.8436,I,35380,0001 UpdateService.Callback : start
+22:16:14.8436,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:16:14.8436,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:16:14.8436,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:16:14.8436,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+22:17:56.3354,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+22:17:56.8484,I,35380,0026 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+22:17:56.8484,I,35380,0026 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+22:26:14.8264,I,35380,0020 UpdateService.UpdateCheck : start
+22:26:14.8264,I,35380,0020 UpdateService.DoUpdateCheck : start
+22:26:14.8432,I,35380,0001 UpdateService.Callback : start
+22:26:14.8432,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:26:14.8432,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:26:14.8432,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:26:14.8442,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:36:14.8288,I,35380,0018 UpdateService.UpdateCheck : start
+22:36:14.8288,I,35380,0018 UpdateService.DoUpdateCheck : start
+22:36:14.8449,I,35380,0001 UpdateService.Callback : start
+22:36:14.8449,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:36:14.8449,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:36:14.8449,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:36:14.8449,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:46:14.8404,I,35380,0006 UpdateService.UpdateCheck : start
+22:46:14.8404,I,35380,0006 UpdateService.DoUpdateCheck : start
+22:46:14.8553,I,35380,0001 UpdateService.Callback : start
+22:46:14.8553,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:46:14.8553,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:46:14.8559,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:46:14.8559,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:56:14.8557,I,35380,0018 UpdateService.UpdateCheck : start
+22:56:14.8557,I,35380,0018 UpdateService.DoUpdateCheck : start
+22:56:14.8733,I,35380,0001 UpdateService.Callback : start
+22:56:14.8733,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:56:14.8733,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:56:14.8733,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:56:14.8733,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:06:14.8583,I,35380,0019 UpdateService.UpdateCheck : start
+23:06:14.8583,I,35380,0019 UpdateService.DoUpdateCheck : start
+23:06:14.8797,I,35380,0001 UpdateService.Callback : start
+23:06:14.8797,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:06:14.8797,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:06:14.8797,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:06:14.8797,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:16:14.8592,I,35380,0018 UpdateService.UpdateCheck : start
+23:16:14.8592,I,35380,0018 UpdateService.DoUpdateCheck : start
+23:16:14.8772,I,35380,0001 UpdateService.Callback : start
+23:16:14.8772,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:16:14.8772,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:16:14.8772,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:16:14.8772,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:19:54.6687,I,35380,0031 Recv Event Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+23:19:54.6687,I,35380,0031 MasterManager Recv NotifyEvent = Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+23:19:54.6687,I,35380,0031 OrderManager Recv NotifyEvent = Type=2,Account=*@BROADCASTNEWS,Value=BROADCASTNEWS
+23:19:54.6695,I,35380,0001 ピンポイントニュースの更新通知は行わない[1, 01396248, ]
+23:26:14.8636,I,35380,0006 UpdateService.UpdateCheck : start
+23:26:14.8636,I,35380,0006 UpdateService.DoUpdateCheck : start
+23:26:14.8796,I,35380,0001 UpdateService.Callback : start
+23:26:14.8796,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:26:14.8796,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:26:14.8805,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:26:14.8805,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:36:14.8688,I,35380,0048 UpdateService.UpdateCheck : start
+23:36:14.8688,I,35380,0048 UpdateService.DoUpdateCheck : start
+23:36:14.8840,I,35380,0001 UpdateService.Callback : start
+23:36:14.8840,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:36:14.8840,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:36:14.8840,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:36:14.8840,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:46:14.8725,I,35380,0048 UpdateService.UpdateCheck : start
+23:46:14.8725,I,35380,0048 UpdateService.DoUpdateCheck : start
+23:46:14.8893,I,35380,0001 UpdateService.Callback : start
+23:46:14.8893,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:46:14.8893,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:46:14.8893,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:46:14.8893,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:56:14.8736,I,35380,0006 UpdateService.UpdateCheck : start
+23:56:14.8736,I,35380,0006 UpdateService.DoUpdateCheck : start
+23:56:14.8893,I,35380,0001 UpdateService.Callback : start
+23:56:14.8893,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:56:14.8893,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:56:14.8893,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:56:14.8893,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone

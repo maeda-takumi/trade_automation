@@ -1,0 +1,499 @@
+00:01:14.1570,I,35380,0043 Recv Event Type=100,Account=,Value=
+00:01:14.1570,I,35380,0043 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+00:01:14.1570,I,35380,0043 UpdateSystemProperty
+00:01:14.1570,I,35380,0043 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+00:06:14.8746,I,35380,0048 UpdateService.UpdateCheck : start
+00:16:14.8780,I,35380,0009 UpdateService.UpdateCheck : start
+00:26:14.8922,I,35380,0048 UpdateService.UpdateCheck : start
+00:36:14.8951,I,35380,0009 UpdateService.UpdateCheck : start
+00:46:14.8970,I,35380,0043 UpdateService.UpdateCheck : start
+00:56:14.9016,I,35380,0046 UpdateService.UpdateCheck : start
+00:56:57.4924,W,35380,0046 GetMsTseSysProStatus の取得に失敗しました。\nSystem.ServiceModel.ServerTooBusyException: https://web.r10.kabu.co.jp/TA/MasterService.svc/b の HTTP サービスを使用できません。原因としては、サービスがビジー状態であることや、指定されたアドレスでリッスンするエンドポイントが見つからなかったことが考えられます。アドレスが正しいことを確認し、後でもう一度サービスにアクセスしてください。 ---> System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.HttpWebRequest.GetResponse()
+   場所 System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- 内部例外スタック トレースの終わり ---
+
+Server stack trace: 
+   場所 System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   場所 System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   場所 System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   場所 System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   場所 System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   場所 System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   場所 System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   場所 System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   場所 System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   場所 TA.KC.IMasterService.GetMsTseSysProStatus(AuthenticationHeader Header, Nullable`1 CashMargin, String Side)
+   場所 ark.e()
+01:06:14.9065,I,35380,0022 UpdateService.UpdateCheck : start
+01:16:14.9145,I,35380,0048 UpdateService.UpdateCheck : start
+01:26:14.9144,I,35380,0020 UpdateService.UpdateCheck : start
+01:36:14.9252,I,35380,0009 UpdateService.UpdateCheck : start
+01:46:14.9350,I,35380,0019 UpdateService.UpdateCheck : start
+01:56:14.9410,I,35380,0018 UpdateService.UpdateCheck : start
+02:06:14.9470,I,35380,0022 UpdateService.UpdateCheck : start
+02:16:14.9467,I,35380,0046 UpdateService.UpdateCheck : start
+02:26:14.9576,I,35380,0043 UpdateService.UpdateCheck : start
+02:36:14.9596,I,35380,0040 UpdateService.UpdateCheck : start
+02:46:14.9656,I,35380,0018 UpdateService.UpdateCheck : start
+02:56:14.9793,I,35380,0043 UpdateService.UpdateCheck : start
+03:06:14.9924,I,35380,0048 UpdateService.UpdateCheck : start
+03:16:15.0013,I,35380,0043 UpdateService.UpdateCheck : start
+03:26:15.0120,I,35380,0009 UpdateService.UpdateCheck : start
+03:36:15.0208,I,35380,0006 UpdateService.UpdateCheck : start
+03:46:15.0300,I,35380,0019 UpdateService.UpdateCheck : start
+03:56:15.0418,I,35380,0006 UpdateService.UpdateCheck : start
+04:06:15.0526,I,35380,0006 UpdateService.UpdateCheck : start
+04:16:15.0584,I,35380,0043 UpdateService.UpdateCheck : start
+04:26:15.0637,I,35380,0009 UpdateService.UpdateCheck : start
+04:36:15.0653,I,35380,0046 UpdateService.UpdateCheck : start
+04:46:15.0784,I,35380,0046 UpdateService.UpdateCheck : start
+04:56:15.0920,I,35380,0018 UpdateService.UpdateCheck : start
+05:06:15.1005,I,35380,0020 UpdateService.UpdateCheck : start
+05:16:15.1116,I,35380,0040 UpdateService.UpdateCheck : start
+05:26:15.1111,I,35380,0019 UpdateService.UpdateCheck : start
+05:36:15.1166,I,35380,0048 UpdateService.UpdateCheck : start
+05:46:15.1177,I,35380,0006 UpdateService.UpdateCheck : start
+05:56:15.1262,I,35380,0043 UpdateService.UpdateCheck : start
+06:06:15.1303,I,35380,0006 UpdateService.UpdateCheck : start
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:15:00.8719,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+06:15:01.1794,I,35380,0026 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:15:01.1794,I,35380,0026 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:16:06.9419,I,35380,0026 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+06:16:07.2089,I,35380,0026 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:16:07.2089,I,35380,0026 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:16:15.1318,I,35380,0018 UpdateService.UpdateCheck : start
+06:20:03.7205,W,35380,0018 キャッシュ更新チェックに失敗しました。
+System.ServiceModel.ServerTooBusyException: https://web.r10.kabu.co.jp/TA/MasterService.svc/b の HTTP サービスを使用できません。原因としては、サービスがビジー状態であることや、指定されたアドレスでリッスンするエンドポイントが見つからなかったことが考えられます。アドレスが正しいことを確認し、後でもう一度サービスにアクセスしてください。 ---> System.Net.WebException: リモート サーバーがエラーを返しました: (503) サーバーを使用できません
+   場所 System.Net.HttpWebRequest.GetResponse()
+   場所 System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- 内部例外スタック トレースの終わり ---
+
+Server stack trace: 
+   場所 System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   場所 System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   場所 System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   場所 System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   場所 System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   場所 System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   場所 System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   場所 System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   場所 System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   場所 TA.KC.IMasterService.GetCacheTime(AuthenticationHeader Header)
+   場所 ark.f(Object A_0)
+06:26:15.1359,I,35380,0046 UpdateService.UpdateCheck : start
+06:30:36.5489,I,35380,0009 Recv Event Type=101,Account=,Value=
+06:30:36.5489,I,35380,0009 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+06:30:36.5489,I,35380,0009 UpdateSymbolCache
+06:30:36.5489,I,35380,0009 UpdateExchangeCache
+06:30:36.5489,I,35380,0009 ClearCapMarginSellIppanCache
+06:30:36.5489,I,35380,0009 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+06:30:36.5489,I,35380,0009 Recv Event Type=205,Account=,Value=
+06:30:36.5489,I,35380,0009 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+06:30:36.5489,I,35380,0009 ClearSymbolInfoCache
+06:30:36.5489,I,35380,0009 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+06:30:40.5760,I,35380,0019 SymbolUpdated
+06:30:40.6949,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+06:30:41.1790,I,35380,0006 GetTickServiceUrl UseSecurePort=False
+06:36:15.1496,I,35380,0048 UpdateService.UpdateCheck : start
+06:38:06.9219,I,35380,0046 Recv Event Type=101,Account=,Value=
+06:38:06.9219,I,35380,0046 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+06:38:06.9219,I,35380,0046 UpdateSymbolCache
+06:38:06.9219,I,35380,0046 UpdateExchangeCache
+06:38:06.9219,I,35380,0046 ClearCapMarginSellIppanCache
+06:38:06.9219,I,35380,0046 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+06:38:06.9219,I,35380,0046 Recv Event Type=205,Account=,Value=
+06:38:06.9219,I,35380,0046 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+06:38:06.9219,I,35380,0046 ClearSymbolInfoCache
+06:38:06.9219,I,35380,0046 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+06:38:10.0065,I,35380,0043 SymbolUpdated
+06:38:10.0945,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+06:38:10.2571,I,35380,0018 GetTickServiceUrl UseSecurePort=False
+06:43:37.2096,I,35380,0046 Recv Event Type=200,Account=,Value=
+06:43:37.2096,I,35380,0046 MasterManager Recv NotifyEvent = Type=200,Account=,Value=
+06:43:37.2096,I,35380,0046 OrderManager Recv NotifyEvent = Type=200,Account=,Value=
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260212A01N38873658
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40320306
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40582520
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40582618
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40628093
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40639694
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40707015
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40752988
+06:43:37.3088,I,35380,0046 UpdateOrderAndDetail Order.ID=20260213A01N40929452
+06:43:37.3088,I,35380,0046 Recv Event Type=201,Account=,Value=
+06:43:37.3088,I,35380,0046 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.3088,I,35380,0046 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.4185,I,35380,0046 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:43:37.4185,I,35380,0046 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:43:37.4195,I,35380,0046 Recv Event Type=201,Account=,Value=
+06:43:37.4195,I,35380,0046 MasterManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.4195,I,35380,0046 OrderManager Recv NotifyEvent = Type=201,Account=,Value=
+06:43:37.4755,I,35380,0046 UpdatePositions=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:43:37.4755,I,35380,0046 UpdatePosition=ID=01396248@4@3861@0@2@0,Symbol=3861,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+06:46:15.1638,I,35380,0009 UpdateService.UpdateCheck : start
+06:55:08.0731,I,35380,0040 Recv Event Type=101,Account=,Value=
+06:55:08.0731,I,35380,0040 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+06:55:08.0731,I,35380,0040 UpdateSymbolCache
+06:55:08.0731,I,35380,0040 UpdateExchangeCache
+06:55:08.0731,I,35380,0040 ClearCapMarginSellIppanCache
+06:55:08.0731,I,35380,0040 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+06:55:08.0731,I,35380,0040 Recv Event Type=205,Account=,Value=
+06:55:08.0731,I,35380,0040 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+06:55:08.0731,I,35380,0040 ClearSymbolInfoCache
+06:55:08.0731,I,35380,0040 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+06:55:12.0948,I,35380,0046 SymbolUpdated
+06:55:12.1735,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+06:55:12.6753,I,35380,0018 GetTickServiceUrl UseSecurePort=False
+06:56:15.1658,I,35380,0046 UpdateService.UpdateCheck : start
+07:06:15.1741,I,35380,0006 UpdateService.UpdateCheck : start
+07:06:15.1741,I,35380,0006 UpdateService.DoUpdateCheck : start
+07:06:15.1898,I,35380,0001 UpdateService.Callback : start
+07:06:15.1898,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:06:15.1898,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:06:15.1898,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:06:15.1898,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:16:15.1894,I,35380,0019 UpdateService.UpdateCheck : start
+07:16:15.1894,I,35380,0019 UpdateService.DoUpdateCheck : start
+07:16:15.2055,I,35380,0001 UpdateService.Callback : start
+07:16:15.2055,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:16:15.2055,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:16:15.2055,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:16:15.2055,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:26:15.1895,I,35380,0046 UpdateService.UpdateCheck : start
+07:26:15.1895,I,35380,0046 UpdateService.DoUpdateCheck : start
+07:26:15.2070,I,35380,0001 UpdateService.Callback : start
+07:26:15.2070,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:26:15.2070,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:26:15.2070,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:26:15.2070,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:36:15.2022,I,35380,0006 UpdateService.UpdateCheck : start
+07:36:15.2022,I,35380,0006 UpdateService.DoUpdateCheck : start
+07:36:15.2207,I,35380,0001 UpdateService.Callback : start
+07:36:15.2207,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:36:15.2207,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:36:15.2207,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:36:15.2207,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:38:40.2997,I,35380,0043 Recv Event Type=101,Account=,Value=
+07:38:40.2997,I,35380,0043 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+07:38:40.2997,I,35380,0043 UpdateSymbolCache
+07:38:40.2997,I,35380,0043 UpdateExchangeCache
+07:38:40.2997,I,35380,0043 ClearCapMarginSellIppanCache
+07:38:40.2997,I,35380,0043 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+07:38:40.2997,I,35380,0043 Recv Event Type=205,Account=,Value=
+07:38:40.2997,I,35380,0043 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+07:38:40.2997,I,35380,0043 ClearSymbolInfoCache
+07:38:40.2997,I,35380,0043 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+07:38:43.3834,I,35380,0022 SymbolUpdated
+07:38:43.4624,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+07:38:43.9441,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+07:43:40.5715,I,35380,0022 Recv Event Type=202,Account=,Value=
+07:43:40.5715,I,35380,0022 MasterManager Recv NotifyEvent = Type=202,Account=,Value=
+07:43:40.5715,I,35380,0022 OrderManager Recv NotifyEvent = Type=202,Account=,Value=
+07:43:40.5733,I,35380,0022 ClearWallet
+07:46:15.2074,I,35380,0006 UpdateService.UpdateCheck : start
+07:46:15.2074,I,35380,0006 UpdateService.DoUpdateCheck : start
+07:46:15.2234,I,35380,0001 UpdateService.Callback : start
+07:46:15.2234,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:46:15.2234,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:46:15.2234,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:46:15.2234,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+07:56:15.2176,I,35380,0009 UpdateService.UpdateCheck : start
+07:56:15.2176,I,35380,0009 UpdateService.DoUpdateCheck : start
+07:56:15.2351,I,35380,0001 UpdateService.Callback : start
+07:56:15.2351,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+07:56:15.2351,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+07:56:15.2351,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+07:56:15.2351,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:04:46.5920,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9980
+08:06:15.2265,I,35380,0009 UpdateService.UpdateCheck : start
+08:06:15.2265,I,35380,0009 UpdateService.DoUpdateCheck : start
+08:06:15.2416,I,35380,0001 UpdateService.Callback : start
+08:06:15.2416,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:06:15.2416,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:06:15.2416,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:06:15.2416,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:07:47.7796,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9981
+08:13:52.4753,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9982
+08:16:15.2316,I,35380,0046 UpdateService.UpdateCheck : start
+08:16:15.2316,I,35380,0046 UpdateService.DoUpdateCheck : start
+08:16:15.2487,I,35380,0001 UpdateService.Callback : start
+08:16:15.2487,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:16:15.2487,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:16:15.2487,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:16:15.2487,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:19:46.7206,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9983
+08:26:15.2406,I,35380,0018 UpdateService.UpdateCheck : start
+08:26:15.2406,I,35380,0018 UpdateService.DoUpdateCheck : start
+08:26:15.2576,I,35380,0001 UpdateService.Callback : start
+08:26:15.2576,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:26:15.2576,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:26:15.2586,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:26:15.2586,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:34:46.9446,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9987
+08:36:15.2553,I,35380,0048 UpdateService.UpdateCheck : start
+08:36:15.2553,I,35380,0048 UpdateService.DoUpdateCheck : start
+08:36:15.2732,I,35380,0001 UpdateService.Callback : start
+08:36:15.2732,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:36:15.2732,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:36:15.2742,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:36:15.2742,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:46:15.2588,I,35380,0018 UpdateService.UpdateCheck : start
+08:46:15.2588,I,35380,0018 UpdateService.DoUpdateCheck : start
+08:46:15.2771,I,35380,0001 UpdateService.Callback : start
+08:46:15.2771,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+08:46:15.2771,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+08:46:15.2771,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+08:46:15.2771,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+08:56:15.2711,I,35380,0046 UpdateService.UpdateCheck : start
+09:04:52.4251,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9988
+09:06:15.2796,I,35380,0009 UpdateService.UpdateCheck : start
+09:16:15.2850,I,35380,0046 UpdateService.UpdateCheck : start
+09:19:52.9951,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9989
+09:26:15.2875,I,35380,0019 UpdateService.UpdateCheck : start
+09:31:53.0916,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9990
+09:36:15.2977,I,35380,0013 UpdateService.UpdateCheck : start
+09:43:52.0392,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9991
+09:46:15.3050,I,35380,0048 UpdateService.UpdateCheck : start
+09:56:15.3108,I,35380,0006 UpdateService.UpdateCheck : start
+10:06:15.3220,I,35380,0022 UpdateService.UpdateCheck : start
+10:13:55.1813,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9992
+10:16:15.3214,I,35380,0009 UpdateService.UpdateCheck : start
+10:26:15.3287,I,35380,0019 UpdateService.UpdateCheck : start
+10:36:15.3296,I,35380,0013 UpdateService.UpdateCheck : start
+10:46:15.3436,I,35380,0019 UpdateService.UpdateCheck : start
+10:56:15.3531,I,35380,0022 UpdateService.UpdateCheck : start
+11:01:55.8023,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9993
+11:06:15.3620,I,35380,0048 UpdateService.UpdateCheck : start
+11:16:15.3750,I,35380,0048 UpdateService.UpdateCheck : start
+11:16:58.2025,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9993
+11:19:57.0689,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9993
+11:26:15.3883,I,35380,0020 UpdateService.UpdateCheck : start
+11:36:15.4028,I,35380,0022 UpdateService.UpdateCheck : start
+11:46:15.4039,I,35380,0022 UpdateService.UpdateCheck : start
+11:56:15.4134,I,35380,0019 UpdateService.UpdateCheck : start
+12:06:15.4256,I,35380,0046 UpdateService.UpdateCheck : start
+12:16:15.4351,I,35380,0022 UpdateService.UpdateCheck : start
+12:26:15.4425,I,35380,0043 UpdateService.UpdateCheck : start
+12:36:15.4546,I,35380,0046 UpdateService.UpdateCheck : start
+12:46:15.4633,I,35380,0006 UpdateService.UpdateCheck : start
+12:56:15.4698,I,35380,0013 UpdateService.UpdateCheck : start
+13:06:15.4710,I,35380,0013 UpdateService.UpdateCheck : start
+13:16:15.4753,I,35380,0019 UpdateService.UpdateCheck : start
+13:26:15.4901,I,35380,0020 UpdateService.UpdateCheck : start
+13:31:56.7525,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9994
+13:36:15.4953,I,35380,0013 UpdateService.UpdateCheck : start
+13:46:15.5096,I,35380,0022 UpdateService.UpdateCheck : start
+13:56:15.5187,I,35380,0018 UpdateService.UpdateCheck : start
+14:00:30.4870,I,35380,0048 Recv Event Type=100,Account=,Value=
+14:00:30.4870,I,35380,0048 MasterManager Recv NotifyEvent = Type=100,Account=,Value=
+14:00:30.4870,I,35380,0048 UpdateSystemProperty
+14:00:30.4889,I,35380,0048 OrderManager Recv NotifyEvent = Type=100,Account=,Value=
+14:06:15.5317,I,35380,0022 UpdateService.UpdateCheck : start
+14:16:15.5460,I,35380,0043 UpdateService.UpdateCheck : start
+14:26:15.5579,I,35380,0019 UpdateService.UpdateCheck : start
+14:36:15.5685,I,35380,0019 UpdateService.UpdateCheck : start
+14:46:15.5809,I,35380,0022 UpdateService.UpdateCheck : start
+14:56:15.5957,I,35380,0006 UpdateService.UpdateCheck : start
+15:06:15.6097,I,35380,0009 UpdateService.UpdateCheck : start
+15:16:15.6105,I,35380,0018 UpdateService.UpdateCheck : start
+15:26:15.6129,I,35380,0006 UpdateService.UpdateCheck : start
+15:36:15.6125,I,35380,0020 UpdateService.UpdateCheck : start
+15:46:15.6143,I,35380,0046 UpdateService.UpdateCheck : start
+15:50:35.8693,I,35380,0013 Recv Event Type=101,Account=,Value=
+15:50:35.8693,I,35380,0013 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+15:50:35.8693,I,35380,0013 UpdateSymbolCache
+15:50:35.8693,I,35380,0013 UpdateExchangeCache
+15:50:35.8693,I,35380,0013 ClearCapMarginSellIppanCache
+15:50:35.8693,I,35380,0013 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+15:50:35.8693,I,35380,0013 Recv Event Type=205,Account=,Value=
+15:50:35.8693,I,35380,0013 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+15:50:35.8693,I,35380,0013 ClearSymbolInfoCache
+15:50:35.8693,I,35380,0013 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+15:50:38.9748,I,35380,0009 SymbolUpdated
+15:50:39.1471,I,35380,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+15:50:39.3190,I,35380,0019 GetTickServiceUrl UseSecurePort=False
+15:56:15.6190,I,35380,0019 UpdateService.UpdateCheck : start
+16:02:04.3272,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9995
+16:06:15.6224,I,35380,0013 UpdateService.UpdateCheck : start
+16:16:15.6375,I,35380,0009 UpdateService.UpdateCheck : start
+16:26:15.6436,I,35380,0020 UpdateService.UpdateCheck : start
+16:32:01.3835,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9996
+16:36:15.6513,I,35380,0018 UpdateService.UpdateCheck : start
+16:46:15.6638,I,35380,0019 UpdateService.UpdateCheck : start
+16:47:01.0818,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9996
+16:56:15.6722,I,35380,0020 UpdateService.UpdateCheck : start
+17:06:15.6761,I,35380,0048 UpdateService.UpdateCheck : start
+17:16:15.6821,I,35380,0046 UpdateService.UpdateCheck : start
+17:26:15.6853,I,35380,0009 UpdateService.UpdateCheck : start
+17:34:24.3723,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9997
+17:36:15.6952,I,35380,0006 UpdateService.UpdateCheck : start
+17:46:15.7074,I,35380,0046 UpdateService.UpdateCheck : start
+17:56:15.7172,I,35380,0006 UpdateService.UpdateCheck : start
+18:06:15.7287,I,35380,0043 UpdateService.UpdateCheck : start
+18:16:15.7411,I,35380,0018 UpdateService.UpdateCheck : start
+18:26:15.7474,I,35380,0048 UpdateService.UpdateCheck : start
+18:36:15.7488,I,35380,0048 UpdateService.UpdateCheck : start
+18:46:17.0473,I,35380,0020 UpdateService.UpdateCheck : start
+18:56:17.0500,I,35380,0043 UpdateService.UpdateCheck : start
+19:04:31.4541,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9998
+19:06:17.0626,I,35380,0006 UpdateService.UpdateCheck : start
+19:16:17.0737,I,35380,0043 UpdateService.UpdateCheck : start
+19:26:17.0757,I,35380,0018 UpdateService.UpdateCheck : start
+19:34:31.8911,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=9999
+19:36:17.0822,I,35380,0022 UpdateService.UpdateCheck : start
+19:46:17.0894,I,35380,0009 UpdateService.UpdateCheck : start
+19:56:17.0899,I,35380,0048 UpdateService.UpdateCheck : start
+20:06:17.0948,I,35380,0009 UpdateService.UpdateCheck : start
+20:07:30.4853,I,35380,0001 NewsHeaders + PersonalNewsHeaders: count=10000
+20:16:17.1033,I,35380,0048 UpdateService.UpdateCheck : start
+20:26:17.1096,I,35380,0043 UpdateService.UpdateCheck : start
+20:36:17.1150,I,35380,0018 UpdateService.UpdateCheck : start
+20:46:17.1235,I,35380,0009 UpdateService.UpdateCheck : start
+20:56:17.1259,I,35380,0022 UpdateService.UpdateCheck : start
+21:06:17.1393,I,35380,0048 UpdateService.UpdateCheck : start
+21:06:17.1393,I,35380,0048 UpdateService.DoUpdateCheck : start
+21:06:17.1556,I,35380,0001 UpdateService.Callback : start
+21:06:17.1556,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:06:17.1556,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:06:17.1556,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:06:17.1556,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:16:17.1447,I,35380,0009 UpdateService.UpdateCheck : start
+21:16:17.1447,I,35380,0009 UpdateService.DoUpdateCheck : start
+21:16:17.1606,I,35380,0001 UpdateService.Callback : start
+21:16:17.1606,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:16:17.1606,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:16:17.1606,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:16:17.1606,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:26:17.1451,I,35380,0018 UpdateService.UpdateCheck : start
+21:26:17.1451,I,35380,0018 UpdateService.DoUpdateCheck : start
+21:26:17.1624,I,35380,0001 UpdateService.Callback : start
+21:26:17.1624,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:26:17.1624,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:26:17.1624,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:26:17.1634,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:36:17.1559,I,35380,0006 UpdateService.UpdateCheck : start
+21:36:17.1559,I,35380,0006 UpdateService.DoUpdateCheck : start
+21:36:17.1719,I,35380,0001 UpdateService.Callback : start
+21:36:17.1719,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:36:17.1719,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:36:17.1719,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:36:17.1719,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:46:17.1625,I,35380,0020 UpdateService.UpdateCheck : start
+21:46:17.1625,I,35380,0020 UpdateService.DoUpdateCheck : start
+21:46:17.1775,I,35380,0001 UpdateService.Callback : start
+21:46:17.1775,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:46:17.1775,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:46:17.1775,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:46:17.1775,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+21:56:17.1748,I,35380,0006 UpdateService.UpdateCheck : start
+21:56:17.1748,I,35380,0006 UpdateService.DoUpdateCheck : start
+21:56:17.1902,I,35380,0001 UpdateService.Callback : start
+21:56:17.1902,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+21:56:17.1902,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+21:56:17.1902,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+21:56:17.1902,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:06:17.1862,I,35380,0006 UpdateService.UpdateCheck : start
+22:06:17.1862,I,35380,0006 UpdateService.DoUpdateCheck : start
+22:06:17.2012,I,35380,0001 UpdateService.Callback : start
+22:06:17.2012,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:06:17.2012,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:06:17.2012,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:06:17.2012,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:16:17.1978,I,35380,0022 UpdateService.UpdateCheck : start
+22:16:17.1978,I,35380,0022 UpdateService.DoUpdateCheck : start
+22:16:17.2157,I,35380,0001 UpdateService.Callback : start
+22:16:17.2157,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:16:17.2157,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:16:17.2157,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:16:17.2157,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:26:17.2022,I,35380,0006 UpdateService.UpdateCheck : start
+22:26:17.2022,I,35380,0006 UpdateService.DoUpdateCheck : start
+22:26:17.2196,I,35380,0001 UpdateService.Callback : start
+22:26:17.2196,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:26:17.2196,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:26:17.2196,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:26:17.2206,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:36:17.2064,I,35380,0009 UpdateService.UpdateCheck : start
+22:36:17.2064,I,35380,0009 UpdateService.DoUpdateCheck : start
+22:36:17.2225,I,35380,0001 UpdateService.Callback : start
+22:36:17.2225,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:36:17.2225,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:36:17.2225,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:36:17.2225,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:46:17.2201,I,35380,0009 UpdateService.UpdateCheck : start
+22:46:17.2201,I,35380,0009 UpdateService.DoUpdateCheck : start
+22:46:17.2372,I,35380,0001 UpdateService.Callback : start
+22:46:17.2372,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:46:17.2372,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:46:17.2372,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:46:17.2372,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+22:56:17.2321,I,35380,0022 UpdateService.UpdateCheck : start
+22:56:17.2321,I,35380,0022 UpdateService.DoUpdateCheck : start
+22:56:17.2511,I,35380,0001 UpdateService.Callback : start
+22:56:17.2511,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+22:56:17.2511,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+22:56:17.2511,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+22:56:17.2511,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:06:17.2418,I,35380,0019 UpdateService.UpdateCheck : start
+23:06:17.2418,I,35380,0019 UpdateService.DoUpdateCheck : start
+23:06:17.2592,I,35380,0001 UpdateService.Callback : start
+23:06:17.2592,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:06:17.2592,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:06:17.2592,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:06:17.2592,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:16:17.2492,I,35380,0013 UpdateService.UpdateCheck : start
+23:16:17.2492,I,35380,0013 UpdateService.DoUpdateCheck : start
+23:16:17.2664,I,35380,0001 UpdateService.Callback : start
+23:16:17.2664,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:16:17.2664,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:16:17.2664,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:16:17.2664,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:26:17.2546,I,35380,0048 UpdateService.UpdateCheck : start
+23:26:17.2546,I,35380,0048 UpdateService.DoUpdateCheck : start
+23:26:17.2716,I,35380,0001 UpdateService.Callback : start
+23:26:17.2716,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:26:17.2716,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:26:17.2716,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:26:17.2716,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:36:17.2655,I,35380,0013 UpdateService.UpdateCheck : start
+23:36:17.2655,I,35380,0013 UpdateService.DoUpdateCheck : start
+23:36:17.2825,I,35380,0001 UpdateService.Callback : start
+23:36:17.2825,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:36:17.2825,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:36:17.2825,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:36:17.2825,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:46:17.2736,I,35380,0019 UpdateService.UpdateCheck : start
+23:46:17.2736,I,35380,0019 UpdateService.DoUpdateCheck : start
+23:46:17.2915,I,35380,0001 UpdateService.Callback : start
+23:46:17.2915,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:46:17.2915,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:46:17.2915,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:46:17.2915,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
+23:56:17.2771,I,35380,0020 UpdateService.UpdateCheck : start
+23:56:17.2771,I,35380,0020 UpdateService.DoUpdateCheck : start
+23:56:17.2980,I,35380,0001 UpdateService.Callback : start
+23:56:17.2980,I,35380,0001 UpdateService.Callback : ImportantAppVersion = 5036000000
+23:56:17.2980,I,35380,0001 UpdateService.Callback : CurrentAppVersion   = 5036000000
+23:56:17.2980,I,35380,0001 UpdateService.Callback : myVer               = 5036000000
+23:56:17.2980,I,35380,0001 UpdateService.Callback : UpdateKind          = UpdateNone
