@@ -792,3 +792,123 @@ System.Net.HttpListenerException (0x80004005): ÉXÉåÉbÉhÇÃèIóπÇ‹ÇΩÇÕÉAÉvÉäÉPÅ[ÉVÉ
 14:34:03.9866,I,24368,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
 14:34:04.1685,I,24368,0045 GetTickServiceUrl UseSecurePort=False
 14:34:18.5346,I,24368,0047 KeepSession at 2026/02/16 14:34:19
+14:35:04.2739,I,24368,0051 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:35:58.2889,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9915
+14:37:38.6145,I,24368,0045 KeepSession at 2026/02/16 14:37:39
+14:38:04.2875,I,24368,0008 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:40:34.5309,I,24368,0045 UpdateService.UpdateCheck : start
+14:40:58.5523,I,24368,0044 KeepSession at 2026/02/16 14:40:59
+14:41:04.2877,I,24368,0042 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:42:02.2647,I,24368,0001 NewsHeaders + PersonalNewsHeaders: count=9916
+14:44:04.2969,I,24368,0047 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:44:18.5672,I,24368,0008 KeepSession at 2026/02/16 14:44:19
+14:44:42.7782,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665306,RecType=4,State=2,Qty=100,Price=0,SeqNum=3]
+14:44:42.7782,I,24368,0006 OrderDetail.ID=20260216B01N42665306 UpdTime=02/16/2026 14:44:43
+14:44:42.7782,I,24368,0006 ID=E2026021604Q18,Symbol=3861,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:44:42.7782,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665305
+14:44:42.7782,I,24368,0006 UpdatePosition=ID=E2026021604Q18,Symbol=3861,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:44:42.7961,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665306,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+14:44:42.7961,I,24368,0006 OrderDetail.ID=20260216B01N42665306 UpdTime=02/16/2026 14:44:43
+14:44:42.7961,I,24368,0006 ID=E2026021604Q18,Symbol=3861,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:44:42.7961,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665305
+14:44:42.7961,I,24368,0006 UpdatePosition=ID=E2026021604Q18,Symbol=3861,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:44:42.8131,I,24368,0005 Recv DistributeMessage = [ID=20260216E01N42665307,RecType=8,State=3,Qty=100,Price=964.4,SeqNum=5]
+14:44:42.8131,I,24368,0006 OrderDetail.ID=20260216E01N42665307 UpdTime=02/16/2026 14:44:43
+14:44:42.8131,I,24368,0006 ID=E2026021604Q18,Symbol=3861,Exchange=27,Side=1,MarginTradeType=3,OpenQty=0.0,LeavesQty=0.0,HoldQty=0.0
+14:44:42.8131,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665305
+14:44:42.8131,I,24368,0006 UpdatePosition=ID=E2026021604Q18,Symbol=3861,Exchange=27,Side=1,MarginTradeType=3,OpenQty=0.0,LeavesQty=0.0,HoldQty=0.0
+14:47:04.3090,I,24368,0044 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:47:23.1013,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665404,RecType=4,State=2,Qty=100,Price=0,SeqNum=3]
+14:47:23.1013,I,24368,0006 OrderDetail.ID=20260216B01N42665404 UpdTime=02/16/2026 14:47:23
+14:47:23.1013,I,24368,0006 ID=E2026021604MMH,Symbol=1332,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:47:23.1013,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665403
+14:47:23.1013,I,24368,0006 UpdatePosition=ID=E2026021604MMH,Symbol=1332,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:47:23.1052,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665404,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+14:47:23.1052,I,24368,0006 OrderDetail.ID=20260216B01N42665404 UpdTime=02/16/2026 14:47:23
+14:47:23.1052,I,24368,0006 ID=E2026021604MMH,Symbol=1332,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:47:23.1052,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665403
+14:47:23.1052,I,24368,0006 UpdatePosition=ID=E2026021604MMH,Symbol=1332,Exchange=27,Side=1,MarginTradeType=3,OpenQty=100,LeavesQty=100,HoldQty=100.0
+14:47:23.1192,I,24368,0005 Recv DistributeMessage = [ID=20260216E01N42665405,RecType=8,State=3,Qty=100,Price=1520.5,SeqNum=5]
+14:47:23.1192,I,24368,0006 OrderDetail.ID=20260216E01N42665405 UpdTime=02/16/2026 14:47:23
+14:47:23.1202,I,24368,0006 ID=E2026021604MMH,Symbol=1332,Exchange=27,Side=1,MarginTradeType=3,OpenQty=0.0,LeavesQty=0.0,HoldQty=0.0
+14:47:23.1202,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665403
+14:47:23.1202,I,24368,0006 UpdatePosition=ID=E2026021604MMH,Symbol=1332,Exchange=27,Side=1,MarginTradeType=3,OpenQty=0.0,LeavesQty=0.0,HoldQty=0.0
+14:47:38.5722,I,24368,0042 KeepSession at 2026/02/16 14:47:39
+14:50:04.3140,I,24368,0042 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:50:34.5417,I,24368,0042 UpdateService.UpdateCheck : start
+14:50:58.5838,I,24368,0045 KeepSession at 2026/02/16 14:50:59
+14:51:30.9909,I,24368,0051 Recv Event Type=101,Account=,Value=
+14:51:30.9909,I,24368,0051 MasterManager Recv NotifyEvent = Type=101,Account=,Value=
+14:51:30.9909,I,24368,0051 UpdateSymbolCache
+14:51:30.9909,I,24368,0051 UpdateExchangeCache
+14:51:30.9909,I,24368,0051 ClearCapMarginSellIppanCache
+14:51:30.9909,I,24368,0051 OrderManager Recv NotifyEvent = Type=101,Account=,Value=
+14:51:30.9909,I,24368,0051 Recv Event Type=205,Account=,Value=
+14:51:30.9909,I,24368,0051 MasterManager Recv NotifyEvent = Type=205,Account=,Value=
+14:51:30.9909,I,24368,0051 ClearSymbolInfoCache
+14:51:30.9909,I,24368,0051 OrderManager Recv NotifyEvent = Type=205,Account=,Value=
+14:51:32.9853,I,24368,0012 ÉèÉìÉVÉáÉbÉgÉ`ÉFÉbÉN : 4188/MST/éOïHÉPÉ~ÉJÉãÉOÉãÅ[Év/1 : amount=200, qty=
+14:51:32.9853,I,24368,0012 KabuSApiManager.PreRelationCheck=CHECK_OK
+14:51:32.9853,I,24368,0012 î≠íçÉpÉâÉÅÅ[É^ÅF[åªï®] ê¨çs
+14:51:32.9853,I,24368,0012 OrderManager.Order Start:OrderParam: Account=01396248,CheckMode=1,Symbol=4188,Exchange=27,SecurityType=1,Side=2,CashMargin=1,MarginTradeType=0,OrderCapacity=,Price=0,Qty=100,OrdType=1,AdjustPrice=False,SellingShot=DelivType=2,FundType=AA,AccountType=4,EffectiveDay=20260216,ExpireDay=20260216,Trigger=[],OrderReferenceCommand=[],ClosePositions=[],PriceType=0,TimeInForce=0,ExpireSession=0,Password=xxx,FrontInfo=FrontInfo=[Key=FrontChannelID/Value=240,Key=Trader/Value=000000A7,Key=Channel/Value=0,Key=ClientCode/Value=192.168.100.17,Key=Branch/Value=000,],UsePoint=0,SettCurrency=,Strategy=,IsMultiTraderCloseOrder=False
+14:51:33.1545,I,24368,0012 OrderManager.OrderAuth0 End  :Result=0,ID=20260216A01N42665627,ClOrdID=202602160AF1OI000404,Detail=20260216B01N42665628,ResultMessage=[Key=KC_CommissionTable/Value=141,Key=KC_Consideration/Value=141050.00,Key=KC_Commission/Value=105,Key=KC_CommissionTax/Value=10,Key=KC_DeliveryPrice/Value=141165.00,]
+14:51:33.1545,I,24368,0012 OrderResult.MultiCloseOrderResults  :
+14:51:33.1545,I,24368,0012 UpdateOrderAndDetail Order.ID=20260216A01N42665627
+14:51:33.1545,I,24368,0012 î≠íçåãâ  : Result=0,ID=20260216A01N42665627,ClOrdID=202602160AF1OI000404,Detail=20260216B01N42665628,ResultMessage=[Key=KC_CommissionTable/Value=141,Key=KC_Consideration/Value=141050.00,Key=KC_Commission/Value=105,Key=KC_CommissionTax/Value=10,Key=KC_DeliveryPrice/Value=141165.00,]
+14:51:33.1695,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665628,RecType=4,State=2,Qty=100,Price=0,SeqNum=3]
+14:51:33.1695,I,24368,0006 OrderDetail.ID=20260216B01N42665628 UpdTime=02/16/2026 14:51:33
+14:51:33.1695,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665627
+14:51:33.1734,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665628,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+14:51:33.1734,I,24368,0006 OrderDetail.ID=20260216B01N42665628 UpdTime=02/16/2026 14:51:33
+14:51:33.1734,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665627
+14:51:33.1804,I,24368,0005 Recv DistributeMessage = [ID=20260216E01N42665629,RecType=8,State=3,Qty=100,Price=1113,SeqNum=5]
+14:51:33.1804,I,24368,0006 OrderDetail.ID=20260216E01N42665629 UpdTime=02/16/2026 14:51:33
+14:51:33.1804,I,24368,0006 ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=0
+14:51:33.1804,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665627
+14:51:33.1804,I,24368,0006 UpdatePosition=ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=0
+14:51:34.4504,I,24368,0039 SymbolUpdated
+14:51:34.5567,I,24368,0001 SeriesDataProvider.Regist_Tick(SeriesKey : { Symbol=8306, Exchange=1, SecurityType=1,BidAsk= })
+14:51:34.7038,I,24368,0051 GetTickServiceUrl UseSecurePort=False
+14:53:04.3210,I,24368,0039 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
+14:53:47.5521,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665704,RecType=4,State=2,Qty=100,Price=0,SeqNum=3]
+14:53:47.5521,I,24368,0006 OrderDetail.ID=20260216B01N42665704 UpdTime=02/16/2026 14:53:48
+14:53:47.5521,I,24368,0006 ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+14:53:47.5521,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665703
+14:53:47.5531,I,24368,0006 UpdatePosition=ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+14:53:47.5621,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665704,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+14:53:47.5621,I,24368,0006 OrderDetail.ID=20260216B01N42665704 UpdTime=02/16/2026 14:53:48
+14:53:47.5621,I,24368,0006 ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+14:53:47.5621,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665703
+14:53:47.5621,I,24368,0006 UpdatePosition=ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=100
+14:53:47.5770,I,24368,0005 Recv DistributeMessage = [ID=20260216E01N42665705,RecType=8,State=3,Qty=100,Price=1112.3,SeqNum=5]
+14:53:47.5770,I,24368,0006 OrderDetail.ID=20260216E01N42665705 UpdTime=02/16/2026 14:53:48
+14:53:47.5770,I,24368,0006 ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=0,LeavesQty=0,HoldQty=0
+14:53:47.5770,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665703
+14:53:47.5770,I,24368,0006 UpdatePosition=ID=01396248@4@4188@0@2@0,Symbol=4188,Exchange=0,Side=2,MarginTradeType=0,OpenQty=0,LeavesQty=0,HoldQty=0
+14:54:18.5968,I,24368,0042 KeepSession at 2026/02/16 14:54:19
+14:55:41.9632,I,24368,0012 ÉèÉìÉVÉáÉbÉgÉ`ÉFÉbÉN : 1332/MST/ÉjÉbÉXÉC/1 : amount=200, qty=
+14:55:41.9632,I,24368,0012 KabuSApiManager.PreRelationCheck=CHECK_OK
+14:55:41.9632,I,24368,0012 î≠íçÉpÉâÉÅÅ[É^ÅF[åªï®] ê¨çs
+14:55:41.9632,I,24368,0012 OrderManager.Order Start:OrderParam: Account=01396248,CheckMode=1,Symbol=1332,Exchange=27,SecurityType=1,Side=2,CashMargin=1,MarginTradeType=0,OrderCapacity=,Price=0,Qty=100,OrdType=1,AdjustPrice=False,SellingShot=DelivType=2,FundType=AA,AccountType=4,EffectiveDay=20260216,ExpireDay=20260216,Trigger=[],OrderReferenceCommand=[],ClosePositions=[],PriceType=0,TimeInForce=0,ExpireSession=0,Password=xxx,FrontInfo=FrontInfo=[Key=FrontChannelID/Value=240,Key=Trader/Value=000000A7,Key=Channel/Value=0,Key=ClientCode/Value=192.168.100.17,Key=Branch/Value=000,],UsePoint=0,SettCurrency=,Strategy=,IsMultiTraderCloseOrder=False
+14:55:42.0741,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665830,RecType=4,State=2,Qty=100,Price=0,SeqNum=3]
+14:55:42.0741,I,24368,0012 OrderManager.OrderAuth0 End  :Result=0,ID=20260216A01N42665829,ClOrdID=202602160AF1OI000406,Detail=20260216B01N42665830,ResultMessage=[Key=KC_CommissionTable/Value=141,Key=KC_Consideration/Value=193800,Key=KC_Commission/Value=105,Key=KC_CommissionTax/Value=10,Key=KC_DeliveryPrice/Value=193915,]
+14:55:42.0741,I,24368,0012 OrderResult.MultiCloseOrderResults  :
+14:55:42.0741,I,24368,0012 UpdateOrderAndDetail Order.ID=20260216A01N42665829
+14:55:42.0741,I,24368,0012 î≠íçåãâ  : Result=0,ID=20260216A01N42665829,ClOrdID=202602160AF1OI000406,Detail=20260216B01N42665830,ResultMessage=[Key=KC_CommissionTable/Value=141,Key=KC_Consideration/Value=193800,Key=KC_Commission/Value=105,Key=KC_CommissionTax/Value=10,Key=KC_DeliveryPrice/Value=193915,]
+14:55:42.0752,I,24368,0006 OrderDetail.ID=20260216B01N42665830 UpdTime=02/16/2026 14:55:42
+14:55:42.0752,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665829
+14:55:42.0851,I,24368,0005 Recv DistributeMessage = [ID=20260216B01N42665830,RecType=4,State=3,Qty=100,Price=0,SeqNum=4]
+14:55:42.0851,I,24368,0006 OrderDetail.ID=20260216B01N42665830 UpdTime=02/16/2026 14:55:42
+14:55:42.0851,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665829
+14:55:42.0891,I,24368,0005 Recv DistributeMessage = [ID=20260216E01N42665831,RecType=8,State=3,Qty=100,Price=1519.5,SeqNum=5]
+14:55:42.0891,I,24368,0006 OrderDetail.ID=20260216E01N42665831 UpdTime=02/16/2026 14:55:42
+14:55:42.0891,I,24368,0006 ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=0
+14:55:42.0891,I,24368,0006 UpdateOrderAndDetail Order.ID=20260216A01N42665829
+14:55:42.0891,I,24368,0006 UpdatePosition=ID=01396248@4@1332@0@2@0,Symbol=1332,Exchange=0,Side=2,MarginTradeType=0,OpenQty=100,LeavesQty=100,HoldQty=0
+14:55:43.0136,I,24368,0012 KabuSApiManager.PreRelationCheck=ERROR_CD_001_010_003
+14:55:43.0136,E,24368,0012 ïsñæÇ»ÉGÉâÅ[(ERROR_CD_001_010_003)
+14:55:43.0166,I,24368,0012 KabuSApiManager.PreRelationCheck=ERROR_CD_001_010_003
+14:55:43.0166,E,24368,0012 ïsñæÇ»ÉGÉâÅ[(ERROR_CD_001_010_003)
+14:55:43.0176,I,24368,0012 KabuSApiManager.PreRelationCheck=ERROR_CD_001_010_003
+14:55:43.0176,E,24368,0012 ïsñæÇ»ÉGÉâÅ[(ERROR_CD_001_010_003)
+14:56:04.3272,I,24368,0042 CheckPinPointNews() : ResultCode[0], PnNewsHeader[null]
