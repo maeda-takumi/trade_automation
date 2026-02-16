@@ -1345,6 +1345,20 @@ class AppLogic(QObject):
 
         for item in rows:
             if item["product"] == "margin" and not item["hold_id"]:
+                hold_wait_message = "HoldID未取得のため利確/損切の発注を保留中"
+                with self._conn() as conn:
+                    if (item["last_error"] or "") != hold_wait_message:
+                        conn.execute(
+                            "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                            (hold_wait_message, item["id"]),
+                        )
+                        self._log_event(
+                            int(item["batch_job_id"]),
+                            "WARN",
+                            "OCO_WAIT_HOLD_ID",
+                            f"item={item['id']} symbol={item['symbol']} side={item['side']}",
+                            conn=conn,
+                        )
                 continue
             filled_qty = int(item["entry_filled_qty"] or 0)
             closed_qty = int(item["closed_qty"] or 0)
