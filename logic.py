@@ -1055,7 +1055,6 @@ class AppLogic(QObject):
             "Qty": int(qty),
             "ExpireDay": 0,
             "AccountType": 4,
-            
         }
         
         if item["product"] == "cash":
