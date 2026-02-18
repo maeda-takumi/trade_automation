@@ -1055,7 +1055,8 @@ class AppLogic(QObject):
             "Qty": int(qty),
             "ExpireDay": 0,
             "AccountType": 4,
-        }        
+        }     
+           
         if item["product"] == "cash":
             payload["CashMargin"] = 1
             # 現物の決済系注文（保有現物の売却）は FundType を付与しない。
