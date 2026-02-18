@@ -950,38 +950,48 @@ class AppLogic(QObject):
         base_url = self._normalize_base_url(api.base_url)
         requested_exchange = self._normalize_exchange(payload.get("Exchange"))
         resolved_exchange = requested_exchange
-        try:
-            data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=payload)
-        except urllib.error.HTTPError as e:
-            body = self._read_http_error_body(e)
-            payload_ctx = self._payload_error_context(payload)
-            err_payload = self._parse_error_json(body)
-            err_code = (err_payload or {}).get("Code") or (err_payload or {}).get("code")
-            current_exchange = payload.get("Exchange")
-            retry_candidates_by_exchange = {
-                1: (9, 27),
-                9: (27, 1),
-                27: (9, 1),
-            }
-            retry_exchanges = retry_candidates_by_exchange.get(current_exchange, (1, 9, 27))
-            retry_exchanges = tuple(exchange for exchange in retry_exchanges if exchange != current_exchange)
+        payload_ctx = self._payload_error_context(payload)
+        rate_limit_retry_waits = (0.4, 0.8, 1.6)
 
-            if str(err_code) == "4001005" and retry_exchanges:
-                for retry_exchange in retry_exchanges:
-                    retry_payload = dict(payload)
-                    retry_payload["Exchange"] = retry_exchange
-                    try:
-                        data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=retry_payload)
-                        resolved_exchange = self._normalize_exchange(retry_exchange)
-                        break
-                    except urllib.error.HTTPError as retry_error:
-                        retry_body = self._read_http_error_body(retry_error)
-                        if retry_exchange == retry_exchanges[-1]:
-                            raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', retry_error, retry_body)} / payload={payload_ctx}") from retry_error
-                else:
-                    raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', e, body)} / payload={payload_ctx}") from e
-            else:
+        for attempt in range(len(rate_limit_retry_waits) + 1):
+            try:
+                data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=payload)
+                break
+            except urllib.error.HTTPError as e:
+                body = self._read_http_error_body(e)
+                err_payload = self._parse_error_json(body)
+                err_code = str((err_payload or {}).get("Code") or (err_payload or {}).get("code") or "")
+                current_exchange = payload.get("Exchange")
+                retry_candidates_by_exchange = {
+                    1: (9, 27),
+                    9: (27, 1),
+                    27: (9, 1),
+                }
+                retry_exchanges = retry_candidates_by_exchange.get(current_exchange, (1, 9, 27))
+                retry_exchanges = tuple(exchange for exchange in retry_exchanges if exchange != current_exchange)
+
+                if err_code == "4001006" and attempt < len(rate_limit_retry_waits):
+                    time.sleep(rate_limit_retry_waits[attempt])
+                    continue
+
+                if err_code == "4001005" and retry_exchanges:
+                    for retry_exchange in retry_exchanges:
+                        retry_payload = dict(payload)
+                        retry_payload["Exchange"] = retry_exchange
+                        try:
+                            data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=retry_payload)
+                            resolved_exchange = self._normalize_exchange(retry_exchange)
+                            break
+                        except urllib.error.HTTPError as retry_error:
+                            retry_body = self._read_http_error_body(retry_error)
+                            if retry_exchange == retry_exchanges[-1]:
+                                raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', retry_error, retry_body)} / payload={payload_ctx}") from retry_error
+                    else:
+                        raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', e, body)} / payload={payload_ctx}") from e
+                    break
                 raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', e, body)} / payload={payload_ctx}") from e
+        else:
+            raise RuntimeError(f"発注API呼び出しに失敗（HTTP 429 / Code=4001006 / API実行回数エラー） / payload={payload_ctx}")
         order_id = data.get("OrderId") or data.get("OrderID")
         if not order_id:
             raise RuntimeError(f"注文IDが返却されませんでした: {data}")
@@ -1056,16 +1066,20 @@ class AppLogic(QObject):
             "ExpireDay": 0,
             "AccountType": 4,
         }     
-           
+
         if item["product"] == "cash":
+            if close_side != "sell":
+                raise RuntimeError(
+                    f"現物決済の売買方向が不正です: item={item['id']} symbol={item['symbol']} entry_side={item['side']} close_side={close_side}"
+                )
             payload["CashMargin"] = 1
             # 現物の決済系注文（保有現物の売却）は FundType を付与しない。
             # FundType は現物買付で利用する項目で、決済売りに付与すると
             # 4001005（パラメータ変換エラー）になるケースがあるため。
             # DelivType は決済系で安定している 0 を利用する。
             payload["DelivType"] = 0
-            if close_side != "sell":
-                payload["FundType"] = "AA"                
+            # 念のため future change で混入しても除去する
+            payload.pop("FundType", None)              
         else:
             payload["CashMargin"] = 3
             payload["MarginTradeType"] = 3
@@ -1086,10 +1100,14 @@ class AppLogic(QObject):
         else:
             payload["FrontOrderType"] = 30
             payload["Price"] = 0
+            # 逆指値の発動方向（UnderOver）は建玉方向ごとに切り替える。
+            # buy建玉の損切: 価格下落で発動（<= Trigger）
+            # sell建玉の損切: 価格上昇で発動（>= Trigger）
+            under_over = 2 if item["side"] == "buy" else 1
             payload["ReverseLimitOrder"] = {
                 "TriggerSec": 1,
                 "TriggerPrice": int(trigger or 0),
-                "UnderOver": 1,
+                "UnderOver": under_over,
                 "AfterHitOrderType": 1,
                 "AfterHitPrice": 0,
             }
