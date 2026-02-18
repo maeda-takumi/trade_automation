@@ -1066,8 +1066,9 @@ class AppLogic(QObject):
             payload["DelivType"] = 0
             if close_side != "sell":
                 payload["FundType"] = "AA"
+                
         else:
-            
+
             payload["CashMargin"] = 3
             payload["MarginTradeType"] = 3
             payload["DelivType"] = 0
