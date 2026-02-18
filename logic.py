@@ -1058,11 +1058,13 @@ class AppLogic(QObject):
         }
         if item["product"] == "cash":
             payload["CashMargin"] = 1
-            # 現物の決済系注文（利確/損切/EOD）は DelivType=0 を利用する。
-            # DelivType=2 での現物決済指値は 4001005（パラメータ変換エラー）になりやすいため、
-            # TP/SL どちらも同一ルールで統一する。
+            # 現物の決済系注文（保有現物の売却）は FundType を付与しない。
+            # FundType は現物買付で利用する項目で、決済売りに付与すると
+            # 4001005（パラメータ変換エラー）になるケースがあるため。
+            # DelivType は決済系で安定している 0 を利用する。
             payload["DelivType"] = 0
-            payload["FundType"] = "AA"
+            if close_side != "sell":
+                payload["FundType"] = "AA"
         else:
             payload["CashMargin"] = 3
             payload["MarginTradeType"] = 3
