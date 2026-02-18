@@ -1058,9 +1058,10 @@ class AppLogic(QObject):
         }
         if item["product"] == "cash":
             payload["CashMargin"] = 1
-            # 現物決済では売買方向に応じて受渡区分を切り替える
-            # 買い建玉の決済（売り）は DelivType=2、売り建玉の決済（買い）は DelivType=0
-            payload["DelivType"] = 2 if close_side == "sell" else 0
+            # 現物の決済系注文（利確/損切/EOD）は DelivType=0 を利用する。
+            # DelivType=2 での現物決済指値は 4001005（パラメータ変換エラー）になりやすいため、
+            # TP/SL どちらも同一ルールで統一する。
+            payload["DelivType"] = 0
             payload["FundType"] = "AA"
         else:
             payload["CashMargin"] = 3
