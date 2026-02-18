@@ -1056,7 +1056,6 @@ class AppLogic(QObject):
             "ExpireDay": 0,
             "AccountType": 4,
         }
-        
         if item["product"] == "cash":
             payload["CashMargin"] = 1
             # 現物の決済系注文（保有現物の売却）は FundType を付与しない。
@@ -1065,8 +1064,7 @@ class AppLogic(QObject):
             # DelivType は決済系で安定している 0 を利用する。
             payload["DelivType"] = 0
             if close_side != "sell":
-                payload["FundType"] = "AA"
-                
+                payload["FundType"] = "AA"                
         else:
             payload["CashMargin"] = 3
             payload["MarginTradeType"] = 3
