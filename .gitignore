@@ -9,3 +9,10 @@ __pycache__/
 # sqlite
 *.db
 data/*.db
+
+log/
+*.log
+__pycache__/
+*.pyc
+*.db
+data/*.db
