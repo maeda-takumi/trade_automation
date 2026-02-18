@@ -29,7 +29,7 @@ class OrderRowWidget(QWidget):
 
         self.symbol_input = QLineEdit()
         self.symbol_input.setPlaceholderText("コード")
-        self.symbol_input.setFixedWidth(100)
+        self.symbol_input.setFixedWidth(126)
         self.symbol_input.editingFinished.connect(lambda: self._on_symbol_lookup(self))
         self.symbol_input.textChanged.connect(self._handle_symbol_text_change)
         self.symbol_input.textChanged.connect(self._on_validate)
@@ -43,20 +43,20 @@ class OrderRowWidget(QWidget):
         self.symbol_name_label = QLineEdit()
         self.symbol_name_label.setReadOnly(True)
         self.symbol_name_label.setPlaceholderText("銘柄名")
-        self.symbol_name_label.setFixedWidth(130)
+        self.symbol_name_label.setFixedWidth(178)
         root.addWidget(self.symbol_name_label)
 
         self.current_price_label = QLineEdit()
         self.current_price_label.setReadOnly(True)
         self.current_price_label.setPlaceholderText("現在値")
-        self.current_price_label.setFixedWidth(90)
+        self.current_price_label.setFixedWidth(108)
         root.addWidget(self.current_price_label)
 
         self.side_input = QComboBox()
         self.side_input.addItem("買", "buy")
         self.side_input.addItem("売", "sell")
         self.side_input.currentIndexChanged.connect(self._on_validate)
-        self.side_input.setFixedWidth(58)
+        self.side_input.setFixedWidth(70)
         root.addWidget(self.side_input)
 
         self.qty_input = QSpinBox()
@@ -64,14 +64,14 @@ class OrderRowWidget(QWidget):
         self.qty_input.setValue(100)
         self.qty_input.valueChanged.connect(self._on_validate)
         self.qty_input.setPrefix("株")
-        self.qty_input.setFixedWidth(84)
+        self.qty_input.setFixedWidth(102)
         root.addWidget(self.qty_input)
 
         self.product_input = QComboBox()
         self.product_input.addItem("現物", "cash")
         self.product_input.addItem("信用", "margin")
         self.product_input.currentIndexChanged.connect(self._on_validate)
-        self.product_input.setFixedWidth(64)
+        self.product_input.setFixedWidth(82)
         root.addWidget(self.product_input)
 
         self.exchange_input = QComboBox()
@@ -83,14 +83,14 @@ class OrderRowWidget(QWidget):
         self.exchange_input.addItem("札証", 6)
         self.exchange_input.setCurrentIndex(0)
         self.exchange_input.currentIndexChanged.connect(self._on_validate)
-        self.exchange_input.setFixedWidth(72)
+        self.exchange_input.setFixedWidth(92)
         root.addWidget(self.exchange_input)
 
         self.entry_type_input = QComboBox()
         self.entry_type_input.addItem("成行", "market")
         self.entry_type_input.addItem("指値", "limit")
         self.entry_type_input.currentIndexChanged.connect(self._handle_entry_type_change)
-        self.entry_type_input.setFixedWidth(64)
+        self.entry_type_input.setFixedWidth(84)
         root.addWidget(self.entry_type_input)
 
         self.limit_price_input = QSpinBox()
@@ -99,7 +99,7 @@ class OrderRowWidget(QWidget):
         self.limit_price_input.setPrefix("指")
         self.limit_price_input.valueChanged.connect(self._on_validate)
         self.limit_price_input.setEnabled(False)
-        self.limit_price_input.setFixedWidth(92)
+        self.limit_price_input.setFixedWidth(108)
         root.addWidget(self.limit_price_input)
 
         self.sl_diff_input = QSpinBox()
@@ -107,7 +107,7 @@ class OrderRowWidget(QWidget):
         self.sl_diff_input.setValue(1)
         self.sl_diff_input.setPrefix("損切")
         self.sl_diff_input.valueChanged.connect(self._on_validate)
-        self.sl_diff_input.setFixedWidth(84)
+        self.sl_diff_input.setFixedWidth(102)
         root.addWidget(self.sl_diff_input)
 
         self.tp_diff_input = QSpinBox()
@@ -115,7 +115,7 @@ class OrderRowWidget(QWidget):
         self.tp_diff_input.setValue(1)
         self.tp_diff_input.setPrefix("利確")
         self.tp_diff_input.valueChanged.connect(self._on_validate)
-        self.tp_diff_input.setFixedWidth(84)
+        self.tp_diff_input.setFixedWidth(102)
         root.addWidget(self.tp_diff_input)
 
         root.addStretch(1)
