@@ -55,6 +55,7 @@ class AppWorkerMixin:
             retry_exchanges = tuple(exchange for exchange in retry_exchanges if exchange != current_exchange)
 
             if str(err_code) == "4001005" and retry_exchanges:
+                retry_errors: list[str] = []
                 for retry_exchange in retry_exchanges:
                     retry_payload = dict(payload)
                     retry_payload["Exchange"] = retry_exchange
@@ -64,8 +65,14 @@ class AppWorkerMixin:
                         break
                     except urllib.error.HTTPError as retry_error:
                         retry_body = self._read_http_error_body(retry_error)
+                        retry_errors.append(
+                            f"exchange={retry_exchange} {self._build_http_error_with_body('発注API呼び出しに失敗', retry_error, retry_body)}"
+                        )
                         if retry_exchange == retry_exchanges[-1]:
-                            raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', retry_error, retry_body)} / payload={payload_ctx}") from retry_error
+                            retry_trace = " | retry=" + " ; ".join(retry_errors) if retry_errors else ""
+                            raise RuntimeError(
+                                f"{self._build_http_error_with_body('発注API呼び出しに失敗', retry_error, retry_body)}{retry_trace} / payload={payload_ctx}"
+                            ) from retry_error
                 else:
                     raise RuntimeError(f"{self._build_http_error_with_body('発注API呼び出しに失敗', e, body)} / payload={payload_ctx}") from e
             else:
@@ -271,6 +278,7 @@ class AppWorkerMixin:
             "TriggerPrice": (payload.get("ReverseLimitOrder") or {}).get("TriggerPrice"),
             "AccountType": payload.get("AccountType"),
             "ReverseLimitOrder": payload.get("ReverseLimitOrder"),
+            "ClosePositions": payload.get("ClosePositions"),
         }
         self._log_event(batch_job_id, "DEBUG", event_type, json.dumps(details, ensure_ascii=False), conn=conn)
 
@@ -489,47 +497,23 @@ class AppWorkerMixin:
                         continue
                     matched.append(candidate)
 
-                if matched:
-                    target = matched[0]
-                else:
-                    nearest = None
-                    nearest_diff = None
-                    for candidate in side_filtered:
-                        remaining_qty = max(
-                            self._parse_int(candidate["entry_filled_qty"], 0) - self._parse_int(candidate["closed_qty"], 0),
-                            0,
+                if len(matched) != 1:
+                    candidate_ids = ",".join(str(c["id"]) for c in side_filtered) if side_filtered else "-"
+                    for candidate in candidates:
+                        self._log_event(
+                            int(candidate["batch_job_id"]),
+                            "WARN",
+                            "HOLD_ID_MATCH_NOT_FOUND",
+                            f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} side={position_side or '<unknown>'} matched={len(matched)} candidates=[{candidate_ids}]",
+                            conn=conn,
                         )
-                        if remaining_qty <= 0:
-                            continue
-                        diff = abs(remaining_qty - leaves_qty)
-                        if nearest is None or diff < nearest_diff or (diff == nearest_diff and int(candidate["id"]) < int(nearest["id"])):
-                            nearest = candidate
-                            nearest_diff = diff
+                        conn.execute(
+                            "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                            (f"HoldID紐付け不可: symbol={symbol} leaves_qty={leaves_qty} matched={len(matched)}", int(candidate["id"])),
+                        )
+                    continue
 
-                    if nearest is None:
-                        for candidate in candidates:
-                            self._log_event(
-                                int(candidate["batch_job_id"]),
-                                "WARN",
-                                "HOLD_ID_MATCH_NOT_FOUND",
-                                f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} side={position_side or '<unknown>'}",
-                                conn=conn,
-                            )
-                            conn.execute(
-                                "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
-                                (f"HoldID紐付け不可: symbol={symbol} leaves_qty={leaves_qty}", int(candidate["id"])),
-                            )
-                        continue
-
-                    target = nearest
-                    self._log_event(
-                        int(target["batch_job_id"]),
-                        "WARN",
-                        "HOLD_ID_MATCH_APPROX",
-                        f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} picked={target['id']} nearest_diff={nearest_diff}",
-                        conn=conn,
-                    )
-
+                target = matched[0]
                 conn.execute(
                     "UPDATE batch_items SET last_error=NULL, updated_at=datetime('now','+9 hours') WHERE id=?",
                     (int(target["id"]),),
@@ -552,17 +536,6 @@ class AppWorkerMixin:
                     (hold_id, int(target["id"])),
                 )
 
-                if len(matched) > 1:
-                    match_ids = ",".join(str(m["id"]) for m in matched)
-                    self._log_event(
-                        int(target["batch_job_id"]),
-                        "WARN",
-                        "HOLD_ID_MULTI_CANDIDATE",
-                        f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} candidates={len(matched)} ids=[{match_ids}] picked={target['id']} rule=earliest_id",
-                        conn=conn,
-                    )
-                if not matched:
-                    continue
         self._run_with_db_retry(_sync)
 
     def _oco_step(self):
