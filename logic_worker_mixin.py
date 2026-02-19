@@ -146,11 +146,10 @@ class AppWorkerMixin:
         }
         if item["product"] == "cash":
             payload["CashMargin"] = 1
-            # 現物の決済系注文（保有現物の売却）は FundType を付与しない。
-            # FundType は現物買付で利用する項目で、決済売りに付与すると
-            # 4001005（パラメータ変換エラー）になるケースがあるため。
-            # DelivType は決済系で安定している 0 を利用する。
-            payload["DelivType"] = 0
+            # 現物の発注は DelivType=2（お預り金）を基本に統一する。
+            # DelivType=0 の決済系指定だと、環境により 4001005（パラメータ変換エラー）
+            # が返るケースがあるため、利確/損切（現物売却）でも 2 を使う。
+            payload["DelivType"] = 2
             if close_side != "sell":
                 payload["FundType"] = "AA"
         else:
