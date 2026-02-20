@@ -14,9 +14,11 @@
 - `CashMargin`：`"3"`（返済）
 - `MarginTradeType`：信用区分（制度/一般長期/一般デイトレ等）を指定（返済でも必須）
 - `DelivType`：**信用返済では 0（指定なし）不可**。信用返済に合う受渡方法を指定
+- `AccountType` / `DelivType`：固定値で決め打ちせず、**対象建玉（/positions）と整合する値**を使う
 - 返済対象の指定は **次のどちらか一方**（同時指定は不可）
   - **返済順**：`ClosePositionOrder`（一括返済の順序）
   - **建玉指定**：`ClosePositions`（建玉IDと数量を配列で指定）
+- `ClosePositions` を使う場合、`Qty == sum(ClosePositions[].Qty)` を満たす
 
 ### 1-2. 建玉ID（HoldID）のルール
 - `ClosePositions[].HoldID` は **`E` から始まる建玉ID**（例：`E2026...`）
@@ -83,7 +85,13 @@
 
 ---
 
-## 6. 最小テンプレ（共通フィールド）
+
+
+## 6. 最小テンプレ（注文種別ごと）
+
+### 6-1. 利確（指値返済）テンプレ（`FrontOrderType=20`）
+
+> `FrontOrderType=20` のときは `Price` を 0 にしない（指値価格必須）。
 
 返済注文テンプレ（最小構成の目安）：
 
@@ -95,9 +103,9 @@
 
   "Side": "1 or 2",
   "CashMargin": "3",
-  "MarginTradeType": 1,
-  "DelivType": 2,
-  "AccountType": 4,
+  "MarginTradeType": "<対象建玉と一致する値>",
+  "DelivType": "<対象建玉と一致する値>",
+  "AccountType": "<口座区分に一致する値>",
 
   "Qty": 100,
 
@@ -106,7 +114,42 @@
   ],
 
   "FrontOrderType": 20,
+  "Price": 2100,
+  "ExpireDay": 0
+}
+```
+
+### 6-2. 損切（逆指値返済）テンプレ（`FrontOrderType=30`）
+
+> `FrontOrderType=30` のときは `ReverseLimitOrder` 必須。`Price` は通常 0。
+
+```json
+{
+  "Symbol": "9433",
+  "Exchange": 1,
+  "SecurityType": 1,
+
+  "Side": "1 or 2",
+  "CashMargin": "3",
+  "MarginTradeType": "<対象建玉と一致する値>",
+  "DelivType": "<対象建玉と一致する値>",
+  "AccountType": "<口座区分に一致する値>",
+
+  "Qty": 100,
+
+  "ClosePositions": [
+    { "HoldID": "E2026xxxxxxxx", "Qty": 100 }
+  ],
+
+  "FrontOrderType": 30,
   "Price": 0,
+  "ReverseLimitOrder": {
+    "TriggerSec": 1,
+    "TriggerPrice": 1950,
+    "UnderOver": 1,
+    "AfterHitOrderType": 1,
+    "AfterHitPrice": 0
+  },
   "ExpireDay": 0
 }
 ```
@@ -238,10 +281,27 @@
 - [ ] `CashMargin="3"` にしている（返済）
 - [ ] ロング/ショートに応じて `Side` を正しくしている（ロング返済=売、ショート返済=買）
 - [ ] `ClosePositionOrder` と `ClosePositions` を **同時に入れていない**
+- [ ] `ClosePositions` を使う場合、`Qty == sum(ClosePositions[].Qty)` が一致している
 - [ ] `ClosePositions[].HoldID` が **E 始まり**の建玉IDになっている
+- [ ] 利確（指値）では `FrontOrderType=20` かつ `Price != 0` にしている
 - [ ] 損切（逆指値）では `FrontOrderType=30` かつ `ReverseLimitOrder` を入れている
 - [ ] 逆指値の `UnderOver` がロング/ショートで意図どおりになっている
 - [ ] `DelivType` を 0 にしていない（信用返済では不可）
+- [ ] `MarginTradeType` / `DelivType` / `AccountType` が対象建玉・口座区分と整合している
+
+### 9-1. 部分返済の数量割り当て例（2建玉を返済）
+
+```json
+{
+  "Qty": 100,
+  "ClosePositions": [
+    { "HoldID": "E2026AAAA", "Qty": 50 },
+    { "HoldID": "E2026BBBB", "Qty": 50 }
+  ]
+}
+```
+
+> 上記のように、`ClosePositions[].Qty` 合計が `Qty` と一致していないと、パラメータ不整合エラーの原因になります。
 
 ---
 

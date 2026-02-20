@@ -40,11 +40,19 @@
 > 注意：レスポンスの項目名が `ExecutionID` になっているケースがあり、  
 > それが **Eで始まる建玉ID（HoldID相当）**として使われます（株の信用残高照会でよく見られる）。
 
-### 3-2. 重要：/orders のExecutionIDとは混同しない
-- `/orders` 側の “ExecutionID” は **約定の識別**寄りの情報になりがちで、
-- **返済指定に使うソースは原則 `/positions` 側**と考えるのが安全です。
 
+### 3-2. HoldID抽出の優先順位（実装ルール）
+1. `/positions` の該当行に `HoldID` がある場合：`HoldID` を採用
+2. `HoldID` がない場合：`ExecutionID` を候補化（**E始まりのみ採用**）
+3. 候補値が `E` 始まりでない場合：不採用（再取得）
+
+> 注意：レスポンスの項目名が `ExecutionID` になっているケースがあり、  
+> それが **Eで始まる建玉ID（HoldID相当）**として使われることがあります。
 ---
+
+### 3-3. 重要：/orders のExecutionIDとは混同しない
+- `/orders` 側の “ExecutionID” は **約定の識別**寄りの情報になりがちで、
+- **返済指定に使うソースは `/positions` のみ**とするのが安全です。
 
 ## 4. 「代替できる」パターン：HoldIDを使わない設計
 
@@ -84,6 +92,7 @@
   - `MarginTradeType`（制度/一般 等）
   - 必要なら `Price`（建値）や `LeavesQty` など
 - 部分返済なら、対象行ごとに `ClosePositions[].Qty` を割り当てる
+- `Qty == sum(ClosePositions[].Qty)` を満たすことを送信前に検証する
 
 ### 5-4. Side（売買区分）の取り違えで返済が通らない
 - ロング（買建）を返す → **返済注文は売（Side=1）**
@@ -97,8 +106,10 @@
 1. 新規建て注文 → 約定確認
 2. `/positions` をポーリングして建玉が現れるのを待つ
 3. 条件一致する行（銘柄/Side/信用区分）を特定
-4. その行の **Eで始まるID（HoldID相当）** を取り出す
-5. `ClosePositions` に入れて返済発注（利確=指値 / 損切=逆指値）
+4. `HoldID` 優先、なければ `ExecutionID` を候補化し、**E始まりのみ採用**
+5. 候補0件：再ポーリング（タイムアウト時は保留）
+6. 候補複数件：`Price`/`LeavesQty` などで絞り込む（曖昧なら保留）
+7. `ClosePositions` に入れて返済発注（利確=指値 / 損切=逆指値）
 
 ### B. とにかく返済できれば良い（HoldIDレス）
 - `ClosePositionOrder` を使い、返済順で決済
@@ -110,11 +121,12 @@
 
 - [ ] `/positions` を取得している（信用建玉が見えている）
 - [ ] `/positions` 取得時の `product` が信用（または全て）になっている
-- [ ] レスポンス内に **Eで始まるID** が存在する
+- [ ] レスポンス内に **Eで始まるID** が存在する（`HoldID`優先、次点`ExecutionID`）
+- [ ] `HoldID` 候補は `/orders` ではなく `/positions` から取得している
 - [ ] 返済注文はロング/ショートに合わせて `Side` を正しくしている
 - [ ] `ClosePositionOrder` と `ClosePositions` を同時に指定していない
+- [ ] `ClosePositions` を使う場合 `Qty == sum(ClosePositions[].Qty)` を満たしている
 - [ ] 反映待ちの可能性を考慮し、ポーリングや再試行を入れている
-
 ---
 
 ## 8. 追記：困ったらここだけ貼ってもらえれば切り分け可能
