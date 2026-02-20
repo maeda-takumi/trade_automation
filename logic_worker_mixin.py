@@ -121,12 +121,11 @@ class AppWorkerMixin:
         return str(hold_id or "").strip()
 
     def _extract_position_hold_id(self, position: dict) -> tuple[str, str]:
-        # /positions の建玉IDは HoldID を優先し、未提供時のみ ExecutionID をフォールバック利用する
-        for key in ("HoldID", "HoldId", "ExecutionID", "ExecutionId"):
+        # /positions の建玉IDは HoldID のみを採用する
+        for key in ("HoldID", "HoldId"):
             hold_id = self._normalize_hold_id(position.get(key))
             if hold_id:
-                source = "HoldID" if key in {"HoldID", "HoldId"} else "ExecutionID"
-                return hold_id, source
+                return hold_id, "HoldID"
         return "", ""
 
     @staticmethod
@@ -517,7 +516,7 @@ class AppWorkerMixin:
                 hold_id, hold_id_source = self._extract_position_hold_id(p)
                 leaves_qty = self._parse_int(p.get("LeavesQty") or p.get("Qty"), 0)
                 position_side = self._kabu_side_to_internal(p.get("Side"))
-                if not symbol or not hold_id or leaves_qty <= 0:
+                if not symbol or leaves_qty <= 0:
                     continue
                 candidates = conn.execute(
                     """
@@ -534,6 +533,17 @@ class AppWorkerMixin:
                     (symbol,),
                 ).fetchall()
                 if not candidates:
+                    continue
+
+                if not hold_id:
+                    for candidate in candidates:
+                        self._log_event(
+                            int(candidate["batch_job_id"]),
+                            "WARN",
+                            "HOLD_ID_MISSING",
+                            f"symbol={symbol} side={position_side or '<unknown>'} leaves_qty={leaves_qty}",
+                            conn=conn,
+                        )
                     continue
 
                 if not self._is_valid_hold_id(hold_id):
@@ -623,7 +633,7 @@ class AppWorkerMixin:
 
         for item in rows:
             if item["product"] == "margin" and not item["hold_id"]:
-                hold_wait_message = "HoldID未取得のため利確/損切の発注を保留中"
+                hold_wait_message = "positionsにHoldID未出現のため利確/損切の発注を保留中"
                 with self._conn() as conn:
                     if (item["last_error"] or "") != hold_wait_message:
                         conn.execute(
