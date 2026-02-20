@@ -176,7 +176,8 @@ class AppWorkerMixin:
         else:
             payload["CashMargin"] = 3
             payload["MarginTradeType"] = 3
-            payload["DelivType"] = 0
+            # 信用返済は DelivType 指定が必須。0 は不可のため 2（お預り金）を利用する。
+            payload["DelivType"] = 2
             normalized_hold_id = self._normalize_hold_id(hold_id)
             if not self._is_valid_hold_id(normalized_hold_id):
                 raise RuntimeError(
@@ -193,15 +194,63 @@ class AppWorkerMixin:
         else:
             payload["FrontOrderType"] = 30
             payload["Price"] = 0
+            # 損切り方向に応じて逆指値の閾値判定を切り替える。
+            # close_side=sell（買い建玉の返済売り）: 価格がトリガ以下で執行 -> 1
+            # close_side=buy（売り建玉の返済買い）: 価格がトリガ以上で執行 -> 2
+            under_over = 1 if close_side == "sell" else 2
             payload["ReverseLimitOrder"] = {
                 "TriggerSec": 1,
                 "TriggerPrice": int(trigger or 0),
-                "UnderOver": 1,
+                "UnderOver": under_over,
                 "AfterHitOrderType": 1,
                 "AfterHitPrice": 0,
             }
+        self._validate_margin_close_payload(payload)
         return payload
-    
+
+    @staticmethod
+    def _validate_margin_close_payload(payload: dict) -> None:
+        if payload.get("CashMargin") != 3:
+            return
+
+        if payload.get("MarginTradeType") not in {1, 2, 3}:
+            raise RuntimeError(f"信用返済のMarginTradeTypeが不正です: {payload.get('MarginTradeType')}")
+
+        if payload.get("DelivType") in {None, 0}:
+            raise RuntimeError(f"信用返済のDelivTypeが不正です: {payload.get('DelivType')}")
+
+        close_positions = payload.get("ClosePositions")
+        close_position_order = payload.get("ClosePositionOrder")
+        if bool(close_positions) == bool(close_position_order):
+            raise RuntimeError("信用返済ではClosePositionsまたはClosePositionOrderのどちらか一方のみが必要です")
+
+        if close_positions:
+            if not isinstance(close_positions, list):
+                raise RuntimeError("ClosePositionsの形式が不正です")
+            for close in close_positions:
+                if not isinstance(close, dict):
+                    raise RuntimeError("ClosePositionsの要素形式が不正です")
+                hold_id = str(close.get("HoldID") or "").strip()
+                if not hold_id.startswith("E"):
+                    raise RuntimeError(f"ClosePositions.HoldIDが不正です: {hold_id or '<empty>'}")
+
+        if payload.get("FrontOrderType") == 30:
+            reverse_limit = payload.get("ReverseLimitOrder")
+            if not isinstance(reverse_limit, dict):
+                raise RuntimeError("逆指値(FrontOrderType=30)ではReverseLimitOrderが必須です")
+
+            required_keys = ("TriggerSec", "TriggerPrice", "UnderOver", "AfterHitOrderType", "AfterHitPrice")
+            missing_keys = [key for key in required_keys if key not in reverse_limit]
+            if missing_keys:
+                raise RuntimeError(f"ReverseLimitOrderの必須項目が不足しています: {','.join(missing_keys)}")
+
+            if reverse_limit.get("UnderOver") not in {1, 2}:
+                raise RuntimeError(f"ReverseLimitOrder.UnderOverが不正です: {reverse_limit.get('UnderOver')}")
+
+            if reverse_limit.get("AfterHitOrderType") not in {1, 2, 3}:
+                raise RuntimeError(
+                    f"ReverseLimitOrder.AfterHitOrderTypeが不正です: {reverse_limit.get('AfterHitOrderType')}"
+                )    
     @staticmethod
     def _validate_oco_prices(side: str, avg: float, tp_abs: float, sl_abs: float) -> Optional[str]:
         if tp_abs <= 0 or sl_abs <= 0:
@@ -230,6 +279,9 @@ class AppWorkerMixin:
             "FrontOrderType": payload.get("FrontOrderType"),
             "Price": payload.get("Price"),
             "TriggerPrice": (payload.get("ReverseLimitOrder") or {}).get("TriggerPrice"),
+            "UnderOver": (payload.get("ReverseLimitOrder") or {}).get("UnderOver"),
+            "ClosePositions": payload.get("ClosePositions"),
+            "ClosePositionOrder": payload.get("ClosePositionOrder"),
         }
         return json.dumps(context, ensure_ascii=False)
     
