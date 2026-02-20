@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import time
 import urllib.error
 from datetime import datetime
 from typing import Optional
@@ -38,9 +39,22 @@ class AppWorkerMixin:
         base_url = self._normalize_base_url(api.base_url)
         requested_exchange = self._normalize_exchange(payload.get("Exchange"))
         resolved_exchange = requested_exchange
-        try:
-            data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=payload)
-        except urllib.error.HTTPError as e:
+        http_error: Optional[urllib.error.HTTPError] = None
+        for attempt in range(3):
+            try:
+                data = self._request_json("POST", f"{base_url}/sendorder", headers={"X-API-KEY": token}, payload=payload)
+                http_error = None
+                break
+            except urllib.error.HTTPError as e:
+                http_error = e
+                # 発注直後は429（レート制限）を返すことがあるため、短時間リトライする。
+                if e.code == 429 and attempt < 2:
+                    time.sleep(0.6 * (2**attempt))
+                    continue
+                break
+
+        if http_error:
+            e = http_error
             body = self._read_http_error_body(e)
             payload_ctx = self._payload_error_context(payload)
             err_payload = self._parse_error_json(body)
