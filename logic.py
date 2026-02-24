@@ -181,6 +181,9 @@ class AppLogic(AppUiMixin, AppWorkerMixin, QObject):
             self._ensure_column(conn, "batch_items", "entry_avg_price", "entry_avg_price REAL")
             self._ensure_column(conn, "batch_items", "closed_qty", "closed_qty INTEGER NOT NULL DEFAULT 0")
             self._ensure_column(conn, "batch_items", "hold_id", "hold_id TEXT")
+            self._ensure_column(conn, "batch_items", "margin_trade_type", "margin_trade_type INTEGER")
+            self._ensure_column(conn, "batch_items", "deliv_type", "deliv_type INTEGER")
+            self._ensure_column(conn, "batch_items", "account_type", "account_type INTEGER")
 
     def _log_event(
         self,

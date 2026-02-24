@@ -121,17 +121,32 @@ class AppWorkerMixin:
         return str(hold_id or "").strip()
 
     def _extract_position_hold_id(self, position: dict) -> tuple[str, str]:
-        # /positions の建玉IDは HoldID のみを採用する
+        # /positions の建玉IDは HoldID を最優先し、無い場合は ExecutionID をフォールバック利用する。
         for key in ("HoldID", "HoldId"):
             hold_id = self._normalize_hold_id(position.get(key))
             if hold_id:
                 return hold_id, "HoldID"
+        for key in ("ExecutionID", "ExecutionId"):
+            hold_id = self._normalize_hold_id(position.get(key))
+            if self._is_valid_hold_id(hold_id):
+                return hold_id, "ExecutionID"
         return "", ""
 
     @staticmethod
     def _is_valid_hold_id(hold_id: object) -> bool:
         normalized = str(hold_id or "").strip()
         return normalized.startswith("E")
+    
+    @staticmethod
+    def _position_int(position: dict, *keys: str) -> Optional[int]:
+        for key in keys:
+            if key not in position:
+                continue
+            try:
+                return int(position.get(key))
+            except (TypeError, ValueError):
+                continue
+        return None
     
     def _build_entry_payload(self, item: sqlite3.Row) -> dict:
         market = item["entry_type"] == "market"
@@ -174,9 +189,21 @@ class AppWorkerMixin:
                 payload["FundType"] = "AA"
         else:
             payload["CashMargin"] = 3
-            payload["MarginTradeType"] = 3
-            # 信用返済は DelivType 指定が必須。0 は不可のため 2（お預り金）を利用する。
-            payload["DelivType"] = 2
+            margin_trade_type = self._parse_int(item["margin_trade_type"], 0)
+            deliv_type = self._parse_int(item["deliv_type"], 0)
+            account_type = self._parse_int(item["account_type"], 0)
+            if margin_trade_type not in {1, 2, 3}:
+                raise RuntimeError(
+                    f"信用返済の建玉情報(MarginTradeType)未確定です: item={item['id']} symbol={item['symbol']} value={item['margin_trade_type']}"
+                )
+            if deliv_type in {0}:
+                raise RuntimeError(
+                    f"信用返済の建玉情報(DelivType)未確定です: item={item['id']} symbol={item['symbol']} value={item['deliv_type']}"
+                )
+            payload["MarginTradeType"] = margin_trade_type
+            payload["DelivType"] = deliv_type
+            if account_type > 0:
+                payload["AccountType"] = account_type
             normalized_hold_id = self._normalize_hold_id(hold_id)
             if not self._is_valid_hold_id(normalized_hold_id):
                 raise RuntimeError(
@@ -226,12 +253,22 @@ class AppWorkerMixin:
         if close_positions:
             if not isinstance(close_positions, list):
                 raise RuntimeError("ClosePositionsの形式が不正です")
+            payload_qty = int(payload.get("Qty") or 0)
+            if payload_qty <= 0:
+                raise RuntimeError(f"信用返済のQtyが不正です: {payload.get('Qty')}")
+            total_close_qty = 0
             for close in close_positions:
                 if not isinstance(close, dict):
                     raise RuntimeError("ClosePositionsの要素形式が不正です")
                 hold_id = str(close.get("HoldID") or "").strip()
                 if not hold_id.startswith("E"):
                     raise RuntimeError(f"ClosePositions.HoldIDが不正です: {hold_id or '<empty>'}")
+                close_qty = int(close.get("Qty") or 0)
+                if close_qty <= 0:
+                    raise RuntimeError(f"ClosePositions.Qtyが不正です: {close.get('Qty')}")
+                total_close_qty += close_qty
+            if total_close_qty != payload_qty:
+                raise RuntimeError(f"QtyとClosePositions合計数量が不一致です: Qty={payload_qty}, Sum={total_close_qty}")
 
         if payload.get("FrontOrderType") == 30:
             reverse_limit = payload.get("ReverseLimitOrder")
@@ -516,11 +553,16 @@ class AppWorkerMixin:
                 hold_id, hold_id_source = self._extract_position_hold_id(p)
                 leaves_qty = self._parse_int(p.get("LeavesQty") or p.get("Qty"), 0)
                 position_side = self._kabu_side_to_internal(p.get("Side"))
+                position_margin_trade_type = self._position_int(p, "MarginTradeType")
+                position_deliv_type = self._position_int(p, "DelivType")
+                position_account_type = self._position_int(p, "AccountType")
+                position_price = self._to_positive_float(p.get("Price"))
                 if not symbol or leaves_qty <= 0:
                     continue
                 candidates = conn.execute(
                     """
-                    SELECT bi.id, bi.side, bi.entry_filled_qty, bi.closed_qty, bi.batch_job_id
+                    SELECT bi.id, bi.side, bi.entry_filled_qty, bi.closed_qty, bi.batch_job_id,
+                           bi.margin_trade_type, bi.deliv_type, bi.account_type, bi.entry_avg_price
                     FROM batch_items bi
                     JOIN batch_jobs bj ON bj.id = bi.batch_job_id
                     WHERE product='margin'
@@ -557,39 +599,65 @@ class AppWorkerMixin:
                         )
                     continue
 
-                matched = []
                 side_filtered = []
+                margin_filtered = []
+                active_candidates = []
+                qty_matched = []
                 for candidate in candidates:
                     if position_side and str(candidate["side"]) != position_side:
                         continue
                     side_filtered.append(candidate)
+                    candidate_margin_trade_type = self._parse_int(candidate["margin_trade_type"], 0)
+                    if (
+                        position_margin_trade_type in {1, 2, 3}
+                        and candidate_margin_trade_type in {1, 2, 3}
+                        and candidate_margin_trade_type != position_margin_trade_type
+                    ):
+                        continue
+                    margin_filtered.append(candidate)
                     remaining_qty = max(
                         self._parse_int(candidate["entry_filled_qty"], 0) - self._parse_int(candidate["closed_qty"], 0),
                         0,
                     )
                     if remaining_qty <= 0:
                         continue
-                    if remaining_qty != leaves_qty:
-                        continue
-                    matched.append(candidate)
+                    active_candidates.append(candidate)
+                    if remaining_qty == leaves_qty:
+                        qty_matched.append(candidate)
 
-                if len(matched) != 1:
-                    candidate_ids = ",".join(str(c["id"]) for c in side_filtered) if side_filtered else "-"
+                match_pool = qty_matched if qty_matched else active_candidates
+                if position_price and len(match_pool) > 1:
+                    def _price_distance(row: sqlite3.Row) -> float:
+                        entry_avg = self._to_positive_float(row["entry_avg_price"])
+                        if not entry_avg:
+                            return float("inf")
+                        return abs(entry_avg - position_price)
+
+                    min_dist = min(_price_distance(row) for row in match_pool)
+                    priced = [row for row in match_pool if _price_distance(row) == min_dist]
+                    match_pool = priced
+
+                if len(match_pool) != 1:
+                    candidate_ids = ",".join(str(c["id"]) for c in margin_filtered) if margin_filtered else "-"
+                    err = (
+                        f"HoldID紐付け保留(曖昧): symbol={symbol} leaves_qty={leaves_qty} side={position_side or '<unknown>'} "
+                        f"margin_trade_type={position_margin_trade_type} position_price={position_price or '-'} candidates=[{candidate_ids}]"
+                    )
                     for candidate in candidates:
                         self._log_event(
                             int(candidate["batch_job_id"]),
                             "WARN",
                             "HOLD_ID_MATCH_NOT_FOUND",
-                            f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} side={position_side or '<unknown>'} matched={len(matched)} candidates=[{candidate_ids}]",
+                            f"symbol={symbol} hold_id={hold_id} source={hold_id_source or '<unknown>'} leaves_qty={leaves_qty} side={position_side or '<unknown>'} margin_trade_type={position_margin_trade_type} position_price={position_price or '-'} matched={len(match_pool)} candidates=[{candidate_ids}]",
                             conn=conn,
                         )
                         conn.execute(
                             "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
-                            (f"HoldID紐付け不可: symbol={symbol} leaves_qty={leaves_qty} matched={len(matched)}", int(candidate["id"])),
+                            (err, int(candidate["id"])),
                         )
                     continue
 
-                target = matched[0]
+                target = match_pool[0]
                 conn.execute(
                     "UPDATE batch_items SET last_error=NULL, updated_at=datetime('now','+9 hours') WHERE id=?",
                     (int(target["id"]),),
@@ -603,13 +671,19 @@ class AppWorkerMixin:
                     conn=conn,
                 )
 
+                target_margin_trade_type = position_margin_trade_type if position_margin_trade_type in {1, 2, 3} else None
+                target_deliv_type = position_deliv_type if position_deliv_type not in {None, 0} else None
+                target_account_type = position_account_type if position_account_type not in {None, 0} else None
+
                 conn.execute(
                     """
                     UPDATE batch_items
-                    SET hold_id=?, updated_at=datetime('now','+9 hours')
+                    SET hold_id=?, margin_trade_type=COALESCE(?, margin_trade_type),
+                        deliv_type=COALESCE(?, deliv_type), account_type=COALESCE(?, account_type),
+                        updated_at=datetime('now','+9 hours')
                     WHERE id=?
                     """,
-                    (hold_id, int(target["id"])),
+                    (hold_id, target_margin_trade_type, target_deliv_type, target_account_type, int(target["id"])),
                 )
 
         self._run_with_db_retry(_sync)
@@ -632,22 +706,42 @@ class AppWorkerMixin:
             ).fetchall()
 
         for item in rows:
-            if item["product"] == "margin" and not item["hold_id"]:
-                hold_wait_message = "positionsにHoldID未出現のため利確/損切の発注を保留中"
-                with self._conn() as conn:
-                    if (item["last_error"] or "") != hold_wait_message:
-                        conn.execute(
-                            "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
-                            (hold_wait_message, item["id"]),
-                        )
-                        self._log_event(
-                            int(item["batch_job_id"]),
-                            "WARN",
-                            "OCO_WAIT_HOLD_ID",
-                            f"item={item['id']} symbol={item['symbol']} side={item['side']}",
-                            conn=conn,
-                        )
-                continue
+            if item["product"] == "margin":
+                margin_trade_type = self._parse_int(item["margin_trade_type"], 0)
+                deliv_type = self._parse_int(item["deliv_type"], 0)
+                if not item["hold_id"]:
+                    hold_wait_message = "positionsにHoldID未出現のため利確/損切の発注を保留中"
+                    with self._conn() as conn:
+                        if (item["last_error"] or "") != hold_wait_message:
+                            conn.execute(
+                                "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                                (hold_wait_message, item["id"]),
+                            )
+                            self._log_event(
+                                int(item["batch_job_id"]),
+                                "WARN",
+                                "OCO_WAIT_HOLD_ID",
+                                f"item={item['id']} symbol={item['symbol']} side={item['side']}",
+                                conn=conn,
+                            )
+                    continue
+
+                if margin_trade_type not in {1, 2, 3} or deliv_type in {0}:
+                    param_wait_message = "建玉パラメータ未確定のため利確/損切の発注を保留中"
+                    with self._conn() as conn:
+                        if (item["last_error"] or "") != param_wait_message:
+                            conn.execute(
+                                "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                                (param_wait_message, item["id"]),
+                            )
+                            self._log_event(
+                                int(item["batch_job_id"]),
+                                "WARN",
+                                "OCO_WAIT_POSITION_PARAMS",
+                                f"item={item['id']} symbol={item['symbol']} mtt={item['margin_trade_type']} deliv={item['deliv_type']}",
+                                conn=conn,
+                            )
+                    continue
             filled_qty = int(item["entry_filled_qty"] or 0)
             closed_qty = int(item["closed_qty"] or 0)
             qty = max(filled_qty - closed_qty, 0)
