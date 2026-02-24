@@ -674,7 +674,7 @@ class AppWorkerMixin:
                     min_priority = min(status_priority.get(str(row["status"]), 99) for row in match_pool)
                     prioritized = [row for row in match_pool if status_priority.get(str(row["status"]), 99) == min_priority]
                     match_pool = prioritized
-                    
+
                 if position_price and len(match_pool) > 1:
                     def _price_distance(row: sqlite3.Row) -> float:
                         entry_avg = self._to_positive_float(row["entry_avg_price"])
@@ -854,13 +854,13 @@ class AppWorkerMixin:
             except Exception as e:
                 with self._conn() as conn:
                     conn.execute(
-                        "UPDATE batch_items SET status='ERROR', last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
-                        (str(e), item["id"]),
+                        "UPDATE batch_items SET status='ENTRY_FILLED', last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                        (f"利確/損切の発注失敗（次回ポーリングで再試行）: {e}", item["id"]),
                     )
                     self._log_event(
                         int(item["batch_job_id"]),
-                        "ERROR",
-                        "OCO_FAILED",
+                        "WARN",
+                        "OCO_RETRY_PENDING",
                         f"item={item['id']} err={e}",
                         conn=conn,
                     )
