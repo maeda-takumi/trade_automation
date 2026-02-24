@@ -480,14 +480,16 @@ class AppWorkerMixin:
         api = self._get_active_api_account()
         if not api:
             return
+        positions_error: Optional[str] = None
         try:
             snapshots = self._fetch_orders_snapshot(api)
         except Exception:
             return
         try:
             positions = self._fetch_positions_snapshot(api)
-        except Exception:
+        except Exception as e:
             positions = []
+            positions_error = self._build_api_error_message("positions取得に失敗", e)
 
         by_id = {}
         for order in snapshots:
@@ -496,6 +498,41 @@ class AppWorkerMixin:
                 by_id[str(oid)] = order
 
         def _sync(conn: sqlite3.Connection):
+            if positions_error:
+                sync_skip_message = f"positions取得失敗のため建玉同期をスキップ: {positions_error}"
+                blocked_rows = conn.execute(
+                    """
+                    SELECT bi.id, bi.batch_job_id, bi.last_error
+                    FROM batch_items bi
+                    JOIN batch_jobs bj ON bj.id = bi.batch_job_id
+                    WHERE bj.status='RUNNING'
+                      AND bi.product='margin'
+                      AND bi.status IN ('ENTRY_FILLED','ENTRY_FILLED_WAIT_PRICE','ENTRY_PARTIAL','BRACKET_SENT')
+                      AND ((bi.hold_id IS NULL OR bi.hold_id='') OR COALESCE(bi.margin_trade_type,0)=0 OR COALESCE(bi.deliv_type,0)=0)
+                    """
+                ).fetchall()
+                touched_jobs: set[int] = set()
+                for blocked in blocked_rows:
+                    if (blocked["last_error"] or "") == sync_skip_message:
+                        continue
+                    conn.execute(
+                        "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                        (sync_skip_message, int(blocked["id"])),
+                    )
+                    touched_jobs.add(int(blocked["batch_job_id"]))
+                for batch_job_id in sorted(touched_jobs):
+                    self._log_event(batch_job_id, "WARN", "POSITIONS_SYNC_SKIPPED", sync_skip_message, conn=conn)
+            else:
+                conn.execute(
+                    """
+                    UPDATE batch_items
+                    SET last_error=NULL, updated_at=datetime('now','+9 hours')
+                    WHERE product='margin'
+                      AND status IN ('ENTRY_FILLED','ENTRY_FILLED_WAIT_PRICE','ENTRY_PARTIAL','BRACKET_SENT')
+                      AND last_error LIKE 'positions取得失敗のため建玉同期をスキップ:%'
+                    """
+                )
+
             rows = conn.execute(
                 """
                 SELECT bi.id AS batch_item_id, bi.batch_job_id, bi.entry_order_id, bi.tp_order_id, bi.sl_order_id, bi.eod_order_id
@@ -561,13 +598,13 @@ class AppWorkerMixin:
                     continue
                 candidates = conn.execute(
                     """
-                    SELECT bi.id, bi.side, bi.entry_filled_qty, bi.closed_qty, bi.batch_job_id,
+                    SELECT bi.id, bi.side, bi.status, bi.entry_filled_qty, bi.closed_qty, bi.batch_job_id,
                            bi.margin_trade_type, bi.deliv_type, bi.account_type, bi.entry_avg_price
                     FROM batch_items bi
                     JOIN batch_jobs bj ON bj.id = bi.batch_job_id
                     WHERE product='margin'
                       AND symbol=?
-                      AND bi.status IN ('ENTRY_FILLED','BRACKET_SENT','ENTRY_PARTIAL')
+                      AND bi.status IN ('ENTRY_FILLED','ENTRY_FILLED_WAIT_PRICE','BRACKET_SENT','ENTRY_PARTIAL')
                       AND (bi.hold_id IS NULL OR bi.hold_id='')
                       AND bj.status='RUNNING'
                     ORDER BY bi.id ASC
@@ -626,6 +663,18 @@ class AppWorkerMixin:
                         qty_matched.append(candidate)
 
                 match_pool = qty_matched if qty_matched else active_candidates
+
+                if len(match_pool) > 1:
+                    status_priority = {
+                        "ENTRY_FILLED": 0,
+                        "BRACKET_SENT": 1,
+                        "ENTRY_PARTIAL": 2,
+                        "ENTRY_FILLED_WAIT_PRICE": 3,
+                    }
+                    min_priority = min(status_priority.get(str(row["status"]), 99) for row in match_pool)
+                    prioritized = [row for row in match_pool if status_priority.get(str(row["status"]), 99) == min_priority]
+                    match_pool = prioritized
+                    
                 if position_price and len(match_pool) > 1:
                     def _price_distance(row: sqlite3.Row) -> float:
                         entry_avg = self._to_positive_float(row["entry_avg_price"])
