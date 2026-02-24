@@ -926,6 +926,24 @@ class AppWorkerMixin:
                             conn=conn,
                         )
                     continue
+                if item["product"] == "margin":
+                    margin_trade_type = self._parse_int(item["margin_trade_type"], 0)
+                    deliv_type = self._parse_int(item["deliv_type"], 0)
+                    if margin_trade_type not in {1, 2, 3} or deliv_type in {0}:
+                        with self._conn() as conn:
+                            msg = "EOD時点で建玉パラメータ未確定のため決済不可"
+                            conn.execute(
+                                "UPDATE batch_items SET last_error=?, updated_at=datetime('now','+9 hours') WHERE id=?",
+                                (msg, item["id"]),
+                            )
+                            self._log_event(
+                                int(item["batch_job_id"]),
+                                "ERROR",
+                                "EOD_POSITION_PARAMS_MISSING",
+                                f"item={item['id']} symbol={item['symbol']} mtt={item['margin_trade_type']} deliv={item['deliv_type']} remaining={remaining}",
+                                conn=conn,
+                            )
+                        continue
                 payload = self._build_exit_payload(item, "market", remaining, None, None, item["hold_id"])
                 with self._conn() as conn:
                     self._log_payload_debug(int(item["batch_job_id"]), "EOD_PAYLOAD", payload, conn)
